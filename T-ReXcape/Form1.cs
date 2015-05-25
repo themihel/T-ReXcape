@@ -21,9 +21,17 @@ namespace T_ReXcape
         Point mousePosition;
         Control dragDropObject = null;
 
+        Dictionary<string, Dictionary<string, string>> objects;
+
         public Form1()
         {
             InitializeComponent();
+            objects = new Dictionary<string, Dictionary<string, string>>();
+            objects["player1start"] = new Dictionary<string, string>();
+            objects["player1start"]["backGround"] = "Blue";
+            objects["player1start"]["width"] = "30";
+            objects["player1start"]["height"] = "30";
+            objects["player1start"]["maxOnPanel"] = "1";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -51,14 +59,23 @@ namespace T_ReXcape
         
         private void addPlayer1Start(object sender, EventArgs e)
         {
+            String type = "player1start";
+            if (Convert.ToInt16(objects[type]["maxOnPanel"]) > countObjectOnPanel(type))
+            {
+                mapPanel.Controls.Add(preparePanelObject(type));
+            }
+        }
+
+        private Panel preparePanelObject(String type)
+        {
             Panel panel = new Panel();
-            panel.Width = 20;
-            panel.Height = 20;
-            panel.BackColor = Color.Red;
+            panel.Width = Convert.ToInt16(objects[type]["width"]);
+            panel.Height = Convert.ToInt16(objects[type]["height"]);
+            panel.BackColor = Color.FromName(objects[type]["backGround"]);
             panel.Location = mousePosition;
-            panel.Name = "player1.start";
+            panel.Name = type;
             panel.Click += new System.EventHandler(dragDropMouseClick);
-            mapPanel.Controls.Add(panel);
+            return panel;
         }
 
         private void dragDropMouseClick(Object sender, EventArgs e)
@@ -99,6 +116,33 @@ namespace T_ReXcape
             int x = (p.X / blockSize) * blockSize;
             int y = (p.Y / blockSize) * blockSize;
             return new Point(x, y);
+        }
+
+        private void speichernToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            foreach (Control child in mapPanel.Controls)
+            {
+                saveFileDialog1.ShowDialog();
+                if(!saveFileDialog1.FileName.Equals(""))
+                {
+                    IniFile file = new IniFile(saveFileDialog1.FileName);
+                    file.IniWriteValue("map", child.Name + ".x", child.Location.X.ToString());
+                    file.IniWriteValue("map", child.Name + ".y", child.Location.Y.ToString());
+                }
+            }
+        }
+
+        private int countObjectOnPanel(String name)
+        {
+            int result = 0;
+            foreach (Control child in mapPanel.Controls)
+            {
+                if (child.Name.Equals(name))
+                {
+                    result++;
+                }
+            }
+            return result;
         }
     }
 }

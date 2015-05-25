@@ -37,17 +37,6 @@
             this.ladenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speichernToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speichernUnterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.plazierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.spielerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zielToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.spieler2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.zielToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.hindernissToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mauerVertikalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mauerHorizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.grubbeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mapPanel = new System.Windows.Forms.Panel();
             this.mapAddStuff = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.spieler1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,6 +59,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.mapheight = new System.Windows.Forms.NumericUpDown();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.speichernToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.mapAddStuff.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -95,7 +87,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mapToolStripMenuItem,
-            this.plazierenToolStripMenuItem});
+            this.testToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(624, 24);
@@ -116,106 +108,26 @@
             // neuToolStripMenuItem
             // 
             this.neuToolStripMenuItem.Name = "neuToolStripMenuItem";
-            this.neuToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.neuToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.neuToolStripMenuItem.Text = "&Neu";
             // 
             // ladenToolStripMenuItem
             // 
             this.ladenToolStripMenuItem.Name = "ladenToolStripMenuItem";
-            this.ladenToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.ladenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.ladenToolStripMenuItem.Text = "&Laden";
             // 
             // speichernToolStripMenuItem
             // 
             this.speichernToolStripMenuItem.Name = "speichernToolStripMenuItem";
-            this.speichernToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.speichernToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.speichernToolStripMenuItem.Text = "&Speichern";
             // 
             // speichernUnterToolStripMenuItem
             // 
             this.speichernUnterToolStripMenuItem.Name = "speichernUnterToolStripMenuItem";
-            this.speichernUnterToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.speichernUnterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.speichernUnterToolStripMenuItem.Text = "&Beenden";
-            // 
-            // plazierenToolStripMenuItem
-            // 
-            this.plazierenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.spielerToolStripMenuItem,
-            this.spieler2ToolStripMenuItem,
-            this.hindernissToolStripMenuItem});
-            this.plazierenToolStripMenuItem.Name = "plazierenToolStripMenuItem";
-            this.plazierenToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
-            this.plazierenToolStripMenuItem.Text = "&Plazieren";
-            // 
-            // spielerToolStripMenuItem
-            // 
-            this.spielerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startToolStripMenuItem,
-            this.zielToolStripMenuItem});
-            this.spielerToolStripMenuItem.Name = "spielerToolStripMenuItem";
-            this.spielerToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.spielerToolStripMenuItem.Text = "Spieler 1";
-            // 
-            // startToolStripMenuItem
-            // 
-            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
-            this.startToolStripMenuItem.Text = "Start";
-            // 
-            // zielToolStripMenuItem
-            // 
-            this.zielToolStripMenuItem.Name = "zielToolStripMenuItem";
-            this.zielToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
-            this.zielToolStripMenuItem.Text = "Ziel";
-            // 
-            // spieler2ToolStripMenuItem
-            // 
-            this.spieler2ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startToolStripMenuItem1,
-            this.zielToolStripMenuItem1});
-            this.spieler2ToolStripMenuItem.Name = "spieler2ToolStripMenuItem";
-            this.spieler2ToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.spieler2ToolStripMenuItem.Text = "Spieler 2";
-            // 
-            // startToolStripMenuItem1
-            // 
-            this.startToolStripMenuItem1.Name = "startToolStripMenuItem1";
-            this.startToolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
-            this.startToolStripMenuItem1.Text = "Start";
-            // 
-            // zielToolStripMenuItem1
-            // 
-            this.zielToolStripMenuItem1.Name = "zielToolStripMenuItem1";
-            this.zielToolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
-            this.zielToolStripMenuItem1.Text = "Ziel";
-            // 
-            // hindernissToolStripMenuItem
-            // 
-            this.hindernissToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mauerVertikalToolStripMenuItem,
-            this.mauerHorizontalToolStripMenuItem,
-            this.grubbeToolStripMenuItem});
-            this.hindernissToolStripMenuItem.Name = "hindernissToolStripMenuItem";
-            this.hindernissToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.hindernissToolStripMenuItem.Text = "Hindernis";
-            // 
-            // mauerVertikalToolStripMenuItem
-            // 
-            this.mauerVertikalToolStripMenuItem.Name = "mauerVertikalToolStripMenuItem";
-            this.mauerVertikalToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.mauerVertikalToolStripMenuItem.Text = "Mauer vertikal";
-            // 
-            // mauerHorizontalToolStripMenuItem
-            // 
-            this.mauerHorizontalToolStripMenuItem.Name = "mauerHorizontalToolStripMenuItem";
-            this.mauerHorizontalToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.mauerHorizontalToolStripMenuItem.Text = "Mauer horizontal";
-            // 
-            // grubbeToolStripMenuItem
-            // 
-            this.grubbeToolStripMenuItem.Name = "grubbeToolStripMenuItem";
-            this.grubbeToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.grubbeToolStripMenuItem.Text = "Grubbe";
             // 
             // mapPanel
             // 
@@ -248,14 +160,14 @@
             // startToolStripMenuItem2
             // 
             this.startToolStripMenuItem2.Name = "startToolStripMenuItem2";
-            this.startToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.startToolStripMenuItem2.Size = new System.Drawing.Size(98, 22);
             this.startToolStripMenuItem2.Text = "Start";
             this.startToolStripMenuItem2.Click += new System.EventHandler(this.addPlayer1Start);
             // 
             // zielToolStripMenuItem2
             // 
             this.zielToolStripMenuItem2.Name = "zielToolStripMenuItem2";
-            this.zielToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.zielToolStripMenuItem2.Size = new System.Drawing.Size(98, 22);
             this.zielToolStripMenuItem2.Text = "Ziel";
             // 
             // spieler2ToolStripMenuItem1
@@ -444,6 +356,21 @@
             0,
             0});
             // 
+            // testToolStripMenuItem
+            // 
+            this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.speichernToolStripMenuItem1});
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.testToolStripMenuItem.Text = "Test";
+            // 
+            // speichernToolStripMenuItem1
+            // 
+            this.speichernToolStripMenuItem1.Name = "speichernToolStripMenuItem1";
+            this.speichernToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.speichernToolStripMenuItem1.Text = "Speichern";
+            this.speichernToolStripMenuItem1.Click += new System.EventHandler(this.speichernToolStripMenuItem1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -480,17 +407,6 @@
         private System.Windows.Forms.ToolStripMenuItem ladenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem speichernToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem speichernUnterToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem plazierenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem spielerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem zielToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem spieler2ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem zielToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem hindernissToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mauerVertikalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mauerHorizontalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem grubbeToolStripMenuItem;
         private System.Windows.Forms.Panel mapPanel;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage mapTab;
@@ -513,6 +429,9 @@
         private System.Windows.Forms.ToolStripMenuItem hindernisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mauerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem grubbeToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem speichernToolStripMenuItem1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 
