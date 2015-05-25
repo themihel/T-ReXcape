@@ -1,0 +1,25 @@
+C:\Users\bbsi\AppData\Local\Temporary Projects\T-ReXcape\bin\Debug\T-ReXcape.exe
+C:\Users\bbsi\AppData\Local\Temporary Projects\T-ReXcape\bin\Debug\T-ReXcape.pdb
+C:\Users\bbsi\AppData\Local\Temporary Projects\T-ReXcape\obj\x86\Debug\T_ReXcape.Form1.resources
+C:\Users\bbsi\AppData\Local\Temporary Projects\T-ReXcape\obj\x86\Debug\T_ReXcape.Properties.Resources.resources
+C:\Users\bbsi\AppData\Local\Temporary Projects\T-ReXcape\obj\x86\Debug\T-ReXcape.csproj.GenerateResource.Cache
+C:\Users\bbsi\AppData\Local\Temporary Projects\T-ReXcape\obj\x86\Debug\T-ReXcape.exe
+C:\Users\bbsi\AppData\Local\Temporary Projects\T-ReXcape\obj\x86\Debug\T-ReXcape.pdb
+E:\Permanent\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.exe
+E:\Permanent\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.pdb
+C:\Users\Andy\Desktop\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.exe
+C:\Users\Andy\Desktop\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.pdb
+C:\Users\Andy\Desktop\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.exe
+C:\Users\Andy\Desktop\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.pdb
+C:\Users\Andy\Desktop\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Form1.resources
+C:\Users\Andy\Desktop\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Properties.Resources.resources
+C:\Users\Andy\Desktop\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.csproj.GenerateResource.Cache
+C:\Users\Andy\Desktop\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.csprojResolveAssemblyReference.cache
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.exe
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.pdb
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.exe
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.pdb
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.csprojResolveAssemblyReference.cache
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Form1.resources
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Properties.Resources.resources
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.csproj.GenerateResource.Cache
