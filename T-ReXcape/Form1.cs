@@ -16,8 +16,8 @@ namespace T_ReXcape
     public partial class Form1 : Form
     {
         // settings 
-        int blockSize = 10;
-
+        int blockSize = 20;
+        Color activeColor = Color.Red;
 
         Point mousePosition;
         Control dragDropObject = null;
@@ -31,10 +31,32 @@ namespace T_ReXcape
             objects = new Dictionary<string, Dictionary<string, string>>();
             // init all posible objects
             objects["player1start"] = new Dictionary<string, string>();
-            objects["player1start"]["backGround"] = "Blue";
-            objects["player1start"]["width"] = "30";
-            objects["player1start"]["height"] = "30";
-            objects["player1start"]["maxOnPanel"] = "3";
+            objects["player1start"]["backGround"] = "dino1";
+            objects["player1start"]["width"] = "50";
+            objects["player1start"]["height"] = "50";
+            objects["player1start"]["maxOnPanel"] = "1";
+            objects["player1start"]["name"] = "Spieler 1 Start";
+
+            objects["player1destination"] = new Dictionary<string, string>();
+            objects["player1destination"]["backGround"] = "rocket1";
+            objects["player1destination"]["width"] = "50";
+            objects["player1destination"]["height"] = "80";
+            objects["player1destination"]["maxOnPanel"] = "1";
+            objects["player1destination"]["name"] = "Spieler 1 Ziel";
+
+            objects["wallv"] = new Dictionary<string, string>();
+            objects["wallv"]["backGround"] = "wallv";
+            objects["wallv"]["width"] = "50";
+            objects["wallv"]["height"] = "80";
+            objects["wallv"]["maxOnPanel"] = "99";
+            objects["wallv"]["name"] = "Mauer vertical";
+
+            objects["wallh"] = new Dictionary<string, string>();
+            objects["wallh"]["backGround"] = "wallh";
+            objects["wallh"]["width"] = "80";
+            objects["wallh"]["height"] = "50";
+            objects["wallh"]["maxOnPanel"] = "99";
+            objects["wallh"]["name"] = "Mauer horizontal";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -46,24 +68,7 @@ namespace T_ReXcape
             // set map path
             //map.setMapFileName(openFileDialog1.FileName);
         }
-
-        /**
-         * updates map size
-         */
-        private void updateSettings()
-        {
-            int mapHeight = Convert.ToInt16(mapheight.Value);
-            int mapWidth = Convert.ToInt16(mapwidth.Value);
-
-            mapPanel.Height = mapHeight * blockSize;
-            mapPanel.Width = mapWidth * blockSize;
-        }
-
-        private void settingsSaveButton_Click(object sender, EventArgs e)
-        {
-            updateSettings();
-        }
-        
+                
         // add object
         private void addPlayer1Start(object sender, EventArgs e)
         {
@@ -74,17 +79,48 @@ namespace T_ReXcape
             }
         }
 
-        // prepares object to add to panel
-        private Panel preparePanelObject(String type)
+        private void zielToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            Panel panel = new Panel();
-            panel.Width = Convert.ToInt16(objects[type]["width"]);
-            panel.Height = Convert.ToInt16(objects[type]["height"]);
-            panel.BackColor = Color.FromName(objects[type]["backGround"]);
-            panel.Location = mousePosition;
-            panel.Name = type + countObjectOnPanel(type);
-            panel.Click += new System.EventHandler(dragDropMouseClick);
-            return panel;
+            String type = "player1destination";
+            if (Convert.ToInt16(objects[type]["maxOnPanel"]) > countObjectOnPanel(type))
+            {
+                mapPanel.Controls.Add(preparePanelObject(type));
+            }
+        }
+
+        private void mauerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String type = "wallv";
+            if (Convert.ToInt16(objects[type]["maxOnPanel"]) > countObjectOnPanel(type))
+            {
+                mapPanel.Controls.Add(preparePanelObject(type));
+            }
+        }
+
+        private void grubbeToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            String type = "wallh";
+            if (Convert.ToInt16(objects[type]["maxOnPanel"]) > countObjectOnPanel(type))
+            {
+                mapPanel.Controls.Add(preparePanelObject(type));
+            }
+        }
+
+        // prepares object to add to panel
+        private PictureBox preparePanelObject(String type)
+        {
+            PictureBox img = new PictureBox();
+            img.Width = Convert.ToInt16(objects[type]["width"]);
+            img.Height = Convert.ToInt16(objects[type]["height"]);
+            img.BackColor = Color.Transparent;
+            img.Image = (Image)Properties.Resources.ResourceManager.GetObject(objects[type]["backGround"]);
+            img.SizeMode = PictureBoxSizeMode.Zoom;
+            img.Location = getAccuratePosition(mousePosition);
+            img.Name = type + countObjectOnPanel(type);
+            img.Cursor = Cursors.Hand;
+            img.Click += new System.EventHandler(dragDropMouseClick);
+            img.DoubleClick += new System.EventHandler(removeClick);
+            return img;
         }
 
         // onclick drag will be activated, on second click deactivated
@@ -95,11 +131,23 @@ namespace T_ReXcape
                 if (dragDropObject == null)
                 {
                     dragDropObject = (Control)sender;
+                    dragDropObject.BackColor = activeColor;
                 }
                 else
                 {
+                    dragDropObject.BackColor = Color.Transparent;
                     dragDropObject = null;
                 }
+            }
+        }
+
+        // on double click removes object
+        private void removeClick(Object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Möchten Sie dieses Objekt sicher entfernen?", "Objekt entfernen?", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                mapPanel.Controls.Remove((Control)sender);
             }
         }
 
@@ -108,14 +156,14 @@ namespace T_ReXcape
         {
             if (dragDropObject != null)
             {
-                dragDropObject.Location = getPosition(e.Location);
+                dragDropObject.Location = getAccuratePosition(e.Location);
                 // @TODO remove after develop
                 Debug.WriteLine("X:" + dragDropObject.Location.X + " Y:" + dragDropObject.Location.Y);
             }
         }
 
         // gets position depends on blocksize. position should be allways in one block
-        private Point getPosition(Point p)
+        private Point getAccuratePosition(Point p)
         {
             int x = (p.X / blockSize) * blockSize;
             int y = (p.Y / blockSize) * blockSize;
@@ -142,6 +190,10 @@ namespace T_ReXcape
             if (!saveFileDialog1.FileName.Equals(""))
             {
                 IniFile file = new IniFile(saveFileDialog1.FileName);
+
+                file.IniWriteValue("config", "height", mapPanel.Height.ToString());
+                file.IniWriteValue("config", "width", mapPanel.Width.ToString());
+
                 foreach (Control child in mapPanel.Controls)
                 {
                     String name = child.Name;
@@ -166,6 +218,19 @@ namespace T_ReXcape
                 }
             }
             return result;
+        }
+
+        private void tabControl_Selected(object sender, TabControlEventArgs e)
+        {
+            // set map size
+            labelMapHeight.Text = mapPanel.Height.ToString();
+            labelMapWidth.Text = mapPanel.Width.ToString();
+
+            dataGridView1.Rows.Clear();
+            foreach (KeyValuePair<string, Dictionary<string, string>> entry in objects)
+            {
+                dataGridView1.Rows.Add(entry.Value["name"], entry.Value["maxOnPanel"], countObjectOnPanel(entry.Key));
+            }
         }
     }
 }

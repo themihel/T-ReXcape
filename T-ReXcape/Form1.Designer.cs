@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -37,7 +40,8 @@
             this.ladenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speichernToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speichernUnterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mapPanel = new System.Windows.Forms.Panel();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.speichernToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.mapAddStuff = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.spieler1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,25 +54,23 @@
             this.grubbeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.mapTab = new System.Windows.Forms.TabPage();
-            this.settingsTab = new System.Windows.Forms.TabPage();
-            this.settingsResetButton = new System.Windows.Forms.Button();
-            this.settingsSaveButton = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.mapwidth = new System.Windows.Forms.NumericUpDown();
+            this.mapPanel = new System.Windows.Forms.Panel();
+            this.infoTab = new System.Windows.Forms.TabPage();
+            this.labelMapHeight = new System.Windows.Forms.Label();
+            this.labelMapWidth = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.mapheight = new System.Windows.Forms.NumericUpDown();
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.speichernToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.objectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.max = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.set = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.mapAddStuff.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.mapTab.SuspendLayout();
-            this.settingsTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mapwidth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mapheight)).BeginInit();
+            this.infoTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -108,36 +110,41 @@
             // neuToolStripMenuItem
             // 
             this.neuToolStripMenuItem.Name = "neuToolStripMenuItem";
-            this.neuToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.neuToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.neuToolStripMenuItem.Text = "&Neu";
             // 
             // ladenToolStripMenuItem
             // 
             this.ladenToolStripMenuItem.Name = "ladenToolStripMenuItem";
-            this.ladenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ladenToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.ladenToolStripMenuItem.Text = "&Laden";
             // 
             // speichernToolStripMenuItem
             // 
             this.speichernToolStripMenuItem.Name = "speichernToolStripMenuItem";
-            this.speichernToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.speichernToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.speichernToolStripMenuItem.Text = "&Speichern";
             // 
             // speichernUnterToolStripMenuItem
             // 
             this.speichernUnterToolStripMenuItem.Name = "speichernUnterToolStripMenuItem";
-            this.speichernUnterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.speichernUnterToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.speichernUnterToolStripMenuItem.Text = "&Beenden";
             // 
-            // mapPanel
+            // testToolStripMenuItem
             // 
-            this.mapPanel.BackColor = System.Drawing.Color.Green;
-            this.mapPanel.Location = new System.Drawing.Point(0, 0);
-            this.mapPanel.Name = "mapPanel";
-            this.mapPanel.Size = new System.Drawing.Size(543, 418);
-            this.mapPanel.TabIndex = 2;
-            this.mapPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mapPanel_MouseClick);
-            this.mapPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mapPanel_MouseMove);
+            this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.speichernToolStripMenuItem1});
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.testToolStripMenuItem.Text = "Test";
+            // 
+            // speichernToolStripMenuItem1
+            // 
+            this.speichernToolStripMenuItem1.Name = "speichernToolStripMenuItem1";
+            this.speichernToolStripMenuItem1.Size = new System.Drawing.Size(126, 22);
+            this.speichernToolStripMenuItem1.Text = "Speichern";
+            this.speichernToolStripMenuItem1.Click += new System.EventHandler(this.speichernToolStripMenuItem1_Click);
             // 
             // mapAddStuff
             // 
@@ -169,6 +176,7 @@
             this.zielToolStripMenuItem2.Name = "zielToolStripMenuItem2";
             this.zielToolStripMenuItem2.Size = new System.Drawing.Size(98, 22);
             this.zielToolStripMenuItem2.Text = "Ziel";
+            this.zielToolStripMenuItem2.Click += new System.EventHandler(this.zielToolStripMenuItem2_Click);
             // 
             // spieler2ToolStripMenuItem1
             // 
@@ -203,14 +211,16 @@
             // mauerToolStripMenuItem
             // 
             this.mauerToolStripMenuItem.Name = "mauerToolStripMenuItem";
-            this.mauerToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
-            this.mauerToolStripMenuItem.Text = "Mauer";
+            this.mauerToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.mauerToolStripMenuItem.Text = "Mauer vertikal";
+            this.mauerToolStripMenuItem.Click += new System.EventHandler(this.mauerToolStripMenuItem_Click);
             // 
             // grubbeToolStripMenuItem1
             // 
             this.grubbeToolStripMenuItem1.Name = "grubbeToolStripMenuItem1";
-            this.grubbeToolStripMenuItem1.Size = new System.Drawing.Size(108, 22);
-            this.grubbeToolStripMenuItem1.Text = "Grube";
+            this.grubbeToolStripMenuItem1.Size = new System.Drawing.Size(164, 22);
+            this.grubbeToolStripMenuItem1.Text = "Mauer horizontal";
+            this.grubbeToolStripMenuItem1.Click += new System.EventHandler(this.grubbeToolStripMenuItem1_Click);
             // 
             // tabControl
             // 
@@ -218,12 +228,13 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.mapTab);
-            this.tabControl.Controls.Add(this.settingsTab);
+            this.tabControl.Controls.Add(this.infoTab);
             this.tabControl.Location = new System.Drawing.Point(0, 27);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(624, 486);
             this.tabControl.TabIndex = 3;
+            this.tabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl_Selected);
             // 
             // mapTab
             // 
@@ -237,139 +248,131 @@
             this.mapTab.Text = "Map";
             this.mapTab.UseVisualStyleBackColor = true;
             // 
-            // settingsTab
+            // mapPanel
             // 
-            this.settingsTab.Controls.Add(this.settingsResetButton);
-            this.settingsTab.Controls.Add(this.settingsSaveButton);
-            this.settingsTab.Controls.Add(this.label3);
-            this.settingsTab.Controls.Add(this.label4);
-            this.settingsTab.Controls.Add(this.mapwidth);
-            this.settingsTab.Controls.Add(this.label2);
-            this.settingsTab.Controls.Add(this.label1);
-            this.settingsTab.Controls.Add(this.mapheight);
-            this.settingsTab.Location = new System.Drawing.Point(4, 22);
-            this.settingsTab.Name = "settingsTab";
-            this.settingsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.settingsTab.Size = new System.Drawing.Size(616, 460);
-            this.settingsTab.TabIndex = 1;
-            this.settingsTab.Text = "Einstellungen";
-            this.settingsTab.UseVisualStyleBackColor = true;
+            this.mapPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mapPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.mapPanel.BackgroundImage = global::T_ReXcape.Properties.Resources.grass;
+            this.mapPanel.Location = new System.Drawing.Point(1, 1);
+            this.mapPanel.Name = "mapPanel";
+            this.mapPanel.Size = new System.Drawing.Size(613, 457);
+            this.mapPanel.TabIndex = 2;
+            this.mapPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mapPanel_MouseClick);
+            this.mapPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mapPanel_MouseMove);
             // 
-            // settingsResetButton
+            // infoTab
             // 
-            this.settingsResetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.settingsResetButton.Location = new System.Drawing.Point(441, 431);
-            this.settingsResetButton.Name = "settingsResetButton";
-            this.settingsResetButton.Size = new System.Drawing.Size(86, 23);
-            this.settingsResetButton.TabIndex = 12;
-            this.settingsResetButton.Text = "Zurücksetzen";
-            this.settingsResetButton.UseVisualStyleBackColor = true;
+            this.infoTab.Controls.Add(this.labelMapHeight);
+            this.infoTab.Controls.Add(this.labelMapWidth);
+            this.infoTab.Controls.Add(this.label2);
+            this.infoTab.Controls.Add(this.label1);
+            this.infoTab.Controls.Add(this.dataGridView1);
+            this.infoTab.Location = new System.Drawing.Point(4, 22);
+            this.infoTab.Name = "infoTab";
+            this.infoTab.Padding = new System.Windows.Forms.Padding(3);
+            this.infoTab.Size = new System.Drawing.Size(616, 460);
+            this.infoTab.TabIndex = 1;
+            this.infoTab.Text = "Infos";
+            this.infoTab.UseVisualStyleBackColor = true;
             // 
-            // settingsSaveButton
+            // labelMapHeight
             // 
-            this.settingsSaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.settingsSaveButton.Location = new System.Drawing.Point(533, 431);
-            this.settingsSaveButton.Name = "settingsSaveButton";
-            this.settingsSaveButton.Size = new System.Drawing.Size(75, 23);
-            this.settingsSaveButton.TabIndex = 12;
-            this.settingsSaveButton.Text = "Speichern";
-            this.settingsSaveButton.UseVisualStyleBackColor = true;
-            this.settingsSaveButton.Click += new System.EventHandler(this.settingsSaveButton_Click);
+            this.labelMapHeight.AutoSize = true;
+            this.labelMapHeight.Location = new System.Drawing.Point(80, 54);
+            this.labelMapHeight.Name = "labelMapHeight";
+            this.labelMapHeight.Size = new System.Drawing.Size(13, 13);
+            this.labelMapHeight.TabIndex = 4;
+            this.labelMapHeight.Text = "0";
             // 
-            // label3
+            // labelMapWidth
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(206, 68);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 13);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Blöcke";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 68);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Breite";
-            // 
-            // mapwidth
-            // 
-            this.mapwidth.Location = new System.Drawing.Point(119, 66);
-            this.mapwidth.Maximum = new decimal(new int[] {
-            150,
-            0,
-            0,
-            0});
-            this.mapwidth.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.mapwidth.Name = "mapwidth";
-            this.mapwidth.Size = new System.Drawing.Size(81, 20);
-            this.mapwidth.TabIndex = 9;
-            this.mapwidth.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.labelMapWidth.AutoSize = true;
+            this.labelMapWidth.Location = new System.Drawing.Point(80, 72);
+            this.labelMapWidth.Name = "labelMapWidth";
+            this.labelMapWidth.Size = new System.Drawing.Size(13, 13);
+            this.labelMapWidth.TabIndex = 3;
+            this.labelMapWidth.Text = "0";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(206, 41);
+            this.label2.Location = new System.Drawing.Point(8, 54);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Blöcke";
+            this.label2.Size = new System.Drawing.Size(36, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Höhe:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 41);
+            this.label1.Location = new System.Drawing.Point(8, 72);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Höhe";
+            this.label1.Size = new System.Drawing.Size(37, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Breite:";
             // 
-            // mapheight
+            // dataGridView1
             // 
-            this.mapheight.Location = new System.Drawing.Point(119, 39);
-            this.mapheight.Maximum = new decimal(new int[] {
-            70,
-            0,
-            0,
-            0});
-            this.mapheight.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.mapheight.Name = "mapheight";
-            this.mapheight.Size = new System.Drawing.Size(81, 20);
-            this.mapheight.TabIndex = 6;
-            this.mapheight.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.objectName,
+            this.max,
+            this.set});
+            this.dataGridView1.Location = new System.Drawing.Point(8, 101);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridView1.Size = new System.Drawing.Size(602, 353);
+            this.dataGridView1.TabIndex = 0;
             // 
-            // testToolStripMenuItem
+            // objectName
             // 
-            this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.speichernToolStripMenuItem1});
-            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.testToolStripMenuItem.Text = "Test";
+            this.objectName.HeaderText = "Name";
+            this.objectName.Name = "objectName";
+            this.objectName.ReadOnly = true;
             // 
-            // speichernToolStripMenuItem1
+            // max
             // 
-            this.speichernToolStripMenuItem1.Name = "speichernToolStripMenuItem1";
-            this.speichernToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.speichernToolStripMenuItem1.Text = "Speichern";
-            this.speichernToolStripMenuItem1.Click += new System.EventHandler(this.speichernToolStripMenuItem1_Click);
+            this.max.HeaderText = "Max. Verfügbar";
+            this.max.Name = "max";
+            this.max.ReadOnly = true;
+            this.max.Width = 150;
+            // 
+            // set
+            // 
+            this.set.HeaderText = "Bereits plaziert";
+            this.set.Name = "set";
+            this.set.ReadOnly = true;
+            this.set.Width = 150;
             // 
             // Form1
             // 
@@ -380,6 +383,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(200, 200);
             this.Name = "Form1";
             this.Text = "Map Editor";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -388,10 +392,9 @@
             this.mapAddStuff.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.mapTab.ResumeLayout(false);
-            this.settingsTab.ResumeLayout(false);
-            this.settingsTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mapwidth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mapheight)).EndInit();
+            this.infoTab.ResumeLayout(false);
+            this.infoTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -410,15 +413,7 @@
         private System.Windows.Forms.Panel mapPanel;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage mapTab;
-        private System.Windows.Forms.TabPage settingsTab;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        public System.Windows.Forms.NumericUpDown mapwidth;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.NumericUpDown mapheight;
-        private System.Windows.Forms.Button settingsResetButton;
-        private System.Windows.Forms.Button settingsSaveButton;
+        private System.Windows.Forms.TabPage infoTab;
         private System.Windows.Forms.ContextMenuStrip mapAddStuff;
         private System.Windows.Forms.ToolStripMenuItem spieler1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem2;
@@ -432,6 +427,14 @@
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem speichernToolStripMenuItem1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn objectName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn max;
+        private System.Windows.Forms.DataGridViewTextBoxColumn set;
+        private System.Windows.Forms.Label labelMapHeight;
+        private System.Windows.Forms.Label labelMapWidth;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
 
