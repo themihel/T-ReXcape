@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.IO;
 
 // only for debug
 using System.Diagnostics;
@@ -16,13 +17,15 @@ namespace T_ReXcape
     public partial class Form1 : Form
     {
         // settings 
-        int blockSize = 50;
+        int blockSize = 20;
         Color activeColor = Color.Red;
+        Color gridColor = Color.Gray;
 
+        // variables
         Point mousePosition;
         Control dragDropObject = null;
-
-        Bitmap newMagicPic;
+        Bitmap bgWithGrid;
+        bool isGridShown = false;
 
         // save all posible objects on ma in this Dictionary
         Dictionary<string, Dictionary<string, string>> objects;
@@ -34,15 +37,15 @@ namespace T_ReXcape
             // init all posible objects
             objects["player1start"] = new Dictionary<string, string>();
             objects["player1start"]["backGround"] = "dino1";
-            objects["player1start"]["width"] = "150";
-            objects["player1start"]["height"] = "150";
+            objects["player1start"]["width"] = "50";
+            objects["player1start"]["height"] = "50";
             objects["player1start"]["maxOnPanel"] = "1";
             objects["player1start"]["name"] = "Spieler 1 Start";
 
             objects["player1destination"] = new Dictionary<string, string>();
             objects["player1destination"]["backGround"] = "rocket1";
-            objects["player1destination"]["width"] = "150";
-            objects["player1destination"]["height"] = "180";
+            objects["player1destination"]["width"] = "50";
+            objects["player1destination"]["height"] = "80";
             objects["player1destination"]["maxOnPanel"] = "1";
             objects["player1destination"]["name"] = "Spieler 1 Ziel";
 
@@ -76,42 +79,34 @@ namespace T_ReXcape
         // add object
         private void addPlayer1Start(object sender, EventArgs e)
         {
-            String type = "player1start";
-            if (Convert.ToInt16(objects[type]["maxOnPanel"]) > countObjectOnPanel(type))
-            {
-                mapPanel.Controls.Add(preparePanelObject(type));
-            }
+            setObjectOnMap("player1start", mousePosition);
         }
 
         private void zielToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            String type = "player1destination";
-            if (Convert.ToInt16(objects[type]["maxOnPanel"]) > countObjectOnPanel(type))
-            {
-                mapPanel.Controls.Add(preparePanelObject(type));
-            }
+            setObjectOnMap("player1destination", mousePosition);
         }
 
         private void mauerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            String type = "wallv";
-            if (Convert.ToInt16(objects[type]["maxOnPanel"]) > countObjectOnPanel(type))
-            {
-                mapPanel.Controls.Add(preparePanelObject(type));
-            }
+            setObjectOnMap("wallv", mousePosition);
         }
 
         private void grubbeToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            String type = "wallh";
-            if (Convert.ToInt16(objects[type]["maxOnPanel"]) > countObjectOnPanel(type))
+            setObjectOnMap("wallh", mousePosition);
+        }
+
+        private void setObjectOnMap(String name, Point position)
+        {
+            if (Convert.ToInt16(objects[name]["maxOnPanel"]) > countObjectOnPanel(name))
             {
-                mapPanel.Controls.Add(preparePanelObject(type));
+                mapPanel.Controls.Add(preparePanelObject(name, position));
             }
         }
 
         // prepares object to add to panel
-        private PictureBox preparePanelObject(String type)
+        private PictureBox preparePanelObject(String type, Point position)
         {
             PictureBox img = new PictureBox();
             img.Width = Convert.ToInt16(objects[type]["width"]);
@@ -119,7 +114,7 @@ namespace T_ReXcape
             img.BackColor = Color.Transparent;
             img.Image = (Image)Properties.Resources.ResourceManager.GetObject(objects[type]["backGround"]);
             img.SizeMode = PictureBoxSizeMode.Zoom;
-            img.Location = getAccuratePosition(mousePosition);
+            img.Location = getAccuratePosition(position);
             img.Name = type + countObjectOnPanel(type);
             img.Cursor = Cursors.Hand;
             img.Click += new System.EventHandler(dragDropMouseClick);
@@ -136,11 +131,19 @@ namespace T_ReXcape
                 {
                     dragDropObject = (Control)sender;
                     dragDropObject.BackColor = activeColor;
+
+                    // @TODO discuss this option with teammates
+                    // if grid not activated in settings, show it on moved object
+                    if (!isGridShown)
+                        setGridStatus(true);
                 }
                 else
                 {
                     dragDropObject.BackColor = Color.Transparent;
                     dragDropObject = null;
+
+                    if (!isGridShown)
+                        setGridStatus(false);
                 }
             }
         }
@@ -185,28 +188,6 @@ namespace T_ReXcape
             }
         }
 
-        /* @TODO remove after testing
-         * saves all objects positions in ini file
-         */
-        private void speichernToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1.ShowDialog();
-            if (!saveFileDialog1.FileName.Equals(""))
-            {
-                IniFile file = new IniFile(saveFileDialog1.FileName);
-
-                file.IniWriteValue("config", "height", mapPanel.Height.ToString());
-                file.IniWriteValue("config", "width", mapPanel.Width.ToString());
-
-                foreach (Control child in mapPanel.Controls)
-                {
-                    String name = child.Name;
-                    file.IniWriteValue("map", name + ".x", child.Location.X.ToString());
-                    file.IniWriteValue("map", name + ".y", child.Location.Y.ToString());
-                }
-            }
-        }
-
         /**
          * counts all objects on panel with same name
          */
@@ -216,7 +197,7 @@ namespace T_ReXcape
             foreach (Control child in mapPanel.Controls)
             {
                 // remove last diggit to count all with same name
-                if (Regex.Replace(child.Name, @"\d$", "").Equals(name))
+                if (getNameWOCounter(child.Name).Equals(name))
                 {
                     result++;
                 }
@@ -224,28 +205,64 @@ namespace T_ReXcape
             return result;
         }
 
+        // returns name without last diggets
+        private String getNameWOCounter(String name)
+        {
+            return Regex.Replace(name, @"\d$", "");
+        }
+
         /// <summary>
         /// Draw grid on panel
         /// </summary>
         /// <param name="color">Gridlines color</param>
-        private void drawGrid(Color color)
+        private Bitmap getBackground(bool withGrid = false)
         {
-            // @TODO evtl auslagern?
-            Image bg = Properties.Resources.grass;
-            Pen pen = new Pen(new SolidBrush(color));
-            int width = (bg.Size.Width / blockSize) * blockSize;
-            int height = (bg.Size.Height / blockSize) * blockSize;
-
-            newMagicPic = new Bitmap(bg, width, height);
-            Graphics gr = Graphics.FromImage(newMagicPic);
-            for (int i = 0; i <= blockSize; i++)
+            Bitmap background;
+            if (withGrid)
             {
-                for (int j = 0; j <= blockSize; j++)
+                // save recourses if created
+                if (bgWithGrid == null)
                 {
-                    gr.DrawRectangle(pen, i * blockSize, j * blockSize, blockSize, blockSize);
+                    // get original image
+                    Image bg = Properties.Resources.grass;
+                    Pen pen = new Pen(new SolidBrush(gridColor));
+                    // calculate new image size. always multiple size of block
+                    int width = (bg.Size.Width / blockSize) * blockSize;
+                    int height = (bg.Size.Height / blockSize) * blockSize;
+
+                    // create new image to draw on
+                    bgWithGrid = new Bitmap(bg, width, height);
+                    Graphics gr = Graphics.FromImage(bgWithGrid);
+                    for (int i = 0; i <= blockSize; i++)
+                    {
+                        for (int j = 0; j <= blockSize; j++)
+                        {
+                            // draw grid on new image
+                            gr.DrawRectangle(pen, i * blockSize, j * blockSize, blockSize, blockSize);
+                        }
+                    }
                 }
+                background = bgWithGrid;
             }
-            mapPanel.BackgroundImage = newMagicPic;
+            else
+            {
+                // get original image without any changes
+                background = Properties.Resources.grass;
+            }
+            return background;
+        }
+
+        // draws and removes grid from background
+        private void setGridStatus(bool activate)
+        {
+            if (activate)
+            {
+                mapPanel.BackgroundImage = getBackground(true);
+            }
+            else
+            {
+                mapPanel.BackgroundImage = getBackground();
+            }
         }
 
         private void tabControl_Selected(object sender, TabControlEventArgs e)
@@ -264,21 +281,70 @@ namespace T_ReXcape
         private void rasterUmschaltenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Toggle grid
-            if (rasterUmschaltenToolStripMenuItem.Checked)
+            if (isGridShown)
             {
                 // Toggle checked state
-                rasterUmschaltenToolStripMenuItem.Checked = false;
+                isGridShown = false;
 
                 // set normal background
-                mapPanel.BackgroundImage = Properties.Resources.grass;
+                setGridStatus(false);
             }
             else
             {
                 // Toggle checked state
-                rasterUmschaltenToolStripMenuItem.Checked = true;
+                isGridShown = true;
 
                 // draw grid
-                drawGrid(Color.Gray);
+                setGridStatus(true);
+            }
+        }
+
+        // @TODO save method still in development
+        private void saveMap(String filename)
+        {
+            IniFile mapFile = new IniFile(filename);
+
+            if (File.Exists(filename))
+            {
+                // clear file content if exists
+                System.IO.File.WriteAllText(filename, string.Empty);
+            }
+
+            // write map config
+            mapFile.IniWriteValue("config", "height", mapPanel.Height.ToString());
+            mapFile.IniWriteValue("config", "width", mapPanel.Width.ToString());
+
+            // write all objects on map
+            foreach (Control child in mapPanel.Controls)
+            {
+                String name = child.Name;
+                mapFile.IniWriteValue("map", name + ".x", child.Location.X.ToString());
+                mapFile.IniWriteValue("map", name + ".y", child.Location.Y.ToString());
+            }
+        }
+
+        // @TODO not completed yet!
+        private void loadMap(String filename)
+        {
+            if (!File.Exists(filename))
+                throw new IOException("File not exists");
+
+            IniFile mapFile = new IniFile(filename);
+        }
+
+        private void speichernToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                saveMap(saveFileDialog1.FileName);
+            }
+        }
+
+        private void ladenToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                loadMap(openFileDialog1.FileName);
             }
         }
     }
