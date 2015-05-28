@@ -261,10 +261,6 @@ namespace T_ReXcape
             }
         }
 
-        private void rasterZeichnenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
         private void rasterUmschaltenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Toggle grid
