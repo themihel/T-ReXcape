@@ -61,26 +61,6 @@ namespace T_ReXcape
             objects["wallh"]["name"] = "Mauer horizontal";
 
 
-            // @TODO auslagern!
-            // draw grid on background
-            if (true)
-            {
-                Image bg = Properties.Resources.grass;
-                Pen pen = new Pen(new SolidBrush(Color.Gray));
-                int width = (bg.Size.Width / blockSize) * blockSize;
-                int height = (bg.Size.Height / blockSize) * blockSize;
-
-                newMagicPic = new Bitmap(bg, width, height);
-                Graphics gr = Graphics.FromImage(newMagicPic);
-                for (int i = 0; i <= blockSize; i++)
-                {
-                    for (int j = 0; j <= blockSize; j++)
-                    {
-                        gr.DrawRectangle(pen, i * blockSize, j * blockSize, blockSize, blockSize);
-                    }
-                }
-                mapPanel.BackgroundImage = newMagicPic;
-            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -244,6 +224,30 @@ namespace T_ReXcape
             return result;
         }
 
+        /// <summary>
+        /// Draw grid on panel
+        /// </summary>
+        /// <param name="color">Gridlines color</param>
+        private void drawGrid(Color color)
+        {
+            // @TODO evtl auslagern?
+            Image bg = Properties.Resources.grass;
+            Pen pen = new Pen(new SolidBrush(color));
+            int width = (bg.Size.Width / blockSize) * blockSize;
+            int height = (bg.Size.Height / blockSize) * blockSize;
+
+            newMagicPic = new Bitmap(bg, width, height);
+            Graphics gr = Graphics.FromImage(newMagicPic);
+            for (int i = 0; i <= blockSize; i++)
+            {
+                for (int j = 0; j <= blockSize; j++)
+                {
+                    gr.DrawRectangle(pen, i * blockSize, j * blockSize, blockSize, blockSize);
+                }
+            }
+            mapPanel.BackgroundImage = newMagicPic;
+        }
+
         private void tabControl_Selected(object sender, TabControlEventArgs e)
         {
             // set map size
@@ -259,6 +263,27 @@ namespace T_ReXcape
 
         private void rasterZeichnenToolStripMenuItem_Click(object sender, EventArgs e)
         {
+        }
+
+        private void rasterUmschaltenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Toggle grid
+            if (rasterUmschaltenToolStripMenuItem.Checked)
+            {
+                // Toggle checked state
+                rasterUmschaltenToolStripMenuItem.Checked = false;
+
+                // set normal background
+                mapPanel.BackgroundImage = Properties.Resources.grass;
+            }
+            else
+            {
+                // Toggle checked state
+                rasterUmschaltenToolStripMenuItem.Checked = true;
+
+                // draw grid
+                drawGrid(Color.Gray);
+            }
         }
     }
 }
