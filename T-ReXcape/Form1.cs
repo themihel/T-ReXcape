@@ -16,11 +16,13 @@ namespace T_ReXcape
     public partial class Form1 : Form
     {
         // settings 
-        int blockSize = 20;
+        int blockSize = 50;
         Color activeColor = Color.Red;
 
         Point mousePosition;
         Control dragDropObject = null;
+
+        Bitmap newMagicPic;
 
         // save all posible objects on ma in this Dictionary
         Dictionary<string, Dictionary<string, string>> objects;
@@ -32,15 +34,15 @@ namespace T_ReXcape
             // init all posible objects
             objects["player1start"] = new Dictionary<string, string>();
             objects["player1start"]["backGround"] = "dino1";
-            objects["player1start"]["width"] = "50";
-            objects["player1start"]["height"] = "50";
+            objects["player1start"]["width"] = "150";
+            objects["player1start"]["height"] = "150";
             objects["player1start"]["maxOnPanel"] = "1";
             objects["player1start"]["name"] = "Spieler 1 Start";
 
             objects["player1destination"] = new Dictionary<string, string>();
             objects["player1destination"]["backGround"] = "rocket1";
-            objects["player1destination"]["width"] = "50";
-            objects["player1destination"]["height"] = "80";
+            objects["player1destination"]["width"] = "150";
+            objects["player1destination"]["height"] = "180";
             objects["player1destination"]["maxOnPanel"] = "1";
             objects["player1destination"]["name"] = "Spieler 1 Ziel";
 
@@ -57,6 +59,28 @@ namespace T_ReXcape
             objects["wallh"]["height"] = "50";
             objects["wallh"]["maxOnPanel"] = "99";
             objects["wallh"]["name"] = "Mauer horizontal";
+
+
+            // @TODO auslagern!
+            // draw grid on background
+            if (true)
+            {
+                Image bg = Properties.Resources.grass;
+                Pen pen = new Pen(new SolidBrush(Color.Gray));
+                int width = (bg.Size.Width / blockSize) * blockSize;
+                int height = (bg.Size.Height / blockSize) * blockSize;
+
+                newMagicPic = new Bitmap(bg, width, height);
+                Graphics gr = Graphics.FromImage(newMagicPic);
+                for (int i = 0; i <= blockSize; i++)
+                {
+                    for (int j = 0; j <= blockSize; j++)
+                    {
+                        gr.DrawRectangle(pen, i * blockSize, j * blockSize, blockSize, blockSize);
+                    }
+                }
+                mapPanel.BackgroundImage = newMagicPic;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -231,6 +255,10 @@ namespace T_ReXcape
             {
                 dataGridView1.Rows.Add(entry.Value["name"], entry.Value["maxOnPanel"], countObjectOnPanel(entry.Key));
             }
+        }
+
+        private void rasterZeichnenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
         }
     }
 }
