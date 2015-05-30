@@ -212,9 +212,10 @@ namespace T_ReXcape
         }
 
         /// <summary>
-        /// Draw grid on panel
+        /// Return background / optional with grid
         /// </summary>
-        /// <param name="color">Gridlines color</param>
+        /// <param name="withGrid">Optional with grid</param>
+        /// <returns>Bitmap Background</returns>
         private Bitmap getBackground(bool withGrid = false)
         {
             Bitmap background;
@@ -225,6 +226,7 @@ namespace T_ReXcape
                 {
                     // get original image
                     Image bg = Properties.Resources.grass;
+                    // set pen
                     Pen pen = new Pen(new SolidBrush(gridColor));
                     // calculate new image size. always multiple size of block
                     int width = (bg.Size.Width / blockSize) * blockSize;
