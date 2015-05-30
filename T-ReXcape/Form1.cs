@@ -63,6 +63,9 @@ namespace T_ReXcape
             objects["wallh"]["maxOnPanel"] = "99";
             objects["wallh"]["name"] = "Mauer horizontal";
 
+            // set file filters
+            openFileDialog1.Filter = "T-ReXcape Map files (.xmap)|*.xmap";
+            saveFileDialog1.Filter = "T-ReXcape Map files (.xmap)|*.xmap";
 
         }
 
