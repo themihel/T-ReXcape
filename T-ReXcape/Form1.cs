@@ -332,6 +332,14 @@ namespace T_ReXcape
             IniFile mapFile = new IniFile(filename);
         }
 
+        /// <summary>
+        /// Removes all objects from panel
+        /// </summary>
+        private void removeAllObjectsFromPanel()
+        {
+            mapPanel.Controls.Clear();
+        }
+
         private void speichernToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
@@ -345,6 +353,15 @@ namespace T_ReXcape
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 loadMap(openFileDialog1.FileName);
+            }
+        }
+
+        private void neuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Alle nicht gespeicherten Änderungen gehen verloren. Sind Sie sicher?", "Neue Map laden?", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                removeAllObjectsFromPanel();
             }
         }
     }
