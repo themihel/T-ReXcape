@@ -366,5 +366,23 @@ namespace T_ReXcape
                 removeAllObjectsFromPanel();
             }
         }
+
+        // removes grid when resizing (removes flickering)
+        private void Form1_ResizeBegin(object sender, EventArgs e)
+        {
+            if (isGridShown)
+            {
+                setGridStatus(false);
+            }
+        }
+
+        // set grid back to current status
+        private void Form1_ResizeEnd(object sender, EventArgs e)
+        {
+            if (isGridShown)
+            {
+                setGridStatus(true);
+            }
+        }
     }
 }
