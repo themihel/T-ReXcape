@@ -1,4 +1,24 @@
 [config]
-
+height=457
+width=613
 [map]
-wall.1.posx = 100
+wallv0.x=40
+wallv0.y=0
+wallh0.x=80
+wallh0.y=80
+wallv1.x=40
+wallv1.y=80
+wallv2.x=40
+wallv2.y=160
+wallv3.x=160
+wallv3.y=0
+wallv4.x=160
+wallv4.y=80
+wallv5.x=160
+wallv5.y=160
+wallv6.x=280
+wallv6.y=80
+wallv7.x=280
+wallv7.y=160
+player1destination0.x=280
+player1destination0.y=0

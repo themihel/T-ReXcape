@@ -28,13 +28,40 @@ namespace T_ReXcape
         bool isGridShown = false;
 
         // save all posible objects on ma in this Dictionary
-        Dictionary<string, Dictionary<string, string>> objects;
+        // Dictionary<string, Dictionary<string, string>> objects;
 
         public Form1()
         {
             InitializeComponent();
-            objects = new Dictionary<string, Dictionary<string, string>>();
+            //objects = new Dictionary<string, Dictionary<string, string>>();
             // init all posible objects
+
+            Item player1start = new Item("player1start", "50", "50");
+            player1start.setBackground("dino1");
+            player1start.setMaxOnPanel("1");
+            player1start.setName("Spieler 1 Start");
+            ItemCollection.addItem(player1start);
+
+            Item player1destination = new Item("player1destination", "50", "80");
+            player1destination.setBackground("rocket1");
+            player1destination.setMaxOnPanel("1");
+            player1destination.setName("Spieler 1 Ziel");
+            ItemCollection.addItem(player1destination);
+
+            Item wallv = new Item("wallv", "50", "80");
+            wallv.setBackground("wallv");
+            wallv.setMaxOnPanel("99");
+            wallv.setName("Mauer vertical");
+            ItemCollection.addItem(wallv);
+
+            Item wallh = new Item("wallh", "80", "50");
+            wallh.setBackground("wallh");
+            wallh.setMaxOnPanel("99");
+            wallh.setName("Mauer vertical");
+            ItemCollection.addItem(wallh);
+
+            /*
+             * old object method
             objects["player1start"] = new Dictionary<string, string>();
             objects["player1start"]["backGround"] = "dino1";
             objects["player1start"]["width"] = "50";
@@ -62,6 +89,7 @@ namespace T_ReXcape
             objects["wallh"]["height"] = "50";
             objects["wallh"]["maxOnPanel"] = "99";
             objects["wallh"]["name"] = "Mauer horizontal";
+            */
 
             // set file filters
             openFileDialog1.Filter = "T-ReXcape Map files (.xmap)|*.xmap";
@@ -100,22 +128,23 @@ namespace T_ReXcape
             setObjectOnMap("wallh", mousePosition);
         }
 
-        private void setObjectOnMap(String name, Point position)
+        private void setObjectOnMap(String key, Point position)
         {
-            if (Convert.ToInt16(objects[name]["maxOnPanel"]) > countObjectOnPanel(name))
+            if (!ItemCollection.isItemSet(key) || Convert.ToInt16(ItemCollection.getItemByKey(key).getMaxOnPanel()) > countObjectOnPanel(key))
             {
-                mapPanel.Controls.Add(preparePanelObject(name, position));
+                mapPanel.Controls.Add(preparePanelObject(key, position));
             }
         }
 
         // prepares object to add to panel
         private PictureBox preparePanelObject(String type, Point position)
         {
+            Debug.WriteLine(type);
             PictureBox img = new PictureBox();
-            img.Width = Convert.ToInt16(objects[type]["width"]);
-            img.Height = Convert.ToInt16(objects[type]["height"]);
+            img.Width = Convert.ToInt16(ItemCollection.getItemByKey(type).getWidth());
+            img.Height = Convert.ToInt16(ItemCollection.getItemByKey(type).getHeight());
             img.BackColor = Color.Transparent;
-            img.Image = (Image)Properties.Resources.ResourceManager.GetObject(objects[type]["backGround"]);
+            img.Image = (Image)Properties.Resources.ResourceManager.GetObject(ItemCollection.getItemByKey(type).getBackground());
             img.SizeMode = PictureBoxSizeMode.Zoom;
             img.Location = getAccuratePosition(position);
             img.Name = type + countObjectOnPanel(type);
@@ -277,9 +306,9 @@ namespace T_ReXcape
             labelMapWidth.Text = mapPanel.Width.ToString();
 
             dataGridView1.Rows.Clear();
-            foreach (KeyValuePair<string, Dictionary<string, string>> entry in objects)
+            foreach (Item item in ItemCollection.getAllItems())
             {
-                dataGridView1.Rows.Add(entry.Value["name"], entry.Value["maxOnPanel"], countObjectOnPanel(entry.Key));
+                dataGridView1.Rows.Add(item.getName(), item.getMaxOnPanel(), countObjectOnPanel(item.getKey()));
             }
         }
 
@@ -293,6 +322,8 @@ namespace T_ReXcape
 
                 // set normal background
                 setGridStatus(false);
+
+                rasterUmschaltenToolStripMenuItem.Checked = false;
             }
             else
             {
@@ -301,6 +332,8 @@ namespace T_ReXcape
 
                 // draw grid
                 setGridStatus(true);
+
+                rasterUmschaltenToolStripMenuItem.Checked = true;
             }
         }
 
@@ -334,7 +367,26 @@ namespace T_ReXcape
             if (!File.Exists(filename))
                 throw new IOException("File not exists");
 
+            // clear map panel
+            mapPanel.Controls.Clear();
+
             IniFile mapFile = new IniFile(filename);
+
+            // load all known objects
+            foreach (Item item in ItemCollection.getAllItems())
+            {
+                int i = 0;
+                // get position X as default check value
+                while (mapFile.IniReadValue("map", item.getKey() + i + ".x").Length > 0)
+                {
+                    int posX = Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".x"));
+                    int posY = Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".y"));
+
+                    setObjectOnMap(item.getKey(), new Point(posX, posY));
+
+                    i++;
+                }
+            }
         }
 
         /// <summary>
@@ -344,23 +396,7 @@ namespace T_ReXcape
         {
             mapPanel.Controls.Clear();
         }
-
-        private void speichernToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                saveMap(saveFileDialog1.FileName);
-            }
-        }
-
-        private void ladenToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                loadMap(openFileDialog1.FileName);
-            }
-        }
-
+        
         private void neuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Alle nicht gespeicherten Änderungen gehen verloren. Sind Sie sicher?", "Neue Map laden?", MessageBoxButtons.YesNo);
@@ -386,6 +422,50 @@ namespace T_ReXcape
             {
                 setGridStatus(true);
             }
+        }
+
+        private void ladenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool itemsOnMap = false;
+            if (mapPanel.Controls.Count > 0)
+            {
+                itemsOnMap = true;
+                DialogResult result = MessageBox.Show("Möchten Sie alle vorhanden Objekte auf dem Feld vor dem Laden entfernen?", "Es befinden sich noch Objekte auf dem Feld!", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                    itemsOnMap = false;
+            }
+
+            if (!itemsOnMap && openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                loadMap(openFileDialog1.FileName);
+            }
+        }
+
+        private void speichernToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (checkMapPanel())
+                {
+                    if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                    {
+                        saveMap(saveFileDialog1.FileName);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        // check all possible params before save
+        private bool checkMapPanel()
+        {
+            if (mapPanel.Controls.Count == 0)
+                throw new Exception("Es sind keine Objekte auf dem Feld.");
+
+            return true;
         }
     }
 }
