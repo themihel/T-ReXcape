@@ -99,6 +99,18 @@
   <ItemGroup>
     <None Include="Resources\giphy.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\goright.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\goleft.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gotop.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gobottom.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

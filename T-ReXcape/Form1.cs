@@ -37,7 +37,7 @@ namespace T_ReXcape
             // init all posible objects
 
             Item player1start = new Item("player1start", 50, 50);
-            player1start.setBackground("dino1");
+            player1start.setBackground("giphy");
             player1start.setMaxOnPanel(1);
             player1start.setName("Spieler 1 Start");
             ItemCollection.addItem(player1start);
@@ -60,37 +60,32 @@ namespace T_ReXcape
             wallh.setName("Mauer vertical");
             ItemCollection.addItem(wallh);
 
-            /*
-             * old object method
-            objects["player1start"] = new Dictionary<string, string>();
-            objects["player1start"]["backGround"] = "dino1";
-            objects["player1start"]["width"] = "50";
-            objects["player1start"]["height"] = "50";
-            objects["player1start"]["maxOnPanel"] = "1";
-            objects["player1start"]["name"] = "Spieler 1 Start";
+            Item goright = new Item("goright", blockSize, blockSize);
+            goright.setBackground("goright");
+            goright.setMaxOnPanel(99);
+            goright.setName("Bewegung - rechts");
+            ItemCollection.addItem(goright);
 
-            objects["player1destination"] = new Dictionary<string, string>();
-            objects["player1destination"]["backGround"] = "rocket1";
-            objects["player1destination"]["width"] = "50";
-            objects["player1destination"]["height"] = "80";
-            objects["player1destination"]["maxOnPanel"] = "1";
-            objects["player1destination"]["name"] = "Spieler 1 Ziel";
+            Item goleft = new Item("goleft", blockSize, blockSize);
+            goleft.setBackground("goleft");
+            goleft.setMaxOnPanel(99);
+            goleft.setName("Bewegung - links");
+            ItemCollection.addItem(goleft);
 
-            objects["wallv"] = new Dictionary<string, string>();
-            objects["wallv"]["backGround"] = "wallv";
-            objects["wallv"]["width"] = "50";
-            objects["wallv"]["height"] = "80";
-            objects["wallv"]["maxOnPanel"] = "99";
-            objects["wallv"]["name"] = "Mauer vertical";
+            Item gotop = new Item("gotop", blockSize, blockSize);
+            gotop.setBackground("gotop");
+            gotop.setMaxOnPanel(99);
+            gotop.setName("Bewegung - oben");
+            ItemCollection.addItem(gotop);
 
-            objects["wallh"] = new Dictionary<string, string>();
-            objects["wallh"]["backGround"] = "wallh";
-            objects["wallh"]["width"] = "80";
-            objects["wallh"]["height"] = "50";
-            objects["wallh"]["maxOnPanel"] = "99";
-            objects["wallh"]["name"] = "Mauer horizontal";
-            */
+            Item gobottom = new Item("gobottom", blockSize, blockSize);
+            gobottom.setBackground("gobottom");
+            gobottom.setMaxOnPanel(99);
+            gobottom.setName("Bewegung - uten");
+            ItemCollection.addItem(gobottom);
 
+
+           
             // set file filters
             openFileDialog1.Filter = "T-ReXcape Map files (.xmap)|*.xmap";
             saveFileDialog1.Filter = "T-ReXcape Map files (.xmap)|*.xmap";
@@ -126,6 +121,26 @@ namespace T_ReXcape
         private void grubbeToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             setObjectOnMap("wallh", mousePosition);
+        }
+        
+        private void rechtsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setObjectOnMap("goright", mousePosition);
+        }
+
+        private void linksToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setObjectOnMap("goleft", mousePosition);
+        }
+
+        private void obenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setObjectOnMap("gotop", mousePosition);
+        }
+
+        private void untenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setObjectOnMap("gobottom", mousePosition);
         }
 
         private void setObjectOnMap(String key, Point position)
@@ -187,6 +202,12 @@ namespace T_ReXcape
             if (result == DialogResult.Yes)
             {
                 mapPanel.Controls.Remove((Control)sender);
+
+                dragDropObject.BackColor = Color.Transparent;
+                dragDropObject = null;
+
+                if (!isGridShown)
+                    setGridStatus(false);
             }
         }
 
