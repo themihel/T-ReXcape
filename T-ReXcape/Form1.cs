@@ -81,8 +81,14 @@ namespace T_ReXcape
             Item gobottom = new Item("gobottom", blockSize, blockSize);
             gobottom.setBackground("gobottom");
             gobottom.setMaxOnPanel(99);
-            gobottom.setName("Bewegung - uten");
+            gobottom.setName("Bewegung - unten");
             ItemCollection.addItem(gobottom);
+
+            Item hole = new Item("hole", blockSize, blockSize);
+            hole.setBackground("hole");
+            hole.setMaxOnPanel(99);
+            hole.setName("Loch");
+            ItemCollection.addItem(hole);
 
 
            
@@ -141,6 +147,11 @@ namespace T_ReXcape
         private void untenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             setObjectOnMap("gobottom", mousePosition);
+        }
+
+        private void lochToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setObjectOnMap("hole", mousePosition);
         }
 
         private void setObjectOnMap(String key, Point position)
