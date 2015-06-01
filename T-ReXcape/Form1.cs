@@ -388,21 +388,18 @@ namespace T_ReXcape
                 }
             }
         }
-
-        /// <summary>
-        /// Removes all objects from panel
-        /// </summary>
-        private void removeAllObjectsFromPanel()
-        {
-            mapPanel.Controls.Clear();
-        }
         
         private void neuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Alle nicht gespeicherten Änderungen gehen verloren. Sind Sie sicher?", "Neue Map laden?", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
+            if (mapPanel.Controls.Count > 0)
             {
-                removeAllObjectsFromPanel();
+                // if anything is set ask for permission
+                DialogResult result = MessageBox.Show("Alle nicht gespeicherten Änderungen gehen verloren. Sind Sie sicher?", "Neue Map laden?", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    // Remove all object from panel
+                    mapPanel.Controls.Clear();
+                }
             }
         }
 
