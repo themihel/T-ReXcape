@@ -36,27 +36,27 @@ namespace T_ReXcape
             //objects = new Dictionary<string, Dictionary<string, string>>();
             // init all posible objects
 
-            Item player1start = new Item("player1start", "50", "50");
+            Item player1start = new Item("player1start", 50, 50);
             player1start.setBackground("dino1");
-            player1start.setMaxOnPanel("1");
+            player1start.setMaxOnPanel(1);
             player1start.setName("Spieler 1 Start");
             ItemCollection.addItem(player1start);
 
-            Item player1destination = new Item("player1destination", "50", "80");
+            Item player1destination = new Item("player1destination", 50, 80);
             player1destination.setBackground("rocket1");
-            player1destination.setMaxOnPanel("1");
+            player1destination.setMaxOnPanel(1);
             player1destination.setName("Spieler 1 Ziel");
             ItemCollection.addItem(player1destination);
 
-            Item wallv = new Item("wallv", "50", "80");
+            Item wallv = new Item("wallv", 50, 80);
             wallv.setBackground("wallv");
-            wallv.setMaxOnPanel("99");
+            wallv.setMaxOnPanel(99);
             wallv.setName("Mauer vertical");
             ItemCollection.addItem(wallv);
 
-            Item wallh = new Item("wallh", "80", "50");
+            Item wallh = new Item("wallh", 80, 50);
             wallh.setBackground("wallh");
-            wallh.setMaxOnPanel("99");
+            wallh.setMaxOnPanel(99);
             wallh.setName("Mauer vertical");
             ItemCollection.addItem(wallh);
 
@@ -130,7 +130,7 @@ namespace T_ReXcape
 
         private void setObjectOnMap(String key, Point position)
         {
-            if (!ItemCollection.isItemSet(key) || Convert.ToInt16(ItemCollection.getItemByKey(key).getMaxOnPanel()) > countObjectOnPanel(key))
+            if (!ItemCollection.isItemSet(key) || ItemCollection.getItemByKey(key).getMaxOnPanel() > countObjectOnPanel(key))
             {
                 mapPanel.Controls.Add(preparePanelObject(key, position));
             }
@@ -141,8 +141,8 @@ namespace T_ReXcape
         {
             Debug.WriteLine(type);
             PictureBox img = new PictureBox();
-            img.Width = Convert.ToInt16(ItemCollection.getItemByKey(type).getWidth());
-            img.Height = Convert.ToInt16(ItemCollection.getItemByKey(type).getHeight());
+            img.Width = ItemCollection.getItemByKey(type).getWidth();
+            img.Height = ItemCollection.getItemByKey(type).getHeight();
             img.BackColor = Color.Transparent;
             img.Image = (Image)Properties.Resources.ResourceManager.GetObject(ItemCollection.getItemByKey(type).getBackground());
             img.SizeMode = PictureBoxSizeMode.Zoom;

@@ -9,14 +9,14 @@ namespace T_ReXcape
     {
         private String key;
         private String background;
-        private String maxOnPanel;
+        private Int32 maxOnPanel;
         private String name;
-        private String width;
-        private String height;
+        private Int32 width;
+        private Int32 height;
         
         public Item(String _key,
-                    String _width,
-                    String _height)
+                    Int32 _width,
+                    Int32 _height)
         {
             key = _key;
             width = _width;
@@ -33,9 +33,14 @@ namespace T_ReXcape
             background = _background;
         }
 
-        public void setMaxOnPanel(String _maxOnPanel)
+        public void setMaxOnPanel(Int32 _maxOnPanel)
         {
-            maxOnPanel = _maxOnPanel;
+            // check if number is equal or greater than 0 (Note: 0 == disabled)
+            if (maxOnPanel >= 0)
+            {
+                maxOnPanel = _maxOnPanel;
+            }
+            
         }
 
         public String getKey()
@@ -43,17 +48,17 @@ namespace T_ReXcape
             return key;
         }
 
-        public String getMaxOnPanel()
+        public Int32 getMaxOnPanel()
         {
             return maxOnPanel;
         }
 
-        public String getWidth()
+        public Int32 getWidth()
         {
             return width;
         }
 
-        public String getHeight()
+        public Int32 getHeight()
         {
             return height;
         }
