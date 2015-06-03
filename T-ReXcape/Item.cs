@@ -73,7 +73,6 @@ namespace T_ReXcape
             
         }
 
-
         /// <summary>
         /// set hook position. use constants!
         /// </summary>
