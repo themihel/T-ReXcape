@@ -29,12 +29,9 @@ namespace T_ReXcape
         // status grid
         private Boolean isGridShown = false;
 
-        // mapEditor
-        private Boolean isMapEditor = false;
-
         // EventHandler
-        private System.EventHandler dragDropMouseClick;
-        private System.EventHandler removeClick;
+        private System.EventHandler dragDropMouseClick = null;
+        private System.EventHandler removeClick = null;
 
         /// <summary>
         /// initialise Map with panel / loads configs from config class
@@ -44,29 +41,6 @@ namespace T_ReXcape
         {
             // set panel
             this.mapPanel = mapPanel;
-
-            // load configs
-            blockSize = Config.getBlockSize();
-            activeColor = Config.getActiveColor();
-            gridColor = Config.getGridColor();
-        }
-
-        /// <summary>
-        /// initialise Map with panel / loads configs from config class / mapEditor option
-        /// </summary>
-        /// <param name="mapPanel">Form Panel (Map)</param>
-        /// <param name="isMapEditor">sets mapEditor option</param>
-        public Map(Panel mapPanel, Boolean isMapEditor, System.EventHandler dragDropMouseClick, System.EventHandler removeClick)
-        {
-            // set panel
-            this.mapPanel = mapPanel;
-
-            // set mapEditorOptions
-            this.isMapEditor = isMapEditor;
-
-            // set eventHandler
-            this.dragDropMouseClick = dragDropMouseClick;
-            this.removeClick = removeClick;
 
             // load configs
             blockSize = Config.getBlockSize();
@@ -99,6 +73,23 @@ namespace T_ReXcape
         public Int32 getItemsCount()
         {
             return mapPanel.Controls.Count;
+        }
+
+        /// <summary>
+        /// registers eventhandler for drag/drop event
+        /// </summary>
+        /// <param name="dragDropMouseClick">eventhandler for drag/drop event</param>
+        public void registerEHDragDropMouseClick(System.EventHandler dragDropMouseClick)
+        {
+            this.dragDropMouseClick = dragDropMouseClick;
+        }
+
+        /// <summary>
+        /// registers eventhandler for remove event
+        /// </summary>
+        /// <param name="removeClick">eventhandler for remove event</param>
+        public void registerEHRemoveClick(System.EventHandler removeClick) {
+            this.removeClick = removeClick;
         }
 
         /// <summary>
@@ -309,7 +300,10 @@ namespace T_ReXcape
             position.X = position.X + item.getPositionOffsetX() + item.getBlockOffsetX(blockSize);
             position.Y = position.Y + item.getPositionOffsetY() + item.getBlockOffsetY(blockSize);
 
+            // @TODO remove after debug
             Debug.WriteLine(name);
+
+            // prepare item
             PictureBox img = new PictureBox();
             img.Width = item.getWidth();
             img.Height = item.getHeight();
@@ -319,11 +313,16 @@ namespace T_ReXcape
             img.Location = position;
             img.Name = name + getItemCount(name);
             img.Cursor = Cursors.Hand;
-            if (isMapEditor)
-            {
+
+            // if set: add remove event
+            if (dragDropMouseClick != null)
                 img.Click += dragDropMouseClick;
+
+            // if set: add remove event
+            if (removeClick != null)
                 img.DoubleClick += removeClick;
-            }
+
+            // return image
             return img;
         }
 

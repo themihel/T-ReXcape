@@ -35,8 +35,10 @@ namespace T_ReXcape
             openFileDialog1.Filter = Config.getMapFileFilter();
             saveFileDialog1.Filter = Config.getMapFileFilter();
 
-            // init Map as MapEditor
-            map = new Map(mapPanel, true, new System.EventHandler(dragDropMouseClick), new System.EventHandler(removeClick));
+            // init Map and register events
+            map = new Map(mapPanel);
+            map.registerEHDragDropMouseClick(new System.EventHandler(dragDropMouseClick));
+            map.registerEHRemoveClick(new System.EventHandler(removeClick));
 
         }
 
