@@ -28,16 +28,13 @@ namespace T_ReXcape
         Control dragDropObject = null;
         Bitmap bgWithGrid;
         bool isGridShown = false;
-
-        // save all posible objects on ma in this Dictionary
-        // Dictionary<string, Dictionary<string, string>> objects;
-
+        
         public Form1()
         {
             InitializeComponent();
-            //objects = new Dictionary<string, Dictionary<string, string>>();
             // init all posible objects
 
+            // auslagern Map Class
             Item player1start = new Item("player1start", 3 * blockSize, 3 * blockSize);
             player1start.setBackground("giphy");
             player1start.setMaxOnPanel(1);
@@ -116,15 +113,9 @@ namespace T_ReXcape
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // @TODO
-            Map map = new Map();
-            // open file dialog to select map file
-            //openFileDialog1.ShowDialog();
-            // set map path
-            //map.setMapFileName(openFileDialog1.FileName);
         }
                 
-        // add object
+        // add objects
         private void addPlayer1Start(object sender, EventArgs e)
         {
             setObjectOnMap("player1start", mousePosition);
@@ -180,6 +171,7 @@ namespace T_ReXcape
             setObjectOnMap("hole", mousePosition);
         }
 
+        // auslagern Map Class
         private void setObjectOnMap(String key, Point position)
         {
             if (!ItemCollection.isItemSet(key) || ItemCollection.getItemByKey(key).getMaxOnPanel() > countObjectOnPanel(key))
@@ -188,6 +180,7 @@ namespace T_ReXcape
             }
         }
 
+        // auslagern Map Class
         // prepares object to add to panel
         private PictureBox preparePanelObject(String type, Point position)
         {
@@ -223,7 +216,6 @@ namespace T_ReXcape
                     dragDropObject = (Control)sender;
                     dragDropObject.BackColor = activeColor;
 
-                    // @TODO discuss this option with teammates
                     // if grid not activated in settings, show it on moved object
                     if (!isGridShown)
                         setGridStatus(true);
@@ -302,6 +294,7 @@ namespace T_ReXcape
             }
         }
 
+        // auslagern Map Class
         // gets position depends on blocksize. position should be allways in one block
         private Point getAccuratePosition(Point p)
         {
@@ -310,17 +303,18 @@ namespace T_ReXcape
             return new Point(x, y);
         }
 
-
         // opens context rightclick on map
         private void mapPanel_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
                 mousePosition = new Point(e.X, e.Y);
+                // @TODO rename that
                 mapAddStuff.Show(Cursor.Position);
             }
         }
 
+        // auslagern Map Class
         /**
          * counts all objects on panel with same name
          */
@@ -338,12 +332,14 @@ namespace T_ReXcape
             return result;
         }
 
+        // auslagern Item Class
         // returns name without last diggets
         private String getNameWOCounter(String name)
         {
             return Regex.Replace(name, @"\d$", "");
         }
 
+        // auslagern Map Class
         /// <summary>
         /// Return background / optional with grid
         /// </summary>
@@ -387,6 +383,7 @@ namespace T_ReXcape
             return background;
         }
 
+        // auslagern Map Class
         // draws and removes grid from background
         private void setGridStatus(bool activate)
         {
@@ -413,6 +410,7 @@ namespace T_ReXcape
             }
         }
 
+        // auslagern Map Class
         private void rasterUmschaltenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Toggle grid
@@ -438,6 +436,7 @@ namespace T_ReXcape
             }
         }
 
+        // auslagern Map Class
         // @TODO save method still in development
         private void saveMap(String filename)
         {
@@ -467,6 +466,7 @@ namespace T_ReXcape
             }
         }
 
+        // auslagern Map Class
         // @TODO not completed yet!
         private void loadMap(String filename)
         {
@@ -482,6 +482,7 @@ namespace T_ReXcape
             foreach (Item item in ItemCollection.getAllItems())
             {
                 int i = 0;
+                // @TODO add validation
                 // get position X as default check value
                 while (mapFile.IniReadValue("map", item.getKey() + i + ".x").Length > 0)
                 {
@@ -494,7 +495,7 @@ namespace T_ReXcape
                 }
             }
         }
-        
+
         private void neuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (mapPanel.Controls.Count > 0)
@@ -504,6 +505,7 @@ namespace T_ReXcape
                 if (result == DialogResult.Yes)
                 {
                     // Remove all object from panel
+                    // auslagern Map Class
                     mapPanel.Controls.Clear();
                 }
             }
@@ -527,6 +529,7 @@ namespace T_ReXcape
             }
         }
 
+        // auslagern Map Class
         private void ladenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool itemsOnMap = false;
@@ -544,6 +547,7 @@ namespace T_ReXcape
             }
         }
 
+        // auslagern Map Class
         private void speichernToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -562,6 +566,7 @@ namespace T_ReXcape
             }
         }
 
+        // auslagern Map Class
         // check all possible params before save
         private bool checkMapPanel()
         {
@@ -571,6 +576,7 @@ namespace T_ReXcape
             return true;
         }
 
+        // @TODO save performance !!!
         private void garbageCollector_Tick(object sender, EventArgs e)
         {
             foreach (Control ctn in mapPanel.Controls)
