@@ -142,7 +142,7 @@ namespace T_ReXcape
 
         private void zielToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            setObjectOnMap("player1destination", mousePosition);
+            setObjectOnMap("player2destination", mousePosition);
         }
 
         private void mauerToolStripMenuItem_Click(object sender, EventArgs e)
