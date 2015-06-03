@@ -52,6 +52,20 @@ namespace T_ReXcape
             player1destination.setHookPosition(Item.positionCenter, Item.positionBottom);
             ItemCollection.addItem(player1destination);
 
+            Item player2start = new Item("player2start", 3 * blockSize, 3 * blockSize);
+            player2start.setBackground("giphy");
+            player2start.setMaxOnPanel(1);
+            player2start.setName("Spieler 2 Start");
+            player2start.setHookPosition(Item.positionCenter, Item.positionBottom);
+            ItemCollection.addItem(player2start);
+
+            Item player2destination = new Item("player2destination", 3 * blockSize, 4 * blockSize);
+            player2destination.setBackground("rocket1");
+            player2destination.setMaxOnPanel(1);
+            player2destination.setName("Spieler 2 Ziel");
+            player2destination.setHookPosition(Item.positionCenter, Item.positionBottom);
+            ItemCollection.addItem(player2destination);
+
             Item wallv = new Item("wallv", 3 * blockSize, 4 * blockSize);
             wallv.setBackground("wallv");
             wallv.setMaxOnPanel(99);
@@ -117,6 +131,16 @@ namespace T_ReXcape
         }
 
         private void zielToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            setObjectOnMap("player1destination", mousePosition);
+        }
+
+        private void startToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            setObjectOnMap("player2start", mousePosition);
+        }
+
+        private void zielToolStripMenuItem3_Click(object sender, EventArgs e)
         {
             setObjectOnMap("player1destination", mousePosition);
         }
