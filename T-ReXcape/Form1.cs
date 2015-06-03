@@ -8,11 +8,11 @@ using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Threading;
+using System.Timers;
 
 // only for debug
 using System.Diagnostics;
-using System.Threading;
-using System.Timers;
 
 namespace T_ReXcape
 {
@@ -134,6 +134,7 @@ namespace T_ReXcape
             DialogResult result = MessageBox.Show("Möchten Sie dieses Objekt sicher entfernen?", "Objekt entfernen?", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
+                // @TODO eigene Animationklasse?
                 int offset = 10;
                 
                 int boomSize = (((Control)sender).Width > ((Control)sender).Height) ? ((Control)sender).Width : ((Control)sender).Height;
@@ -194,8 +195,7 @@ namespace T_ReXcape
             if (e.Button == MouseButtons.Right)
             {
                 mousePosition = new Point(e.X, e.Y);
-                // @TODO rename that
-                mapAddStuff.Show(Cursor.Position);
+                editorContextMenu.Show(Cursor.Position);
             }
         }
         

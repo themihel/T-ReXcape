@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -42,7 +42,7 @@
             this.speichernUnterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ansichtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rasterUmschaltenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mapAddStuff = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editorContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.spieler1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.zielToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,7 +73,7 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.garbageCollector = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
-            this.mapAddStuff.SuspendLayout();
+            this.editorContextMenu.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.mapTab.SuspendLayout();
             this.infoTab.SuspendLayout();
@@ -164,15 +164,15 @@
             this.rasterUmschaltenToolStripMenuItem.Text = "Raster anzeigen";
             this.rasterUmschaltenToolStripMenuItem.Click += new System.EventHandler(this.rasterUmschaltenToolStripMenuItem_Click);
             // 
-            // mapAddStuff
+            // editorContextMenu
             // 
-            this.mapAddStuff.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editorContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.spieler1ToolStripMenuItem,
             this.spieler2ToolStripMenuItem1,
             this.hindernisToolStripMenuItem,
             this.umleitungToolStripMenuItem});
-            this.mapAddStuff.Name = "mapAddStuff";
-            this.mapAddStuff.Size = new System.Drawing.Size(153, 114);
+            this.editorContextMenu.Name = "mapAddStuff";
+            this.editorContextMenu.Size = new System.Drawing.Size(153, 114);
             // 
             // spieler1ToolStripMenuItem
             // 
@@ -209,14 +209,14 @@
             // startToolStripMenuItem3
             // 
             this.startToolStripMenuItem3.Name = "startToolStripMenuItem3";
-            this.startToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.startToolStripMenuItem3.Size = new System.Drawing.Size(98, 22);
             this.startToolStripMenuItem3.Text = "Start";
             this.startToolStripMenuItem3.Click += new System.EventHandler(this.startToolStripMenuItem3_Click);
             // 
             // zielToolStripMenuItem3
             // 
             this.zielToolStripMenuItem3.Name = "zielToolStripMenuItem3";
-            this.zielToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.zielToolStripMenuItem3.Size = new System.Drawing.Size(98, 22);
             this.zielToolStripMenuItem3.Text = "Ziel";
             this.zielToolStripMenuItem3.Click += new System.EventHandler(this.zielToolStripMenuItem3_Click);
             // 
@@ -388,14 +388,14 @@
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.objectName,
@@ -405,20 +405,20 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.Size = new System.Drawing.Size(602, 353);
             this.dataGridView1.TabIndex = 0;
             // 
@@ -465,7 +465,7 @@
             this.ResizeEnd += new System.EventHandler(this.Form1_ResizeEnd);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.mapAddStuff.ResumeLayout(false);
+            this.editorContextMenu.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.mapTab.ResumeLayout(false);
             this.infoTab.ResumeLayout(false);
@@ -490,7 +490,7 @@
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage mapTab;
         private System.Windows.Forms.TabPage infoTab;
-        private System.Windows.Forms.ContextMenuStrip mapAddStuff;
+        private System.Windows.Forms.ContextMenuStrip editorContextMenu;
         private System.Windows.Forms.ToolStripMenuItem spieler1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem zielToolStripMenuItem2;
