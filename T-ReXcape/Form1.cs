@@ -20,15 +20,9 @@ namespace T_ReXcape
     {
         // variables
         Point mousePosition;
-
-        // @TODO remove after refactoring map class
-        Int32 blockSize;
-        Color activeColor;
-        Color gridColor;
+        Map map;
         Control dragDropObject = null;
-        Bitmap bgWithGrid;
-        bool isGridShown = false;
-        
+
         public Form1()
         {
             // init formComponents
@@ -41,12 +35,8 @@ namespace T_ReXcape
             openFileDialog1.Filter = Config.getMapFileFilter();
             saveFileDialog1.Filter = Config.getMapFileFilter();
 
-
-            // @TODO remove after refactoring map class
-            // setStuff
-            blockSize = Config.getBlockSize();
-            activeColor = Config.getActiveColor();
-            gridColor = Config.getGridColor();
+            // init Map as MapEditor
+            map = new Map(mapPanel, false, new System.EventHandler(dragDropMouseClick), new System.EventHandler(removeClick));
 
         }
 
@@ -57,92 +47,57 @@ namespace T_ReXcape
         // add objects
         private void addPlayer1Start(object sender, EventArgs e)
         {
-            setObjectOnMap("player1start", mousePosition);
+            map.setObjectOnMap("player1start", mousePosition);
         }
 
         private void zielToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            setObjectOnMap("player1destination", mousePosition);
+            map.setObjectOnMap("player1destination", mousePosition);
         }
 
         private void startToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            setObjectOnMap("player2start", mousePosition);
+            map.setObjectOnMap("player2start", mousePosition);
         }
 
         private void zielToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            setObjectOnMap("player2destination", mousePosition);
+            map.setObjectOnMap("player2destination", mousePosition);
         }
 
         private void mauerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            setObjectOnMap("wallv", mousePosition);
+            map.setObjectOnMap("wallv", mousePosition);
         }
 
         private void grubbeToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            setObjectOnMap("wallh", mousePosition);
+            map.setObjectOnMap("wallh", mousePosition);
         }
         
         private void rechtsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            setObjectOnMap("goright", mousePosition);
+            map.setObjectOnMap("goright", mousePosition);
         }
 
         private void linksToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            setObjectOnMap("goleft", mousePosition);
+            map.setObjectOnMap("goleft", mousePosition);
         }
 
         private void obenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            setObjectOnMap("gotop", mousePosition);
+            map.setObjectOnMap("gotop", mousePosition);
         }
 
         private void untenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            setObjectOnMap("gobottom", mousePosition);
+            map.setObjectOnMap("gobottom", mousePosition);
         }
 
         private void lochToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            setObjectOnMap("hole", mousePosition);
-        }
-
-        // auslagern Map Class
-        private void setObjectOnMap(String key, Point position)
-        {
-            if (!ItemCollection.isItemSet(key) || ItemCollection.getItemByKey(key).getMaxOnPanel() > countObjectOnPanel(key))
-            {
-                mapPanel.Controls.Add(preparePanelObject(key, position));
-            }
-        }
-
-        // auslagern Map Class
-        // prepares object to add to panel
-        private PictureBox preparePanelObject(String type, Point position)
-        {
-            Item item = ItemCollection.getItemByKey(type);
-
-            // add offset to position
-            position = getAccuratePosition(position);
-            position.X = position.X + item.getPositionOffsetX() + item.getBlockOffsetX(blockSize);
-            position.Y = position.Y + item.getPositionOffsetY() + item.getBlockOffsetY(blockSize);
-
-            Debug.WriteLine(type);
-            PictureBox img = new PictureBox();
-            img.Width = item.getWidth();
-            img.Height = item.getHeight();
-            img.BackColor = Color.Transparent;
-            img.Image = (Image)Properties.Resources.ResourceManager.GetObject(item.getBackground());
-            img.SizeMode = PictureBoxSizeMode.Zoom;
-            img.Location = position;
-            img.Name = type + countObjectOnPanel(type);
-            img.Cursor = Cursors.Hand;
-            img.Click += new System.EventHandler(dragDropMouseClick);
-            img.DoubleClick += new System.EventHandler(removeClick);
-            return img;
+            map.setObjectOnMap("hole", mousePosition);
         }
 
         // onclick drag will be activated, on second click deactivated
@@ -153,19 +108,19 @@ namespace T_ReXcape
                 if (dragDropObject == null)
                 {
                     dragDropObject = (Control)sender;
-                    dragDropObject.BackColor = activeColor;
+                    dragDropObject.BackColor = Config.getActiveColor();
 
                     // if grid not activated in settings, show it on moved object
-                    if (!isGridShown)
-                        setGridStatus(true);
+                    if (!map.getGridStatus())
+                        map.setGrid(true);
                 }
                 else
                 {
                     dragDropObject.BackColor = Color.Transparent;
                     dragDropObject = null;
 
-                    if (!isGridShown)
-                        setGridStatus(false);
+                    if (!map.getGridStatus())
+                        map.setGrid(false);
                 }
             }
         }
@@ -206,8 +161,8 @@ namespace T_ReXcape
 
                 dragDropObject = null;
 
-                if (!isGridShown)
-                    setGridStatus(false);
+                if (!map.getGridStatus())
+                    map.setGrid(false);
 
 
                 EasyTimer.SetTimeout(() =>
@@ -222,24 +177,15 @@ namespace T_ReXcape
         {
             if (dragDropObject != null)
             {
-                Point position = getAccuratePosition(e.Location);
-                Item item = ItemCollection.getItemByKey(getNameWOCounter(dragDropObject.Name));
+                Point position = Util.getAccuratePosition(e.Location, Config.getBlockSize());
+                Item item = ItemCollection.getItemByKey(Util.removeDigitsFromString(dragDropObject.Name));
                 // @TODO tidy up a little =)
-                Debug.WriteLine(item.getBlockOffsetX(blockSize));
-                position.X = position.X + item.getPositionOffsetX() + item.getBlockOffsetX(blockSize);
-                position.Y = position.Y + item.getPositionOffsetY() + item.getBlockOffsetY(blockSize);
+                Debug.WriteLine(item.getBlockOffsetX(Config.getBlockSize()));
+                position.X = position.X + item.getPositionOffsetX() + item.getBlockOffsetX(Config.getBlockSize());
+                position.Y = position.Y + item.getPositionOffsetY() + item.getBlockOffsetY(Config.getBlockSize());
 
                 dragDropObject.Location = position;
             }
-        }
-
-        // auslagern Map Class
-        // gets position depends on blocksize. position should be allways in one block
-        private Point getAccuratePosition(Point p)
-        {
-            int x = (p.X / blockSize) * blockSize;
-            int y = (p.Y / blockSize) * blockSize;
-            return new Point(x, y);
         }
 
         // opens context rightclick on map
@@ -252,200 +198,37 @@ namespace T_ReXcape
                 mapAddStuff.Show(Cursor.Position);
             }
         }
-
-        // auslagern Map Class
-        /**
-         * counts all objects on panel with same name
-         */
-        private int countObjectOnPanel(String name)
-        {
-            int result = 0;
-            foreach (Control child in mapPanel.Controls)
-            {
-                // remove last diggit to count all with same name
-                if (getNameWOCounter(child.Name).Equals(name))
-                {
-                    result++;
-                }
-            }
-            return result;
-        }
-
-        // auslagern Item Class
-        // returns name without last diggets
-        private String getNameWOCounter(String name)
-        {
-            return Regex.Replace(name, @"\d$", "");
-        }
-
-        // auslagern Map Class
-        /// <summary>
-        /// Return background / optional with grid
-        /// </summary>
-        /// <param name="withGrid">Optional with grid</param>
-        /// <returns>Bitmap Background</returns>
-        private Bitmap getBackground(bool withGrid = false)
-        {
-            Bitmap background;
-            if (withGrid)
-            {
-                // save recourses if created
-                if (bgWithGrid == null)
-                {
-                    // get original image
-                    Image bg = Properties.Resources.grass;
-                    // set pen
-                    Pen pen = new Pen(new SolidBrush(gridColor));
-                    // calculate new image size. always multiple size of block
-                    int width = (bg.Size.Width / blockSize) * blockSize;
-                    int height = (bg.Size.Height / blockSize) * blockSize;
-
-                    // create new image to draw on
-                    bgWithGrid = new Bitmap(bg, width, height);
-                    Graphics gr = Graphics.FromImage(bgWithGrid);
-                    for (int i = 0; i <= blockSize; i++)
-                    {
-                        for (int j = 0; j <= blockSize; j++)
-                        {
-                            // draw grid on new image
-                            gr.DrawRectangle(pen, i * blockSize, j * blockSize, blockSize, blockSize);
-                        }
-                    }
-                }
-                background = bgWithGrid;
-            }
-            else
-            {
-                // get original image without any changes
-                background = Properties.Resources.grass;
-            }
-            return background;
-        }
-
-        // auslagern Map Class
-        // draws and removes grid from background
-        private void setGridStatus(bool activate)
-        {
-            if (activate)
-            {
-                mapPanel.BackgroundImage = getBackground(true);
-            }
-            else
-            {
-                mapPanel.BackgroundImage = getBackground();
-            }
-        }
+        
 
         private void tabControl_Selected(object sender, TabControlEventArgs e)
         {
             // set map size
-            labelMapHeight.Text = mapPanel.Height.ToString();
-            labelMapWidth.Text = mapPanel.Width.ToString();
+            labelMapHeight.Text = map.getHeight().ToString();
+            labelMapWidth.Text = map.getWidth().ToString();
 
             dataGridView1.Rows.Clear();
             foreach (Item item in ItemCollection.getAllItems())
             {
-                dataGridView1.Rows.Add(item.getName(), item.getMaxOnPanel(), countObjectOnPanel(item.getKey()));
+                dataGridView1.Rows.Add(item.getName(), item.getMaxOnPanel(), map.getItemCount(item.getKey()));
             }
         }
 
-        // auslagern Map Class
         private void rasterUmschaltenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Toggle grid
-            if (isGridShown)
-            {
-                // Toggle checked state
-                isGridShown = false;
-
-                // set normal background
-                setGridStatus(false);
-
-                rasterUmschaltenToolStripMenuItem.Checked = false;
-            }
-            else
-            {
-                // Toggle checked state
-                isGridShown = true;
-
-                // draw grid
-                setGridStatus(true);
-
-                rasterUmschaltenToolStripMenuItem.Checked = true;
-            }
-        }
-
-        // auslagern Map Class
-        // @TODO save method still in development
-        private void saveMap(String filename)
-        {
-            IniFile mapFile = new IniFile(filename);
-
-            if (File.Exists(filename))
-            {
-                // clear file content if exists
-                System.IO.File.WriteAllText(filename, string.Empty);
-            }
-
-            // write map config
-            mapFile.IniWriteValue("config", "height", mapPanel.Height.ToString());
-            mapFile.IniWriteValue("config", "width", mapPanel.Width.ToString());
-
-            // write all objects on map
-            foreach (Control child in mapPanel.Controls)
-            {
-                String name = child.Name;
-                Point position = child.Location;
-                Item item = ItemCollection.getItemByKey(getNameWOCounter(name));
-                position.X = position.X - item.getPositionOffsetX() - item.getBlockOffsetX(blockSize);
-                position.Y = position.Y - item.getPositionOffsetY() - item.getBlockOffsetY(blockSize);
-
-                mapFile.IniWriteValue("map", name + ".x", position.X.ToString());
-                mapFile.IniWriteValue("map", name + ".y", position.Y.ToString());
-            }
-        }
-
-        // auslagern Map Class
-        // @TODO not completed yet!
-        private void loadMap(String filename)
-        {
-            if (!File.Exists(filename))
-                throw new IOException("File not exists");
-
-            // clear map panel
-            mapPanel.Controls.Clear();
-
-            IniFile mapFile = new IniFile(filename);
-
-            // load all known objects
-            foreach (Item item in ItemCollection.getAllItems())
-            {
-                int i = 0;
-                // @TODO add validation
-                // get position X as default check value
-                while (mapFile.IniReadValue("map", item.getKey() + i + ".x").Length > 0)
-                {
-                    int posX = Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".x"));
-                    int posY = Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".y"));
-
-                    setObjectOnMap(item.getKey(), new Point(posX, posY));
-
-                    i++;
-                }
-            }
+            map.toggleGrid();
+            rasterUmschaltenToolStripMenuItem.Checked = !map.getGridStatus();
         }
 
         private void neuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (mapPanel.Controls.Count > 0)
+            if (map.getItemsCount() > 0)
             {
                 // if anything is set ask for permission
                 DialogResult result = MessageBox.Show("Alle nicht gespeicherten Änderungen gehen verloren. Sind Sie sicher?", "Neue Map laden?", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     // Remove all object from panel
-                    // auslagern Map Class
-                    mapPanel.Controls.Clear();
+                    map.clear();
                 }
             }
         }
@@ -453,18 +236,18 @@ namespace T_ReXcape
         // removes grid when resizing (removes flickering)
         private void Form1_ResizeBegin(object sender, EventArgs e)
         {
-            if (isGridShown)
+            if (map.getGridStatus())
             {
-                setGridStatus(false);
+                map.setGrid(false);
             }
         }
 
         // set grid back to current status
         private void Form1_ResizeEnd(object sender, EventArgs e)
         {
-            if (isGridShown)
+            if (map.getGridStatus())
             {
-                setGridStatus(true);
+                map.setGrid(true);
             }
         }
 
@@ -472,7 +255,7 @@ namespace T_ReXcape
         private void ladenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool itemsOnMap = false;
-            if (mapPanel.Controls.Count > 0)
+            if (map.getItemsCount() > 0)
             {
                 itemsOnMap = true;
                 DialogResult result = MessageBox.Show("Möchten Sie alle vorhanden Objekte auf dem Feld vor dem Laden entfernen?", "Es befinden sich noch Objekte auf dem Feld!", MessageBoxButtons.YesNo);
@@ -482,7 +265,7 @@ namespace T_ReXcape
 
             if (!itemsOnMap && openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                loadMap(openFileDialog1.FileName);
+                map.load(openFileDialog1.FileName);
             }
         }
 
@@ -491,11 +274,11 @@ namespace T_ReXcape
         {
             try
             {
-                if (checkMapPanel())
+                if (map.checkMapPanel())
                 {
                     if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                     {
-                        saveMap(saveFileDialog1.FileName);
+                        map.save(saveFileDialog1.FileName);
                     }
                 }
             }
@@ -503,16 +286,6 @@ namespace T_ReXcape
             {
                 MessageBox.Show(exception.Message);
             }
-        }
-
-        // auslagern Map Class
-        // check all possible params before save
-        private bool checkMapPanel()
-        {
-            if (mapPanel.Controls.Count == 0)
-                throw new Exception("Es sind keine Objekte auf dem Feld.");
-
-            return true;
         }
 
         // @TODO save performance !!!
