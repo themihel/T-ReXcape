@@ -116,7 +116,7 @@ namespace T_ReXcape
         public void toggleGrid()
         {
             isGridShown = !isGridShown;
-            setGrid(!isGridShown);
+            setGrid(isGridShown);
         }
 
         /// <summary>

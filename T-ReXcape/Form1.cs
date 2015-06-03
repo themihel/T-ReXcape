@@ -216,7 +216,7 @@ namespace T_ReXcape
         private void rasterUmschaltenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             map.toggleGrid();
-            rasterUmschaltenToolStripMenuItem.Checked = !map.getGridStatus();
+            rasterUmschaltenToolStripMenuItem.Checked = map.getGridStatus();
         }
 
         private void neuToolStripMenuItem_Click(object sender, EventArgs e)
