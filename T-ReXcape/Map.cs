@@ -4,10 +4,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 // @TODO remove after debug
 using System.Diagnostics;
-using System.IO;
 
 namespace T_ReXcape
 {
@@ -131,7 +131,7 @@ namespace T_ReXcape
             }
             else
             {
-                mapPanel.BackgroundImage = getBackground();
+                mapPanel.BackgroundImage = getBackground(false);
             }
         }
 
@@ -151,7 +151,7 @@ namespace T_ReXcape
         /// saves map to specific path/file
         /// </summary>
         /// <param name="filename">path and filename</param>
-        public void save(String filename)
+        public void saveMap(String filename)
         {
             IniFile mapFile = new IniFile(filename);
 
@@ -183,13 +183,13 @@ namespace T_ReXcape
         /// loads map to specific path/file
         /// </summary>
         /// <param name="filename">path and filename</param>
-        public void load(String filename)
+        public void loadMap(String filename)
         {
             if (!File.Exists(filename))
                 throw new IOException("File not exists");
 
             // clear map panel
-            mapPanel.Controls.Clear();
+            clearMap();
 
             IniFile mapFile = new IniFile(filename);
 
@@ -214,7 +214,7 @@ namespace T_ReXcape
         /// <summary>
         /// removes all items from map
         /// </summary>
-        public void clear()
+        public void clearMap()
         {
             mapPanel.Controls.Clear();
         }

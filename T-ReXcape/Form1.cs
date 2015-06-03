@@ -36,7 +36,7 @@ namespace T_ReXcape
             saveFileDialog1.Filter = Config.getMapFileFilter();
 
             // init Map as MapEditor
-            map = new Map(mapPanel, false, new System.EventHandler(dragDropMouseClick), new System.EventHandler(removeClick));
+            map = new Map(mapPanel, true, new System.EventHandler(dragDropMouseClick), new System.EventHandler(removeClick));
 
         }
 
@@ -228,7 +228,7 @@ namespace T_ReXcape
                 if (result == DialogResult.Yes)
                 {
                     // Remove all object from panel
-                    map.clear();
+                    map.clearMap();
                 }
             }
         }
@@ -265,7 +265,7 @@ namespace T_ReXcape
 
             if (!itemsOnMap && openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                map.load(openFileDialog1.FileName);
+                map.loadMap(openFileDialog1.FileName);
             }
         }
 
@@ -278,7 +278,7 @@ namespace T_ReXcape
                 {
                     if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                     {
-                        map.save(saveFileDialog1.FileName);
+                        map.saveMap(saveFileDialog1.FileName);
                     }
                 }
             }
