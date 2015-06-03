@@ -11,6 +11,8 @@ using System.IO;
 
 // only for debug
 using System.Diagnostics;
+using System.Threading;
+using System.Timers;
 
 namespace T_ReXcape
 {
@@ -40,12 +42,14 @@ namespace T_ReXcape
             player1start.setBackground("giphy");
             player1start.setMaxOnPanel(1);
             player1start.setName("Spieler 1 Start");
+            player1start.setHookPosition(Item.positionCenter, Item.positionBottom);
             ItemCollection.addItem(player1start);
 
             Item player1destination = new Item("player1destination", 50, 80);
             player1destination.setBackground("rocket1");
             player1destination.setMaxOnPanel(1);
             player1destination.setName("Spieler 1 Ziel");
+            player1destination.setHookPosition(Item.positionCenter, Item.positionBottom);
             ItemCollection.addItem(player1destination);
 
             Item wallv = new Item("wallv", 50, 80);
@@ -83,14 +87,12 @@ namespace T_ReXcape
             gobottom.setMaxOnPanel(99);
             gobottom.setName("Bewegung - unten");
             ItemCollection.addItem(gobottom);
-
-            Item hole = new Item("hole", blockSize, blockSize);
-            hole.setBackground("hole");
+            
+            Item hole = new Item("hole", blockSize * 4, blockSize * 4);
+            hole.setBackground("moat");
             hole.setMaxOnPanel(99);
             hole.setName("Loch");
             ItemCollection.addItem(hole);
-
-
            
             // set file filters
             openFileDialog1.Filter = "T-ReXcape Map files (.xmap)|*.xmap";
@@ -165,14 +167,21 @@ namespace T_ReXcape
         // prepares object to add to panel
         private PictureBox preparePanelObject(String type, Point position)
         {
+            Item item = ItemCollection.getItemByKey(type);
+
+            // add offset to position
+            position = getAccuratePosition(position);
+            position.X = position.X + item.getPositionOffsetX() + item.getBlockOffsetX(blockSize);
+            position.Y = position.Y + item.getPositionOffsetY() + item.getBlockOffsetY(blockSize);
+
             Debug.WriteLine(type);
             PictureBox img = new PictureBox();
-            img.Width = ItemCollection.getItemByKey(type).getWidth();
-            img.Height = ItemCollection.getItemByKey(type).getHeight();
+            img.Width = item.getWidth();
+            img.Height = item.getHeight();
             img.BackColor = Color.Transparent;
-            img.Image = (Image)Properties.Resources.ResourceManager.GetObject(ItemCollection.getItemByKey(type).getBackground());
+            img.Image = (Image)Properties.Resources.ResourceManager.GetObject(item.getBackground());
             img.SizeMode = PictureBoxSizeMode.Zoom;
-            img.Location = getAccuratePosition(position);
+            img.Location = position;
             img.Name = type + countObjectOnPanel(type);
             img.Cursor = Cursors.Hand;
             img.Click += new System.EventHandler(dragDropMouseClick);
@@ -209,16 +218,47 @@ namespace T_ReXcape
         // on double click removes object
         private void removeClick(Object sender, EventArgs e)
         {
+            if (dragDropObject == null)
+                return;
+
             DialogResult result = MessageBox.Show("Möchten Sie dieses Objekt sicher entfernen?", "Objekt entfernen?", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                mapPanel.Controls.Remove((Control)sender);
+                int offset = 10;
+                
+                int boomSize = (((Control)sender).Width > ((Control)sender).Height) ? ((Control)sender).Width : ((Control)sender).Height;
+                int minSize = (((Control)sender).Width < ((Control)sender).Height) ? ((Control)sender).Width : ((Control)sender).Height;
+                
+                boomSize += offset;
+                
+                Point position = dragDropObject.Location;
+                position.X -= offset;
+                position.Y -= ((boomSize - minSize) / 2) + offset;
 
-                dragDropObject.BackColor = Color.Transparent;
+                PictureBox img = new PictureBox();
+                img.Width = boomSize;
+                img.Height = boomSize;
+                img.BackColor = Color.Transparent;
+                img.Image = (Image)Properties.Resources.ResourceManager.GetObject("spideyblast");
+                img.SizeMode = PictureBoxSizeMode.Zoom;
+                img.Location = position;
+                img.Name = "boom";
+
+                mapPanel.Controls.Add(img);
+                img.BringToFront();
+
+                ((Control)sender).Tag = "remove";
+
                 dragDropObject = null;
 
                 if (!isGridShown)
                     setGridStatus(false);
+
+
+                EasyTimer.SetTimeout(() =>
+                {
+                    img.Tag = "remove";
+                }, 1200);
             }
         }
 
@@ -227,9 +267,14 @@ namespace T_ReXcape
         {
             if (dragDropObject != null)
             {
-                dragDropObject.Location = getAccuratePosition(e.Location);
-                // @TODO remove after develop
-                Debug.WriteLine("X:" + dragDropObject.Location.X + " Y:" + dragDropObject.Location.Y);
+                Point position = getAccuratePosition(e.Location);
+                Item item = ItemCollection.getItemByKey(getNameWOCounter(dragDropObject.Name));
+                // @TODO tidy up a little =)
+                Debug.WriteLine(item.getBlockOffsetX(blockSize));
+                position.X = position.X + item.getPositionOffsetX() + item.getBlockOffsetX(blockSize);
+                position.Y = position.Y + item.getPositionOffsetY() + item.getBlockOffsetY(blockSize);
+
+                dragDropObject.Location = position;
             }
         }
 
@@ -388,8 +433,13 @@ namespace T_ReXcape
             foreach (Control child in mapPanel.Controls)
             {
                 String name = child.Name;
-                mapFile.IniWriteValue("map", name + ".x", child.Location.X.ToString());
-                mapFile.IniWriteValue("map", name + ".y", child.Location.Y.ToString());
+                Point position = child.Location;
+                Item item = ItemCollection.getItemByKey(getNameWOCounter(name));
+                position.X = position.X - item.getPositionOffsetX() - item.getBlockOffsetX(blockSize);
+                position.Y = position.Y - item.getPositionOffsetY() - item.getBlockOffsetY(blockSize);
+
+                mapFile.IniWriteValue("map", name + ".x", position.X.ToString());
+                mapFile.IniWriteValue("map", name + ".y", position.Y.ToString());
             }
         }
 
@@ -495,6 +545,20 @@ namespace T_ReXcape
                 throw new Exception("Es sind keine Objekte auf dem Feld.");
 
             return true;
+        }
+
+        private void garbageCollector_Tick(object sender, EventArgs e)
+        {
+            foreach (Control ctn in mapPanel.Controls)
+            {
+                if (ctn != null && ctn.Tag != null)
+                {
+                    if (ctn.Tag.Equals("remove"))
+                    {
+                        mapPanel.Controls.Remove(ctn);
+                    }
+                }
+            }
         }
     }
 }

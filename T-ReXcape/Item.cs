@@ -14,6 +14,14 @@ namespace T_ReXcape
         private String name;
         private Int32 width;
         private Int32 height;
+        private Int32 positionX;
+        private Int32 positionY;
+
+        public static Int32 positionLeft = 1;
+        public static Int32 positionRight = 2;
+        public static Int32 positionCenter = 3;
+        public static Int32 positionTop = 4;
+        public static Int32 positionBottom = 5;
         
         /// <summary>
         /// Constructor
@@ -28,6 +36,9 @@ namespace T_ReXcape
             key = _key;
             width = _width;
             height = _height;
+            // set default hook position
+            positionX = positionLeft;
+            positionY = positionTop;
         }
 
         /// <summary>
@@ -60,6 +71,16 @@ namespace T_ReXcape
                 maxOnPanel = _maxOnPanel;
             }
             
+        }
+
+
+        /// <summary>
+        /// set hook position. use constants!
+        /// </summary>
+        public void setHookPosition(Int32 _positionX, Int32 _positionY)
+        {
+            positionX = _positionX;
+            positionY = _positionY;
         }
 
         /// <summary>
@@ -108,6 +129,74 @@ namespace T_ReXcape
         public String getName()
         {
             return name;
+        }
+
+        /// <summary>
+        /// Returns position X offset
+        /// </summary>
+        public int getPositionOffsetX()
+        {
+            int offset = 0;
+            if (positionX == positionRight)
+            {
+                offset = width;
+            }
+            else if (positionX == positionCenter)
+            {
+                offset = width / 2;
+            }
+            return offset * -1;
+        }
+
+        /// <summary>
+        /// Returns position y offset
+        /// </summary>
+        public int getPositionOffsetY()
+        {
+            int offset = 0;
+            if (positionY == positionBottom)
+            {
+                offset = height;
+            }
+            else if (positionY == positionCenter)
+            {
+                offset = height / 2;
+            }
+            return offset * -1;
+        }
+
+        /// <summary>
+        /// Returns block X offset
+        /// </summary>
+        public int getBlockOffsetX(int blockSize)
+        {
+            int offset = 0;
+            if (positionX == positionRight)
+            {
+                offset = blockSize;
+            }
+            else if (positionX == positionCenter)
+            {
+                offset = blockSize / 2;
+            }
+            return offset;
+        }
+
+        /// <summary>
+        /// Returns position y offset
+        /// </summary>
+        public int getBlockOffsetY(int blockSize)
+        {
+            int offset = 0;
+            if (positionY == positionBottom)
+            {
+                offset = blockSize;
+            }
+            else if (positionY == positionCenter)
+            {
+                offset = blockSize / 2;
+            }
+            return offset;
         }
     }
 }

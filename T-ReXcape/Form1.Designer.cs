@@ -53,6 +53,7 @@
             this.hindernisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mauerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grubbeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.lochToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.umleitungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rechtsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,7 +72,7 @@
             this.max = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.set = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.lochToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.garbageCollector = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.mapAddStuff.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -177,7 +178,7 @@
             this.hindernisToolStripMenuItem,
             this.umleitungToolStripMenuItem});
             this.mapAddStuff.Name = "mapAddStuff";
-            this.mapAddStuff.Size = new System.Drawing.Size(153, 114);
+            this.mapAddStuff.Size = new System.Drawing.Size(131, 92);
             // 
             // spieler1ToolStripMenuItem
             // 
@@ -185,20 +186,20 @@
             this.startToolStripMenuItem2,
             this.zielToolStripMenuItem2});
             this.spieler1ToolStripMenuItem.Name = "spieler1ToolStripMenuItem";
-            this.spieler1ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.spieler1ToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.spieler1ToolStripMenuItem.Text = "Spieler 1";
             // 
             // startToolStripMenuItem2
             // 
             this.startToolStripMenuItem2.Name = "startToolStripMenuItem2";
-            this.startToolStripMenuItem2.Size = new System.Drawing.Size(98, 22);
+            this.startToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.startToolStripMenuItem2.Text = "Start";
             this.startToolStripMenuItem2.Click += new System.EventHandler(this.addPlayer1Start);
             // 
             // zielToolStripMenuItem2
             // 
             this.zielToolStripMenuItem2.Name = "zielToolStripMenuItem2";
-            this.zielToolStripMenuItem2.Size = new System.Drawing.Size(98, 22);
+            this.zielToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.zielToolStripMenuItem2.Text = "Ziel";
             this.zielToolStripMenuItem2.Click += new System.EventHandler(this.zielToolStripMenuItem2_Click);
             // 
@@ -208,7 +209,7 @@
             this.startToolStripMenuItem3,
             this.zielToolStripMenuItem3});
             this.spieler2ToolStripMenuItem1.Name = "spieler2ToolStripMenuItem1";
-            this.spieler2ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.spieler2ToolStripMenuItem1.Size = new System.Drawing.Size(130, 22);
             this.spieler2ToolStripMenuItem1.Text = "Spieler 2";
             // 
             // startToolStripMenuItem3
@@ -230,7 +231,7 @@
             this.grubbeToolStripMenuItem1,
             this.lochToolStripMenuItem});
             this.hindernisToolStripMenuItem.Name = "hindernisToolStripMenuItem";
-            this.hindernisToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hindernisToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.hindernisToolStripMenuItem.Text = "Hindernis";
             // 
             // mauerToolStripMenuItem
@@ -247,6 +248,13 @@
             this.grubbeToolStripMenuItem1.Text = "Mauer horizontal";
             this.grubbeToolStripMenuItem1.Click += new System.EventHandler(this.grubbeToolStripMenuItem1_Click);
             // 
+            // lochToolStripMenuItem
+            // 
+            this.lochToolStripMenuItem.Name = "lochToolStripMenuItem";
+            this.lochToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.lochToolStripMenuItem.Text = "Loch";
+            this.lochToolStripMenuItem.Click += new System.EventHandler(this.lochToolStripMenuItem_Click);
+            // 
             // umleitungToolStripMenuItem
             // 
             this.umleitungToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -255,7 +263,7 @@
             this.obenToolStripMenuItem,
             this.untenToolStripMenuItem});
             this.umleitungToolStripMenuItem.Name = "umleitungToolStripMenuItem";
-            this.umleitungToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.umleitungToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.umleitungToolStripMenuItem.Text = "Umleitung";
             // 
             // rechtsToolStripMenuItem
@@ -288,9 +296,9 @@
             // 
             // tabControl
             // 
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.mapTab);
             this.tabControl.Controls.Add(this.infoTab);
             this.tabControl.Location = new System.Drawing.Point(0, 27);
@@ -314,9 +322,9 @@
             // 
             // mapPanel
             // 
-            this.mapPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mapPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.mapPanel.BackColor = System.Drawing.SystemColors.Control;
             this.mapPanel.BackgroundImage = global::T_ReXcape.Properties.Resources.grass;
             this.mapPanel.Location = new System.Drawing.Point(1, 1);
@@ -381,9 +389,9 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -438,12 +446,11 @@
             this.set.ReadOnly = true;
             this.set.Width = 150;
             // 
-            // lochToolStripMenuItem
+            // garbageCollector
             // 
-            this.lochToolStripMenuItem.Name = "lochToolStripMenuItem";
-            this.lochToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.lochToolStripMenuItem.Text = "Loch";
-            this.lochToolStripMenuItem.Click += new System.EventHandler(this.lochToolStripMenuItem_Click);
+            this.garbageCollector.Enabled = true;
+            this.garbageCollector.Interval = 50;
+            this.garbageCollector.Tick += new System.EventHandler(this.garbageCollector_Tick);
             // 
             // Form1
             // 
@@ -515,6 +522,7 @@
         private System.Windows.Forms.ToolStripMenuItem obenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem untenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lochToolStripMenuItem;
+        private System.Windows.Forms.Timer garbageCollector;
     }
 }
 
