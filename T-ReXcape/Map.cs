@@ -343,29 +343,13 @@ namespace T_ReXcape
             newPos.X = newPos.X + item.getPositionOffsetX() + item.getBlockOffsetX(Config.getBlockSize());
             newPos.Y = newPos.Y + item.getPositionOffsetY() + item.getBlockOffsetY(Config.getBlockSize());
 
+            bool fit = fitInHere(newPos, item.getWidth(), item.getHeight());
 
-            bool okToMove = true;
-            foreach (Control itemControl in getAllItemsOnMap())
-            {
-                if (!itemControl.Name.Equals(obj.Name))
-                {
-                    int distanceLeft = newPos.X - (itemControl.Location.X + itemControl.Width);
-                    int distanceRight = itemControl.Location.X - (newPos.X + obj.Width);
-                    int distanceTop = itemControl.Location.Y - (newPos.Y + obj.Height);
-                    int distanceBottom = newPos.Y - (itemControl.Location.Y + itemControl.Height);
-
-                    if (distanceLeft < 0 && distanceRight < 0 && distanceTop < 0 && distanceBottom < 0)
-                    {
-                        okToMove = false;
-                    }
-                }
-            }
-
-            if (okToMove)
+            if (fit)
             {
                 obj.Location = newPos;
             }
-            return okToMove;
+            return fit;
         }
 
         public void setDragObject(Control obj)
@@ -376,6 +360,27 @@ namespace T_ReXcape
         public Control getDragObject()
         {
             return dragDropObject;
+        }
+
+        private bool fitInHere(Point position, int width, int height)
+        {
+            bool ok = true;
+            foreach (Control itemControl in getAllItemsOnMap())
+            {
+                if (!getDragObject().Name.Equals(itemControl.Name))
+                {
+                    int distanceLeft = position.X - (itemControl.Location.X + itemControl.Width);
+                    int distanceRight = itemControl.Location.X - (position.X + width);
+                    int distanceTop = itemControl.Location.Y - (position.Y + height);
+                    int distanceBottom = position.Y - (itemControl.Location.Y + itemControl.Height);
+
+                    if (distanceLeft < 0 && distanceRight < 0 && distanceTop < 0 && distanceBottom < 0)
+                    {
+                        ok = false;
+                    }
+                }
+            }
+            return ok;
         }
     }
 }
