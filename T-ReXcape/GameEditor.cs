@@ -48,57 +48,68 @@ namespace T_ReXcape
         // add objects
         private void addPlayer1Start(object sender, EventArgs e)
         {
-            map.setObjectOnMap("player1start", mousePosition);
+            if (!map.setObjectOnMap("player1start", mousePosition))
+                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void zielToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            map.setObjectOnMap("player1destination", mousePosition);
+            if (!map.setObjectOnMap("player1destination", mousePosition))
+                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void startToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            map.setObjectOnMap("player2start", mousePosition);
+            if (!map.setObjectOnMap("player2start", mousePosition))
+                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void zielToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            map.setObjectOnMap("player2destination", mousePosition);
+            if (!map.setObjectOnMap("player2destination", mousePosition))
+                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void mauerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            map.setObjectOnMap("wallv", mousePosition);
+            if (!map.setObjectOnMap("wallv", mousePosition))
+                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void grubbeToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            map.setObjectOnMap("wallh", mousePosition);
+            if (!map.setObjectOnMap("wallh", mousePosition))
+                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
         }
         
         private void rechtsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            map.setObjectOnMap("goright", mousePosition);
+            if (!map.setObjectOnMap("goright", mousePosition))
+                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void linksToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            map.setObjectOnMap("goleft", mousePosition);
+            if (!map.setObjectOnMap("goleft", mousePosition))
+                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void obenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            map.setObjectOnMap("gotop", mousePosition);
+            if (!map.setObjectOnMap("gotop", mousePosition))
+                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void untenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            map.setObjectOnMap("gobottom", mousePosition);
+            if (!map.setObjectOnMap("gobottom", mousePosition))
+                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void lochToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            map.setObjectOnMap("hole", mousePosition);
+            if(!map.setObjectOnMap("hole", mousePosition))
+                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         // onclick drag will be activated, on second click deactivated
@@ -300,7 +311,7 @@ namespace T_ReXcape
             }
         }
 
-        private void setStatusLabel(String text, int seconds = 1) 
+        private void setStatusLabel(String text, float seconds = 1) 
         {
             if (!text.Equals(statusLabel.Text))
             {
@@ -311,7 +322,7 @@ namespace T_ReXcape
                 EasyTimer.SetTimeout(() =>
                 {
                     statusLabel.Text = "-";
-                }, seconds * 1000);
+                }, (int)seconds * 1000);
             }
         }
     }

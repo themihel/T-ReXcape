@@ -280,12 +280,24 @@ namespace T_ReXcape
         /// </summary>
         /// <param name="key">item name / key</param>
         /// <param name="position">item position</param>
-        public void setObjectOnMap(String key, Point position)
+        public bool setObjectOnMap(String key, Point position)
         {
             if (!ItemCollection.isItemSet(key) || ItemCollection.getItemByKey(key).getMaxOnPanel() > getItemCount(key))
             {
-                mapPanel.Controls.Add(prepareMapItem(key, position));
+                PictureBox newItem = prepareMapItem(key, position);
+                bool checkPosition = fitInHere(newItem.Location, newItem.Width, newItem.Height);
+                if (checkPosition)
+                {
+                    mapPanel.Controls.Add(newItem);
+                }
+                else
+                {
+                    newItem = null;
+                }
+
+                return checkPosition;
             }
+            return false;
         }
 
         /// <summary>
@@ -367,7 +379,7 @@ namespace T_ReXcape
             bool ok = true;
             foreach (Control itemControl in getAllItemsOnMap())
             {
-                if (!getDragObject().Name.Equals(itemControl.Name))
+                if (getDragObject() == null || !getDragObject().Name.Equals(itemControl.Name))
                 {
                     int distanceLeft = position.X - (itemControl.Location.X + itemControl.Width);
                     int distanceRight = itemControl.Location.X - (position.X + width);
