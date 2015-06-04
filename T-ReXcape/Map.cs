@@ -33,8 +33,8 @@ namespace T_ReXcape
         private Boolean isGridShown = false;
 
         // EventHandler
-        private System.EventHandler dragDropMouseClick = null;
-        private System.EventHandler removeClick = null;
+        private System.EventHandler controlClickEventHandler = null;
+        private System.EventHandler controlDoubleClickEventHandler = null;
 
         /// <summary>
         /// initialise Map with panel / loads configs from config class
@@ -79,20 +79,20 @@ namespace T_ReXcape
         }
 
         /// <summary>
-        /// registers eventhandler for drag/drop event
+        /// registers control eventhandler for click
         /// </summary>
-        /// <param name="dragDropMouseClick">eventhandler for drag/drop event</param>
-        public void registerEHDragDropMouseClick(System.EventHandler dragDropMouseClick)
+        /// <param name="controlClickEventHandler">eventhandler for click</param>
+        public void registerControlClickEventHandler(System.EventHandler controlClickEventHandler)
         {
-            this.dragDropMouseClick = dragDropMouseClick;
+            this.controlClickEventHandler = controlClickEventHandler;
         }
 
         /// <summary>
-        /// registers eventhandler for remove event
+        /// registers control eventhandler for doubleClick
         /// </summary>
-        /// <param name="removeClick">eventhandler for remove event</param>
-        public void registerEHRemoveClick(System.EventHandler removeClick) {
-            this.removeClick = removeClick;
+        /// <param name="controlDoubleClickEventHandler">eventhandler for doubleClick</param>
+        public void registerControlDoubleClickEventHandler(System.EventHandler controlDoubleClickEventHandler) {
+            this.controlDoubleClickEventHandler = controlDoubleClickEventHandler;
         }
 
         private void itemMouseMove(object sender, MouseEventArgs e)
@@ -339,15 +339,15 @@ namespace T_ReXcape
             img.Cursor = Cursors.Hand;
 
             // if set: add remove event
-            if (dragDropMouseClick != null)
+            if (controlClickEventHandler != null)
             {
-                img.Click += dragDropMouseClick;
+                img.Click += controlClickEventHandler;
                 img.MouseMove += new MouseEventHandler(itemMouseMove);
             }
 
             // if set: add remove event
-            if (removeClick != null)
-                img.DoubleClick += removeClick;
+            if (controlDoubleClickEventHandler != null)
+                img.DoubleClick += controlDoubleClickEventHandler;
 
             // return image
             return img;

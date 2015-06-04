@@ -36,8 +36,8 @@ namespace T_ReXcape
 
             // init Map and register events
             map = new Map(mapPanel);
-            map.registerEHDragDropMouseClick(new System.EventHandler(dragDropMouseClick));
-            map.registerEHRemoveClick(new System.EventHandler(removeClick));
+            map.registerControlClickEventHandler(new System.EventHandler(dragDropMouseClick));
+            map.registerControlDoubleClickEventHandler(new System.EventHandler(removeClick));
 
         }
 
