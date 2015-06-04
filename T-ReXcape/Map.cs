@@ -70,6 +70,24 @@ namespace T_ReXcape
         }
 
         /// <summary>
+        /// returns width of map in blocks
+        /// </summary>
+        /// <returns>number of blocks (width)</returns>
+        public Int32 getWidthBlocks()
+        {
+            return pixelToBlock(mapPanel.Width);
+        }
+
+        /// <summary>
+        /// returns height of map in blocks
+        /// </summary>
+        /// <returns>number of blocks (height)</returns>
+        public Int32 getHeightBlocks()
+        {
+            return pixelToBlock(mapPanel.Height);
+        }
+
+        /// <summary>
         /// counts all elements on mapPanel
         /// </summary>
         /// <returns>returns number of all items</returns>
@@ -353,11 +371,20 @@ namespace T_ReXcape
             return img;
         }
 
+        /// <summary>
+        /// returns all controls on map
+        /// </summary>
+        /// <returns>all controls on map</returns>
         public System.Windows.Forms.Control.ControlCollection getAllItemsOnMap()
         {
             return mapPanel.Controls;
         }
 
+        /// <summary>
+        /// sets dragged object to specific position if there is enough space
+        /// </summary>
+        /// <param name="position">new position of dragged object</param>
+        /// <returns>returns if object fits or not</returns>
         public bool dragObjectToPoint(Point position)
         {
             Control obj = getDragObject();
@@ -376,19 +403,34 @@ namespace T_ReXcape
             return fit;
         }
 
+        /// <summary>
+        /// sets current dragged item
+        /// </summary>
+        /// <param name="obj">drag-object</param>
         public void setDragObject(Control obj)
         {
             dragDropObject = obj;
         }
 
+        /// <summary>
+        /// returns current dragged item
+        /// </summary>
+        /// <returns>drag-object</returns>
         public Control getDragObject()
         {
             return dragDropObject;
         }
 
-        private bool fitInHere(Point position, int width, int height)
+        /// <summary>
+        /// checks if item has enough place to fit in specific position
+        /// </summary>
+        /// <param name="position">new position of item</param>
+        /// <param name="width">width of item</param>
+        /// <param name="height">height of item</param>
+        /// <returns>return if item fits or not</returns>
+        private bool fitInHere(Point position, Int32 width, Int32 height)
         {
-            bool ok = true;
+            Boolean ok = true;
             foreach (Control itemControl in getAllItemsOnMap())
             {
                 if (getDragObject() == null || !getDragObject().Name.Equals(itemControl.Name))
@@ -407,18 +449,44 @@ namespace T_ReXcape
             return ok;
         }
 
-        public void updateMapSize(int maxWidth, int maxHeight)
+        /// <summary>
+        /// updates map size depending on pixels
+        /// </summary>
+        /// <param name="maxWidth">number of pixels (width)</param>
+        /// <param name="maxHeight">number of pixels (height)</param>
+        public void updateMapSize(Int32 maxWidth, Int32 maxHeight)
         {
             mapPanel.Width = maxWidth / blockSize * blockSize;
             mapPanel.Height = maxHeight / blockSize * blockSize;
         }
 
-        public int pixelToBlock(int pixel)
+        /// <summary>
+        /// updates map size depending on blocks
+        /// </summary>
+        /// <param name="blockWidth">number of blocks (width)</param>
+        /// <param name="blockHeight">number of blocks (height)</param>
+        public void updateMapSizeBlocks(Int32 blockWidth, Int32 blockHeight)
+        {
+            mapPanel.Width = blockToPixel(blockWidth);
+            mapPanel.Height = blockToPixel(blockHeight);
+        }
+
+        /// <summary>
+        /// calculates pixels into blocks
+        /// </summary>
+        /// <param name="pixel">number of pixels</param>
+        /// <returns>number of blocks</returns>
+        public Int32 pixelToBlock(Int32 pixel)
         {
             return pixel / blockSize;
         }
 
-        public int blockToPixel(int block)
+        /// <summary>
+        /// calculates blocksize into pixels
+        /// </summary>
+        /// <param name="block">number of blocks</param>
+        /// <returns>number of pixels</returns>
+        public Int32 blockToPixel(Int32 block)
         {
             return block * blockSize;
         }
