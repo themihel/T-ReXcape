@@ -25,8 +25,8 @@ C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.cspro
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.exe
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.pdb
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.csprojResolveAssemblyReference.cache
-D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Form1.resources
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Properties.Resources.resources
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.csproj.GenerateResource.Cache
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.exe
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.pdb
+D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.GameEditor.resources

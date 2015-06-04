@@ -1,6 +1,6 @@
 ﻿namespace T_ReXcape
 {
-    partial class Form1
+    partial class GameEditor
     {
         /// <summary>
         /// Erforderliche Designervariable.

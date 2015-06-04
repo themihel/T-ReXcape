@@ -16,14 +16,14 @@ using System.Diagnostics;
 
 namespace T_ReXcape
 {
-    public partial class Form1 : Form
+    public partial class GameEditor : Form
     {
         // variables
         Point mousePosition;
         Map map;
         Control dragDropObject = null;
 
-        public Form1()
+        public GameEditor()
         {
             // init formComponents
             InitializeComponent();

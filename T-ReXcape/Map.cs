@@ -325,23 +325,6 @@ namespace T_ReXcape
             // return image
             return img;
         }
-
-        
-
-        
-
-        
-
-        
-
-        
-
-       
-
-        
-
-        
-
         
     }
 }
