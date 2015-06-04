@@ -49,67 +49,67 @@ namespace T_ReXcape
         private void addPlayer1Start(object sender, EventArgs e)
         {
             if (!map.setObjectOnMap("player1start", mousePosition))
-                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
+                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void zielToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             if (!map.setObjectOnMap("player1destination", mousePosition))
-                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
+                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void startToolStripMenuItem3_Click(object sender, EventArgs e)
         {
             if (!map.setObjectOnMap("player2start", mousePosition))
-                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
+                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void zielToolStripMenuItem3_Click(object sender, EventArgs e)
         {
             if (!map.setObjectOnMap("player2destination", mousePosition))
-                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
+                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void mauerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!map.setObjectOnMap("wallv", mousePosition))
-                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
+                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void grubbeToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (!map.setObjectOnMap("wallh", mousePosition))
-                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
+                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
         
         private void rechtsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!map.setObjectOnMap("goright", mousePosition))
-                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
+                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void linksToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!map.setObjectOnMap("goleft", mousePosition))
-                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
+                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void obenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!map.setObjectOnMap("gotop", mousePosition))
-                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
+                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void untenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!map.setObjectOnMap("gobottom", mousePosition))
-                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
+                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void lochToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(!map.setObjectOnMap("hole", mousePosition))
-                setStatusLabel("Objekt konnte hier nicht plaziert werden.", 3);
+                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         // onclick drag will be activated, on second click deactivated
@@ -192,7 +192,7 @@ namespace T_ReXcape
             {
                 if (!map.dragObjectToPoint(e.Location))
                 {
-                    setStatusLabel("Sie können dies nicht hier hin pazieren");
+                    setStatusLabelWithTimeout("Sie können dies nicht hier hin pazieren");
                 }
             }
         }
@@ -320,9 +320,8 @@ namespace T_ReXcape
             }
         }
 
-        private void setStatusLabel(String text, float seconds = 1) 
+        private void setStatusLabelWithTimeout(String text, float seconds = 1) 
         {
-            // @TODO "setStatusLabel" shouldn't include time .. should only set label (themihel)
             if (!text.Equals(statusLabel.Text))
             {
                 // set status text
