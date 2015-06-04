@@ -19,6 +19,9 @@ namespace T_ReXcape
         // blockSize
         private Int32 blockSize;
 
+        // drag object temp var
+        Control dragDropObject;
+
         // colors
         private Color activeColor;
         private Color gridColor;
@@ -329,6 +332,50 @@ namespace T_ReXcape
         public System.Windows.Forms.Control.ControlCollection getAllItemsOnMap()
         {
             return mapPanel.Controls;
+        }
+
+        public bool dragObjectToPoint(Point position)
+        {
+            Control obj = getDragObject();
+            Point newPos = Util.getAccuratePosition(position, Config.getBlockSize());
+            Item item = ItemCollection.getItemByKey(Util.removeDigitsFromString(obj.Name));
+            // @TODO tidy up a little =)
+            newPos.X = newPos.X + item.getPositionOffsetX() + item.getBlockOffsetX(Config.getBlockSize());
+            newPos.Y = newPos.Y + item.getPositionOffsetY() + item.getBlockOffsetY(Config.getBlockSize());
+
+
+            bool okToMove = true;
+            foreach (Control itemControl in getAllItemsOnMap())
+            {
+                if (!itemControl.Name.Equals(obj.Name))
+                {
+                    int distanceLeft = newPos.X - (itemControl.Location.X + itemControl.Width);
+                    int distanceRight = itemControl.Location.X - (newPos.X + obj.Width);
+                    int distanceTop = itemControl.Location.Y - (newPos.Y + obj.Height);
+                    int distanceBottom = newPos.Y - (itemControl.Location.Y + itemControl.Height);
+
+                    if (distanceLeft < 0 && distanceRight < 0 && distanceTop < 0 && distanceBottom < 0)
+                    {
+                        okToMove = false;
+                    }
+                }
+            }
+
+            if (okToMove)
+            {
+                obj.Location = newPos;
+            }
+            return okToMove;
+        }
+
+        public void setDragObject(Control obj)
+        {
+            dragDropObject = obj;
+        }
+
+        public Control getDragObject()
+        {
+            return dragDropObject;
         }
     }
 }

@@ -21,7 +21,6 @@ namespace T_ReXcape
         // variables
         Point mousePosition;
         Map map;
-        Control dragDropObject = null;
 
         public GameEditor()
         {
@@ -107,10 +106,10 @@ namespace T_ReXcape
         {
             if (sender.GetType().IsSubclassOf(typeof(Control)))
             {
-                if (dragDropObject == null)
+                if (map.getDragObject() == null)
                 {
-                    dragDropObject = (Control)sender;
-                    dragDropObject.BackColor = Config.getActiveColor();
+                    map.setDragObject((Control)sender);
+                    map.getDragObject().BackColor = Config.getActiveColor();
 
                     // if grid not activated in settings, show it on moved object
                     if (!map.getGridStatus())
@@ -118,8 +117,8 @@ namespace T_ReXcape
                 }
                 else
                 {
-                    dragDropObject.BackColor = Color.Transparent;
-                    dragDropObject = null;
+                    map.getDragObject().BackColor = Color.Transparent;
+                    map.setDragObject(null);
 
                     if (!map.getGridStatus())
                         map.setGrid(false);
@@ -130,7 +129,7 @@ namespace T_ReXcape
         // on double click removes object
         private void removeClick(Object sender, EventArgs e)
         {
-            if (dragDropObject == null)
+            if (map.getDragObject() == null)
                 return;
 
             DialogResult result = MessageBox.Show("Möchten Sie dieses Objekt sicher entfernen?", "Objekt entfernen?", MessageBoxButtons.YesNo);
@@ -143,8 +142,8 @@ namespace T_ReXcape
                 int minSize = (((Control)sender).Width < ((Control)sender).Height) ? ((Control)sender).Width : ((Control)sender).Height;
                 
                 boomSize += offset;
-                
-                Point position = dragDropObject.Location;
+
+                Point position = map.getDragObject().Location;
                 position.X -= offset;
                 position.Y -= ((boomSize - minSize) / 2) + offset;
 
@@ -162,7 +161,7 @@ namespace T_ReXcape
 
                 ((Control)sender).Tag = "remove";
 
-                dragDropObject = null;
+                map.setDragObject(null);
 
                 if (!map.getGridStatus())
                     map.setGrid(false);
@@ -178,34 +177,12 @@ namespace T_ReXcape
         // moves locked object with mouse move
         private void mapPanel_MouseMove(object sender, MouseEventArgs e)
         {
-            if (dragDropObject != null)
+            if (map.getDragObject() != null)
             {
-                Point position = Util.getAccuratePosition(e.Location, Config.getBlockSize());
-                Item item = ItemCollection.getItemByKey(Util.removeDigitsFromString(dragDropObject.Name));
-                // @TODO tidy up a little =)
-                position.X = position.X + item.getPositionOffsetX() + item.getBlockOffsetX(Config.getBlockSize());
-                position.Y = position.Y + item.getPositionOffsetY() + item.getBlockOffsetY(Config.getBlockSize());
-
-
-                bool okToMove = true;
-                foreach (Control itemControl in map.getAllItemsOnMap())
+                if (!map.dragObjectToPoint(e.Location))
                 {
-                    if (!itemControl.Name.Equals(dragDropObject.Name))
-                    {
-                        int distanceLeft = position.X - (itemControl.Location.X + itemControl.Width);
-                        int distanceRight = itemControl.Location.X - (position.X + dragDropObject.Width);
-                        int distanceTop = itemControl.Location.Y - (position.Y + dragDropObject.Height);
-                        int distanceBottom = position.Y - (itemControl.Location.Y + itemControl.Height);
-
-                        if (distanceLeft < 0 && distanceRight < 0 && distanceTop < 0 && distanceBottom < 0)
-                        {
-                            okToMove = false;
-                        }
-                    }
+                    setStatusLabel("Sie können dies nicht hier hin pazieren");
                 }
-
-                if (okToMove)
-                    dragDropObject.Location = position;
             }
         }
 
@@ -320,6 +297,21 @@ namespace T_ReXcape
                         mapPanel.Controls.Remove(ctn);
                     }
                 }
+            }
+        }
+
+        private void setStatusLabel(String text, int seconds = 1) 
+        {
+            if (!text.Equals(statusLabel.Text))
+            {
+                // set status text
+                statusLabel.Text = text;
+
+                // reset after delay
+                EasyTimer.SetTimeout(() =>
+                {
+                    statusLabel.Text = "-";
+                }, seconds * 1000);
             }
         }
     }
