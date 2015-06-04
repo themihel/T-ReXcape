@@ -183,11 +183,29 @@ namespace T_ReXcape
                 Point position = Util.getAccuratePosition(e.Location, Config.getBlockSize());
                 Item item = ItemCollection.getItemByKey(Util.removeDigitsFromString(dragDropObject.Name));
                 // @TODO tidy up a little =)
-                Debug.WriteLine(item.getBlockOffsetX(Config.getBlockSize()));
                 position.X = position.X + item.getPositionOffsetX() + item.getBlockOffsetX(Config.getBlockSize());
                 position.Y = position.Y + item.getPositionOffsetY() + item.getBlockOffsetY(Config.getBlockSize());
 
-                dragDropObject.Location = position;
+
+                bool okToMove = true;
+                foreach (Control itemControl in map.getAllItemsOnMap())
+                {
+                    if (!itemControl.Name.Equals(dragDropObject.Name))
+                    {
+                        int distanceLeft = position.X - (itemControl.Location.X + itemControl.Width);
+                        int distanceRight = itemControl.Location.X - (position.X + dragDropObject.Width);
+                        int distanceTop = itemControl.Location.Y - (position.Y + dragDropObject.Height);
+                        int distanceBottom = position.Y - (itemControl.Location.Y + itemControl.Height);
+
+                        if (distanceLeft < 0 && distanceRight < 0 && distanceTop < 0 && distanceBottom < 0)
+                        {
+                            okToMove = false;
+                        }
+                    }
+                }
+
+                if (okToMove)
+                    dragDropObject.Location = position;
             }
         }
 

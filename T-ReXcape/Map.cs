@@ -325,6 +325,10 @@ namespace T_ReXcape
             // return image
             return img;
         }
-        
+
+        public System.Windows.Forms.Control.ControlCollection getAllItemsOnMap()
+        {
+            return mapPanel.Controls;
+        }
     }
 }

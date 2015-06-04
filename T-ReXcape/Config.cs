@@ -51,13 +51,13 @@ namespace T_ReXcape
             player2destination.setHookPosition(Item.positionCenter, Item.positionBottom);
             ItemCollection.addItem(player2destination);
 
-            Item wallv = new Item("wallv", 3 * blockSize, 4 * blockSize);
+            Item wallv = new Item("wallv", 2 * blockSize, 4 * blockSize);
             wallv.setBackground("wallv");
             wallv.setMaxOnPanel(99);
             wallv.setName("Mauer vertikal");
             ItemCollection.addItem(wallv);
 
-            Item wallh = new Item("wallh", 4 * blockSize, 3 * blockSize);
+            Item wallh = new Item("wallh", 4 * blockSize, 2 * blockSize);
             wallh.setBackground("wallh");
             wallh.setMaxOnPanel(99);
             wallh.setName("Mauer horizontal");
