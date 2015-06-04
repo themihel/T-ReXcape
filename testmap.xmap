@@ -1,6 +1,6 @@
 [config]
 height=20
-width=27
+width=50
 [map]
 player1destination0.x=14
 player1destination0.y=3

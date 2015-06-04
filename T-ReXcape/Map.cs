@@ -212,24 +212,58 @@ namespace T_ReXcape
             // clear map panel
             clearMap();
 
+            // open file
             IniFile mapFile = new IniFile(filename);
 
-            // load all known objects
-            foreach (Item item in ItemCollection.getAllItems())
+            try
             {
-                int i = 0;
-                // @TODO add validation. nothing happen with map size!
-                // get position X as default check value
-                while (mapFile.IniReadValue("map", item.getKey() + i + ".x").Length > 0)
+                // init validation
+                Validate validation = new Validate(mapFile);
+
+                // set config keys
+                String[] configKeys = { "width", "height" };
+
+                // validate config keys
+                if (validation.validateKeyGroup("config", configKeys)) {
+                    // set size
+                    updateMapSizeBlocks(Convert.ToInt32(mapFile.IniReadValue("config", "width")), Convert.ToInt32(mapFile.IniReadValue("config", "height")));
+                }
+                else
                 {
-                    int posX = blockToPixel(Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".x")));
-                    int posY = blockToPixel(Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".y")));
+                    // throw exception
+                    throw new Exception("Fehler beim Laden der Map!");
+                }
 
-                    setObjectOnMap(item.getKey(), new Point(posX, posY));
+                // set item checkParams
+                String[] itemCheckParams = { ".x", ".y" };
 
-                    i++;
+                // @TODO better key check
+                // load all known objects
+                foreach (Item item in ItemCollection.getAllItems())
+                {
+                    // index
+                    int i = 0;
+
+                    // validate Item
+                    while(validation.validateKeyParams("map", item.getKey(), i, itemCheckParams))
+                    {
+                        // get Item position
+                        int posX = blockToPixel(Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".x")));
+                        int posY = blockToPixel(Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".y")));
+                        // set item on map
+                        setObjectOnMap(item.getKey(), new Point(posX, posY));
+                        // increment index
+                        i++;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                // show error message
+                MessageBox.Show(ex.Message, "Fehler beim Laden der Map");
+            }
+
+            
         }
 
         /// <summary>
