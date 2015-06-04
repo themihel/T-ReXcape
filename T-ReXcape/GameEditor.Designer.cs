@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.neuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,8 +63,8 @@
             this.mapTab = new System.Windows.Forms.TabPage();
             this.mapPanel = new System.Windows.Forms.Panel();
             this.infoTab = new System.Windows.Forms.TabPage();
-            this.labelMapHeight = new System.Windows.Forms.Label();
-            this.labelMapWidth = new System.Windows.Forms.Label();
+            this.NUD_panelWidth = new System.Windows.Forms.NumericUpDown();
+            this.NUD_panelHeight = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -72,13 +73,14 @@
             this.set = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.garbageCollector = new System.Windows.Forms.Timer(this.components);
-            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.editorContextMenu.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.mapTab.SuspendLayout();
             this.infoTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NUD_panelWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUD_panelHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,6 +97,12 @@
             this.statusStrip1.Size = new System.Drawing.Size(624, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(12, 17);
+            this.statusLabel.Text = "-";
             // 
             // menuStrip1
             // 
@@ -123,7 +131,7 @@
             this.neuToolStripMenuItem.Name = "neuToolStripMenuItem";
             this.neuToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.neuToolStripMenuItem.ShowShortcutKeys = false;
-            this.neuToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.neuToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.neuToolStripMenuItem.Text = "&Neu";
             this.neuToolStripMenuItem.Click += new System.EventHandler(this.neuToolStripMenuItem_Click);
             // 
@@ -132,7 +140,7 @@
             this.ladenToolStripMenuItem.Name = "ladenToolStripMenuItem";
             this.ladenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.ladenToolStripMenuItem.ShowShortcutKeys = false;
-            this.ladenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ladenToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.ladenToolStripMenuItem.Text = "&Öffnen";
             this.ladenToolStripMenuItem.Click += new System.EventHandler(this.ladenToolStripMenuItem_Click);
             // 
@@ -141,14 +149,14 @@
             this.speichernToolStripMenuItem.Name = "speichernToolStripMenuItem";
             this.speichernToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.speichernToolStripMenuItem.ShowShortcutKeys = false;
-            this.speichernToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.speichernToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.speichernToolStripMenuItem.Text = "&Speichern";
             this.speichernToolStripMenuItem.Click += new System.EventHandler(this.speichernToolStripMenuItem_Click);
             // 
             // speichernUnterToolStripMenuItem
             // 
             this.speichernUnterToolStripMenuItem.Name = "speichernUnterToolStripMenuItem";
-            this.speichernUnterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.speichernUnterToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.speichernUnterToolStripMenuItem.Text = "&Beenden";
             // 
             // ansichtToolStripMenuItem
@@ -296,9 +304,9 @@
             // 
             // tabControl
             // 
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.mapTab);
             this.tabControl.Controls.Add(this.infoTab);
             this.tabControl.Location = new System.Drawing.Point(0, 27);
@@ -332,8 +340,8 @@
             // 
             // infoTab
             // 
-            this.infoTab.Controls.Add(this.labelMapHeight);
-            this.infoTab.Controls.Add(this.labelMapWidth);
+            this.infoTab.Controls.Add(this.NUD_panelWidth);
+            this.infoTab.Controls.Add(this.NUD_panelHeight);
             this.infoTab.Controls.Add(this.label2);
             this.infoTab.Controls.Add(this.label1);
             this.infoTab.Controls.Add(this.dataGridView1);
@@ -345,28 +353,46 @@
             this.infoTab.Text = "Infos";
             this.infoTab.UseVisualStyleBackColor = true;
             // 
-            // labelMapHeight
+            // NUD_panelWidth
             // 
-            this.labelMapHeight.AutoSize = true;
-            this.labelMapHeight.Location = new System.Drawing.Point(80, 54);
-            this.labelMapHeight.Name = "labelMapHeight";
-            this.labelMapHeight.Size = new System.Drawing.Size(13, 13);
-            this.labelMapHeight.TabIndex = 4;
-            this.labelMapHeight.Text = "0";
+            this.NUD_panelWidth.Location = new System.Drawing.Point(61, 44);
+            this.NUD_panelWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NUD_panelWidth.Name = "NUD_panelWidth";
+            this.NUD_panelWidth.Size = new System.Drawing.Size(45, 20);
+            this.NUD_panelWidth.TabIndex = 7;
+            this.NUD_panelWidth.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NUD_panelWidth.Leave += new System.EventHandler(this.NUD_panelWidth_Leave);
             // 
-            // labelMapWidth
+            // NUD_panelHeight
             // 
-            this.labelMapWidth.AutoSize = true;
-            this.labelMapWidth.Location = new System.Drawing.Point(80, 72);
-            this.labelMapWidth.Name = "labelMapWidth";
-            this.labelMapWidth.Size = new System.Drawing.Size(13, 13);
-            this.labelMapWidth.TabIndex = 3;
-            this.labelMapWidth.Text = "0";
+            this.NUD_panelHeight.Location = new System.Drawing.Point(61, 70);
+            this.NUD_panelHeight.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NUD_panelHeight.Name = "NUD_panelHeight";
+            this.NUD_panelHeight.Size = new System.Drawing.Size(45, 20);
+            this.NUD_panelHeight.TabIndex = 6;
+            this.NUD_panelHeight.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NUD_panelHeight.Leave += new System.EventHandler(this.NUD_panelHeight_Leave);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 54);
+            this.label2.Location = new System.Drawing.Point(9, 72);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(36, 13);
             this.label2.TabIndex = 2;
@@ -375,7 +401,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 72);
+            this.label1.Location = new System.Drawing.Point(9, 46);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(37, 13);
             this.label1.TabIndex = 1;
@@ -385,17 +411,17 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.objectName,
@@ -405,20 +431,20 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridView1.Size = new System.Drawing.Size(602, 353);
             this.dataGridView1.TabIndex = 0;
             // 
@@ -448,12 +474,6 @@
             this.garbageCollector.Interval = 50;
             this.garbageCollector.Tick += new System.EventHandler(this.garbageCollector_Tick);
             // 
-            // statusLabel
-            // 
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(12, 17);
-            this.statusLabel.Text = "-";
-            // 
             // GameEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -469,7 +489,6 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResizeBegin += new System.EventHandler(this.Form1_ResizeBegin);
             this.ResizeEnd += new System.EventHandler(this.Form1_ResizeEnd);
-            this.Resize += new System.EventHandler(this.GameEditor_Resize);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -479,6 +498,8 @@
             this.mapTab.ResumeLayout(false);
             this.infoTab.ResumeLayout(false);
             this.infoTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NUD_panelWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NUD_panelHeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -514,8 +535,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn objectName;
         private System.Windows.Forms.DataGridViewTextBoxColumn max;
         private System.Windows.Forms.DataGridViewTextBoxColumn set;
-        private System.Windows.Forms.Label labelMapHeight;
-        private System.Windows.Forms.Label labelMapWidth;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem ansichtToolStripMenuItem;
@@ -528,6 +547,8 @@
         private System.Windows.Forms.ToolStripMenuItem lochToolStripMenuItem;
         private System.Windows.Forms.Timer garbageCollector;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
+        private System.Windows.Forms.NumericUpDown NUD_panelWidth;
+        private System.Windows.Forms.NumericUpDown NUD_panelHeight;
     }
 }
 

@@ -210,15 +210,23 @@ namespace T_ReXcape
 
         private void tabControl_Selected(object sender, TabControlEventArgs e)
         {
-            // set map size
-            labelMapHeight.Text = map.pixelToBlock(map.getHeight()).ToString();
-            labelMapWidth.Text = map.pixelToBlock(map.getWidth()).ToString();
-
-            dataGridView1.Rows.Clear();
-            foreach (Item item in ItemCollection.getAllItems())
+            // only execute if infos page opened
+            if (e.TabPageIndex == 1)
             {
-                dataGridView1.Rows.Add(item.getName(), item.getMaxOnPanel(), map.getItemCount(item.getKey()));
+                // set map size
+                NUD_panelWidth.Value = map.getWidthBlocks();
+                NUD_panelHeight.Value = map.getHeightBlocks();
+
+                // clear grid view
+                dataGridView1.Rows.Clear();
+
+                // show map/item information
+                foreach (Item item in ItemCollection.getAllItems())
+                {
+                    dataGridView1.Rows.Add(item.getName(), item.getMaxOnPanel(), map.getItemCount(item.getKey()));
+                }
             }
+            
         }
 
         private void rasterUmschaltenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -258,11 +266,6 @@ namespace T_ReXcape
                 map.setGrid(true);
             }
             
-        }
-
-        private void GameEditor_Resize(object sender, EventArgs e)
-        {
-            map.updateMapSize(mapTab.Width, mapTab.Height);
         }
 
         // auslagern Map Class
@@ -319,6 +322,7 @@ namespace T_ReXcape
 
         private void setStatusLabel(String text, float seconds = 1) 
         {
+            // @TODO "setStatusLabel" shouldn't include time .. should only set label (themihel)
             if (!text.Equals(statusLabel.Text))
             {
                 // set status text
@@ -330,6 +334,16 @@ namespace T_ReXcape
                     statusLabel.Text = "-";
                 }, (int)seconds * 1000);
             }
+        }
+
+        private void NUD_panelWidth_Leave(object sender, EventArgs e)
+        {
+            map.updateMapSizeBlocks(Convert.ToInt32(NUD_panelWidth.Value), Convert.ToInt32(NUD_panelHeight.Value));
+        }
+
+        private void NUD_panelHeight_Leave(object sender, EventArgs e)
+        {
+            map.updateMapSizeBlocks(Convert.ToInt32(NUD_panelWidth.Value), Convert.ToInt32(NUD_panelHeight.Value));
         }
     }
 }
