@@ -211,8 +211,8 @@ namespace T_ReXcape
         private void tabControl_Selected(object sender, TabControlEventArgs e)
         {
             // set map size
-            labelMapHeight.Text = map.getHeight().ToString();
-            labelMapWidth.Text = map.getWidth().ToString();
+            labelMapHeight.Text = map.pixelToBlock(map.getHeight()).ToString();
+            labelMapWidth.Text = map.pixelToBlock(map.getWidth()).ToString();
 
             dataGridView1.Rows.Clear();
             foreach (Item item in ItemCollection.getAllItems())
@@ -257,6 +257,12 @@ namespace T_ReXcape
             {
                 map.setGrid(true);
             }
+            
+        }
+
+        private void GameEditor_Resize(object sender, EventArgs e)
+        {
+            map.updateMapSize(mapTab.Width, mapTab.Height);
         }
 
         // auslagern Map Class

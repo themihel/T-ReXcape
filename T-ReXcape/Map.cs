@@ -165,8 +165,8 @@ namespace T_ReXcape
             }
 
             // write map config
-            mapFile.IniWriteValue("config", "height", mapPanel.Height.ToString());
-            mapFile.IniWriteValue("config", "width", mapPanel.Width.ToString());
+            mapFile.IniWriteValue("config", "height", pixelToBlock(mapPanel.Height).ToString());
+            mapFile.IniWriteValue("config", "width", pixelToBlock(mapPanel.Width).ToString());
 
             // write all objects on map
             foreach (Control child in mapPanel.Controls)
@@ -177,8 +177,8 @@ namespace T_ReXcape
                 position.X = position.X - item.getPositionOffsetX() - item.getBlockOffsetX(blockSize);
                 position.Y = position.Y - item.getPositionOffsetY() - item.getBlockOffsetY(blockSize);
 
-                mapFile.IniWriteValue("map", name + ".x", position.X.ToString());
-                mapFile.IniWriteValue("map", name + ".y", position.Y.ToString());
+                mapFile.IniWriteValue("map", name + ".x", pixelToBlock(position.X).ToString());
+                mapFile.IniWriteValue("map", name + ".y", pixelToBlock(position.Y).ToString());
             }
         }
 
@@ -200,12 +200,12 @@ namespace T_ReXcape
             foreach (Item item in ItemCollection.getAllItems())
             {
                 int i = 0;
-                // @TODO add validation
+                // @TODO add validation. nothing happen with map size!
                 // get position X as default check value
                 while (mapFile.IniReadValue("map", item.getKey() + i + ".x").Length > 0)
                 {
-                    int posX = Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".x"));
-                    int posY = Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".y"));
+                    int posX = blockToPixel(Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".x")));
+                    int posY = blockToPixel(Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".y")));
 
                     setObjectOnMap(item.getKey(), new Point(posX, posY));
 
@@ -405,6 +405,22 @@ namespace T_ReXcape
                 }
             }
             return ok;
+        }
+
+        public void updateMapSize(int maxWidth, int maxHeight)
+        {
+            mapPanel.Width = maxWidth / blockSize * blockSize;
+            mapPanel.Height = maxHeight / blockSize * blockSize;
+        }
+
+        public int pixelToBlock(int pixel)
+        {
+            return pixel / blockSize;
+        }
+
+        public int blockToPixel(int block)
+        {
+            return block * blockSize;
         }
     }
 }
