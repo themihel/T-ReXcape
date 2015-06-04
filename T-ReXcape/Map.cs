@@ -95,6 +95,15 @@ namespace T_ReXcape
             this.removeClick = removeClick;
         }
 
+        private void itemMouseMove(object sender, MouseEventArgs e)
+        {
+            if (getDragObject() != null)
+            {
+                Point newPos = new Point(((Control)sender).Location.X + e.X, ((Control)sender).Location.Y + e.Y);
+                dragObjectToPoint(newPos);
+            }
+        }
+
         /// <summary>
         /// returns current status of grid
         /// </summary>
@@ -331,7 +340,10 @@ namespace T_ReXcape
 
             // if set: add remove event
             if (dragDropMouseClick != null)
+            {
                 img.Click += dragDropMouseClick;
+                img.MouseMove += new MouseEventHandler(itemMouseMove);
+            }
 
             // if set: add remove event
             if (removeClick != null)
