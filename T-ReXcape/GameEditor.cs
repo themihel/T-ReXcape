@@ -147,10 +147,12 @@ namespace T_ReXcape
             if (result == DialogResult.Yes)
             {
                 // @TODO eigene Animationklasse?
-                int offset = 10;
+                PictureBox obj = sender as PictureBox;
                 
-                int boomSize = (((Control)sender).Width > ((Control)sender).Height) ? ((Control)sender).Width : ((Control)sender).Height;
-                int minSize = (((Control)sender).Width < ((Control)sender).Height) ? ((Control)sender).Width : ((Control)sender).Height;
+                int offset = 10;
+
+                int boomSize = (obj.Width > obj.Height) ? obj.Width : obj.Height;
+                int minSize = (obj.Width < obj.Height) ? obj.Width : obj.Height;
                 
                 boomSize += offset;
 
@@ -170,7 +172,8 @@ namespace T_ReXcape
                 mapPanel.Controls.Add(img);
                 img.BringToFront();
 
-                ((Control)sender).Tag = "remove";
+                obj.Image = null;
+                obj.BackColor = Color.Transparent;
 
                 map.setDragObject(null);
 
@@ -180,7 +183,7 @@ namespace T_ReXcape
 
                 EasyTimer.SetTimeout(() =>
                 {
-                    img.Tag = "remove";
+                    img.Image = null;
                 }, 1200);
             }
         }
@@ -305,14 +308,13 @@ namespace T_ReXcape
             }
         }
 
-        // @TODO save performance !!!
         private void garbageCollector_Tick(object sender, EventArgs e)
         {
-            foreach (Control ctn in mapPanel.Controls)
+            foreach (PictureBox ctn in mapPanel.Controls)
             {
-                if (ctn != null && ctn.Tag != null)
+                if (ctn != null && ctn is PictureBox)
                 {
-                    if (ctn.Tag.Equals("remove"))
+                    if (ctn.Image == null)
                     {
                         mapPanel.Controls.Remove(ctn);
                     }
