@@ -346,5 +346,10 @@ namespace T_ReXcape
         {
             map.updateMapSizeBlocks(Convert.ToInt32(NUD_panelWidth.Value), Convert.ToInt32(NUD_panelHeight.Value));
         }
+
+        private void speichernUnterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

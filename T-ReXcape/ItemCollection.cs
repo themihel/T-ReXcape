@@ -49,5 +49,10 @@ namespace T_ReXcape
         {
             return items;
         }
+
+        static public void disposeAllItems()
+        {
+            items = new List<Item>();
+        }
     }
 }

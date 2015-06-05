@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.IO;
+using System.Diagnostics;
 
 namespace T_ReXcape
 {
@@ -30,6 +32,15 @@ namespace T_ReXcape
         static public String removeDigitsFromString(String s)
         {
             return Regex.Replace(s, @"\d$", "");
+        }
+
+        static public bool validateMapFilePath(String file)
+        {
+            Debug.WriteLine(Path.GetExtension(file));
+            if (File.Exists(file) && Path.GetExtension(file).Equals(".xmap")) {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -14,11 +14,14 @@ namespace T_ReXcape
         public StartUp()
         {
             InitializeComponent();
+            openFileDialog1.Filter = Config.getMapFileFilter();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
+            Config.setDefaultBlockSize();
+            ItemCollection.disposeAllItems();
             GameEditor editor = new GameEditor();
             // when editor closed, close main (StartUp) form to close programm
             editor.FormClosed += (s, args) => this.Close();
@@ -27,11 +30,15 @@ namespace T_ReXcape
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Game game = new Game(Config.getFullscreen());
-            // when editor closed, close main (StartUp) form to close programm
-            game.FormClosed += (s, args) => this.Close();
-            game.Show();
+            if (openFileDialog1.ShowDialog() == DialogResult.OK && Util.validateMapFilePath(openFileDialog1.FileName))
+            {
+                this.Hide();
+                Game game = new Game(Config.getFullscreen());
+                // when editor closed, close main (StartUp) form to close programm
+                game.FormClosed += (s, args) => this.Show();
+                game.loadFile(openFileDialog1.FileName);
+                game.Show();
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)

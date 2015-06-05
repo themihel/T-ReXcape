@@ -9,7 +9,8 @@ namespace T_ReXcape
     static class Config
     {
         // blockSize
-        static private Int32 blockSize = 20;
+        static private Int32 defaultBlockSize = 20;
+        static private Int32 blockSize = defaultBlockSize;
 
         // fileFilters
         static private String mapFileFilter = "T-ReXcape Map files (.xmap)|*.xmap";
@@ -17,6 +18,18 @@ namespace T_ReXcape
         // colors
         static private Color activeColor = Color.Red;
         static private Color gridColor = Color.Gray;
+
+
+
+        static public void setBlockSize(int size)
+        {
+            blockSize = size;
+        }
+
+        static public void setDefaultBlockSize()
+        {
+            blockSize = defaultBlockSize;
+        }
 
         /// <summary>
         /// Init all set items to Itemcollection
@@ -92,6 +105,11 @@ namespace T_ReXcape
             hole.setMaxOnPanel(99);
             hole.setName("Loch");
             ItemCollection.addItem(hole);
+        }
+
+        static public void disposeAllItems()
+        {
+            ItemCollection.disposeAllItems();
         }
 
         /// <summary>

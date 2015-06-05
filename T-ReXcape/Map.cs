@@ -262,8 +262,6 @@ namespace T_ReXcape
                 // show error message
                 MessageBox.Show(ex.Message, "Fehler beim Laden der Map");
             }
-
-            
         }
 
         /// <summary>
