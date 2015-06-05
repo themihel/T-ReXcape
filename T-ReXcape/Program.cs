@@ -15,7 +15,7 @@ namespace T_ReXcape
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GameEditor());
+            Application.Run(new StartUp());
         }
     }
 }
