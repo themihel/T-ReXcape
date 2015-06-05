@@ -129,5 +129,40 @@ namespace T_ReXcape
         {
             return gridColor;
         }
+
+        static public void setFullscreen(bool value)
+        {
+            Properties.Settings.Default.fullscreen = value;
+        }
+
+        static public bool getFullscreen()
+        {
+            return Properties.Settings.Default.fullscreen;
+        }
+
+        static public void setPlayMusic(bool value)
+        {
+            Properties.Settings.Default.playMusic = value;
+        }
+
+        static public bool getPlayMusic()
+        {
+            return Properties.Settings.Default.playMusic;
+        }
+
+        static public void setPlaySoundEffects(bool value)
+        {
+            Properties.Settings.Default.playSoundEffects = value;
+        }
+
+        static public bool getPlaySoundEffects()
+        {
+            return Properties.Settings.Default.playSoundEffects;
+        }
+
+        static public void saveSettings()
+        {
+            Properties.Settings.Default.Save();
+        }
     }
 }

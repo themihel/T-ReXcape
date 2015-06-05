@@ -28,7 +28,7 @@ namespace T_ReXcape
         private void button2_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Game game = new Game(goFullscreenCheck.Checked);
+            Game game = new Game(Config.getFullscreen());
             // when editor closed, close main (StartUp) form to close programm
             game.FormClosed += (s, args) => this.Close();
             game.Show();
@@ -37,6 +37,18 @@ namespace T_ReXcape
         private void button3_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void goFullscreenCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox check = sender as CheckBox;
+            Config.setFullscreen(check.Checked);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Settings settings = new Settings();
+            settings.ShowDialog();
         }
     }
 }
