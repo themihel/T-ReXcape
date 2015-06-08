@@ -36,6 +36,9 @@ namespace T_ReXcape
         private System.EventHandler controlClickEventHandler = null;
         private System.EventHandler controlDoubleClickEventHandler = null;
 
+        // loaded file
+        IniFile mapFile;
+
         /// <summary>
         /// initialise Map with panel / loads configs from config class
         /// </summary>
@@ -113,6 +116,11 @@ namespace T_ReXcape
             this.controlDoubleClickEventHandler = controlDoubleClickEventHandler;
         }
 
+        /// <summary>
+        /// action handler for mouse movement on item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void itemMouseMove(object sender, MouseEventArgs e)
         {
             if (getDragObject() != null)
@@ -174,7 +182,7 @@ namespace T_ReXcape
         /// <param name="filename">path and filename</param>
         public void saveMap(String filename)
         {
-            IniFile mapFile = new IniFile(filename);
+            mapFile = new IniFile(filename);
 
             if (File.Exists(filename))
             {
@@ -192,9 +200,11 @@ namespace T_ReXcape
                 String name = child.Name;
                 Point position = child.Location;
                 Item item = ItemCollection.getItemByKey(Util.removeDigitsFromString(name));
+                // calculate actual position back
                 position.X = position.X - item.getPositionOffsetX() - item.getBlockOffsetX(blockSize);
                 position.Y = position.Y - item.getPositionOffsetY() - item.getBlockOffsetY(blockSize);
 
+                // write position
                 mapFile.IniWriteValue("map", name + ".x", pixelToBlock(position.X).ToString());
                 mapFile.IniWriteValue("map", name + ".y", pixelToBlock(position.Y).ToString());
             }
@@ -213,13 +223,13 @@ namespace T_ReXcape
             clearMap();
 
             // open file
-            IniFile mapFile = new IniFile(filename);
+            mapFile = new IniFile(filename);
+
+            // init validation
+            Validate validation = new Validate(mapFile);
 
             try
             {
-                // init validation
-                Validate validation = new Validate(mapFile);
-
                 // set config keys
                 String[] configKeys = { "width", "height" };
 
@@ -233,34 +243,40 @@ namespace T_ReXcape
                     // throw exception
                     throw new Exception("Fehler beim Laden der Map!");
                 }
-
-                // set item checkParams
-                String[] itemCheckParams = { ".x", ".y" };
-
-                // @TODO better key check
-                // load all known objects
-                foreach (Item item in ItemCollection.getAllItems())
-                {
-                    // index
-                    int i = 0;
-
-                    // validate Item
-                    while(validation.validateKeyParams("map", item.getKey(), i, itemCheckParams))
-                    {
-                        // get Item position
-                        int posX = blockToPixel(Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".x")));
-                        int posY = blockToPixel(Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".y")));
-                        // set item on map
-                        setObjectOnMap(item.getKey(), new Point(posX, posY));
-                        // increment index
-                        i++;
-                    }
-                }
             }
             catch (Exception ex)
             {
                 // show error message
                 MessageBox.Show(ex.Message, "Fehler beim Laden der Map");
+            }
+        }
+
+        public void setAllObjectsOnMap()
+        {
+            // init validation
+            Validate validation = new Validate(mapFile);
+
+            // set item checkParams
+            String[] itemCheckParams = { ".x", ".y" };
+
+            // @TODO better key check
+            // load all known objects
+            foreach (Item item in ItemCollection.getAllItems())
+            {
+                // index
+                int i = 0;
+
+                // validate Item
+                while (validation.validateKeyParams("map", item.getKey(), i, itemCheckParams))
+                {
+                    // get Item position
+                    int posX = blockToPixel(Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".x")));
+                    int posY = blockToPixel(Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".y")));
+                    // set item on map
+                    setObjectOnMap(item.getKey(), new Point(posX, posY));
+                    // increment index
+                    i++;
+                }
             }
         }
 

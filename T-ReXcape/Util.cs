@@ -34,13 +34,14 @@ namespace T_ReXcape
             return Regex.Replace(s, @"\d$", "");
         }
 
+        /// <summary>
+        /// validate given file
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>Boolean</returns>
         static public bool validateMapFilePath(String file)
         {
-            Debug.WriteLine(Path.GetExtension(file));
-            if (File.Exists(file) && Path.GetExtension(file).Equals(".xmap")) {
-                return true;
-            }
-            return false;
+            return (File.Exists(file) && Path.GetExtension(file).Equals(".xmap"));
         }
     }
 }

@@ -17,8 +17,14 @@ namespace T_ReXcape
             InitializeComponent();
             if (fullscreen)
                 goFullscreen();
+
+            // init garbage collector
+            GarbageCollector.init(mapPanel, 500);
         }
 
+        /// <summary>
+        /// sets form in fullscreen mode
+        /// </summary>
         public void goFullscreen()
         {
             this.WindowState = FormWindowState.Normal;
@@ -26,39 +32,61 @@ namespace T_ReXcape
             this.Bounds = Screen.PrimaryScreen.Bounds;
             this.TopLevel = true;
         }
-
+        
+        /// <summary>
+        /// load map and prepare everything
+        /// </summary>
+        /// <param name="file">filepath and filename</param>
         public void loadFile(String file)
         {
+            // calculate maximum resolution
             int maxHeight = Screen.PrimaryScreen.WorkingArea.Height;
             int maxWidth = Screen.PrimaryScreen.WorkingArea.Width;
 
-            Map tmpMap = new Map(new Panel());
-            tmpMap.loadMap(file);
-
-            ItemCollection.disposeAllItems();
             if (Config.getFullscreen())
-            {
-                int newBlockSize = maxWidth / tmpMap.getWidthBlocks();
+            {   
+                // load map temporary 
+                Map tmpMap = new Map(new Panel());
+                tmpMap.loadMap(file);
+
+                // calculate new blocksize to zoom map in fullscreen
+                int countBlockSizeWidth = maxWidth / tmpMap.getWidthBlocks();
+                int countBlockSizeHeight = maxHeight / tmpMap.getHeightBlocks();
+                int newBlockSize = (countBlockSizeHeight > countBlockSizeWidth) ? countBlockSizeWidth : countBlockSizeHeight;
+
+                // set new blocksize
                 Config.setBlockSize(newBlockSize);
             }
             else
             {
+                // reset block size. just to be sure
                 Config.setDefaultBlockSize();
             }
 
+            // clean garbage in item collection
+            ItemCollection.disposeAllItems();
+
+            // prepare new Items
             Config.initItems();
 
+            // load actual map and draw everything
             Map map = new Map(mapPanel);
+            map.registerControlClickEventHandler(item_Click);
             map.loadMap(file);
+            map.setAllObjectsOnMap();
 
-            mapPanel.Location = new Point(0, 0);
+            Point mapPosition = new Point(0, 0);
 
             if (Config.getFullscreen())
             {
                 // center panel on form
-                mapPanel.Location = new Point((mapPanel.Parent.Width - mapPanel.Width) / 2, (mapPanel.Parent.Height - mapPanel.Height) / 2);
+                mapPosition = new Point((mapPanel.Parent.Width - mapPanel.Width) / 2, (mapPanel.Parent.Height - mapPanel.Height) / 2);
             }
 
+            // set map panel location on form
+            mapPanel.Location = mapPosition;
+
+            // set form size to map size (only in window mode)
             if (!Config.getFullscreen())
             {
                 this.Height = map.getHeight();
@@ -72,11 +100,35 @@ namespace T_ReXcape
             map.setGrid(true);
         }
 
+        // @TODO testing only
+        private void item_Click(object sender, EventArgs e)
+        {
+            Animation anim = new Animation(mapPanel);
+            PictureBox obj = sender as PictureBox;
+
+            anim.explodeOnObject(obj);
+
+            obj.Image = null;
+            obj.BackColor = Color.Transparent;
+        }
+
+        /// <summary>
+        /// @TODO
+        /// only for debug. has to be refactored
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// @TODO
+        /// only for debug. has to be refactored
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
             if (pausePanel.Visible)

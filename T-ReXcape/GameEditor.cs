@@ -39,10 +39,8 @@ namespace T_ReXcape
             map.registerControlClickEventHandler(new System.EventHandler(dragDropMouseClick));
             map.registerControlDoubleClickEventHandler(new System.EventHandler(removeClick));
 
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
+            // init garbage collector
+            GarbageCollector.init(mapPanel);
         }
                 
         // add objects
@@ -112,11 +110,17 @@ namespace T_ReXcape
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
-        // onclick drag will be activated, on second click deactivated
+        /// <summary>
+        /// onclick drag will be activated, on second click deactivated
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dragDropMouseClick(Object sender, EventArgs e)
         {
+            // check sender type
             if (sender.GetType().IsSubclassOf(typeof(Control)))
             {
+                // check if object targeted
                 if (map.getDragObject() == null)
                 {
                     map.setDragObject((Control)sender);
@@ -128,6 +132,8 @@ namespace T_ReXcape
                 }
                 else
                 {
+                    // reset everything on second click
+
                     map.getDragObject().BackColor = Color.Transparent;
                     map.setDragObject(null);
 
@@ -137,40 +143,24 @@ namespace T_ReXcape
             }
         }
 
-        // on double click removes object
+        /// <summary>
+        /// double click removes object
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void removeClick(Object sender, EventArgs e)
         {
+            // check target object
             if (map.getDragObject() == null)
                 return;
 
             DialogResult result = MessageBox.Show("Möchten Sie dieses Objekt sicher entfernen?", "Objekt entfernen?", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                // @TODO eigene Animationklasse?
+                Animation anim = new Animation(mapPanel);
                 PictureBox obj = sender as PictureBox;
-                
-                int offset = 10;
 
-                int boomSize = (obj.Width > obj.Height) ? obj.Width : obj.Height;
-                int minSize = (obj.Width < obj.Height) ? obj.Width : obj.Height;
-                
-                boomSize += offset;
-
-                Point position = map.getDragObject().Location;
-                position.X -= offset;
-                position.Y -= ((boomSize - minSize) / 2) + offset;
-
-                PictureBox img = new PictureBox();
-                img.Width = boomSize;
-                img.Height = boomSize;
-                img.BackColor = Color.Transparent;
-                img.Image = (Image)Properties.Resources.ResourceManager.GetObject("spideyblast");
-                img.SizeMode = PictureBoxSizeMode.Zoom;
-                img.Location = position;
-                img.Name = "boom";
-
-                mapPanel.Controls.Add(img);
-                img.BringToFront();
+                anim.explodeOnObject(obj);
 
                 obj.Image = null;
                 obj.BackColor = Color.Transparent;
@@ -179,16 +169,14 @@ namespace T_ReXcape
 
                 if (!map.getGridStatus())
                     map.setGrid(false);
-
-
-                EasyTimer.SetTimeout(() =>
-                {
-                    img.Image = null;
-                }, 1200);
             }
         }
 
-        // moves locked object with mouse move
+        /// <summary>
+        /// moves locked object with mouse move
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void mapPanel_MouseMove(object sender, MouseEventArgs e)
         {
             if (map.getDragObject() != null)
@@ -200,7 +188,11 @@ namespace T_ReXcape
             }
         }
 
-        // opens context rightclick on map
+        /// <summary>
+        /// opens context rightclick on map
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void mapPanel_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -210,7 +202,11 @@ namespace T_ReXcape
             }
         }
         
-
+        /// <summary>
+        /// update info page on select
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tabControl_Selected(object sender, TabControlEventArgs e)
         {
             // only execute if infos page opened
@@ -232,12 +228,22 @@ namespace T_ReXcape
             
         }
 
+        /// <summary>
+        /// toggle grid on map
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void rasterUmschaltenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             map.toggleGrid();
             rasterUmschaltenToolStripMenuItem.Checked = map.getGridStatus();
         }
 
+        /// <summary>
+        /// create new map
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void neuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (map.getItemsCount() > 0)
@@ -252,7 +258,11 @@ namespace T_ReXcape
             }
         }
 
-        // removes grid when resizing (removes flickering)
+        /// <summary>
+        /// removes grid when resizing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_ResizeBegin(object sender, EventArgs e)
         {
             if (map.getGridStatus())
@@ -261,7 +271,11 @@ namespace T_ReXcape
             }
         }
 
-        // set grid back to current status
+        /// <summary>
+        /// set grid back to current status
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_ResizeEnd(object sender, EventArgs e)
         {
             if (map.getGridStatus())
@@ -271,7 +285,11 @@ namespace T_ReXcape
             
         }
 
-        // auslagern Map Class
+        /// <summary>
+        /// load map file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ladenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bool itemsOnMap = false;
@@ -286,10 +304,15 @@ namespace T_ReXcape
             if (!itemsOnMap && openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 map.loadMap(openFileDialog1.FileName);
+                map.setAllObjectsOnMap();
             }
         }
 
-        // auslagern Map Class
+        /// <summary>
+        /// save map file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void speichernToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -308,20 +331,11 @@ namespace T_ReXcape
             }
         }
 
-        private void garbageCollector_Tick(object sender, EventArgs e)
-        {
-            foreach (PictureBox ctn in mapPanel.Controls)
-            {
-                if (ctn != null && ctn is PictureBox)
-                {
-                    if (ctn.Image == null)
-                    {
-                        mapPanel.Controls.Remove(ctn);
-                    }
-                }
-            }
-        }
-
+        /// <summary>
+        /// set status text wich disapears after delay
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="seconds"></param>
         private void setStatusLabelWithTimeout(String text, float seconds = 1) 
         {
             if (!text.Equals(statusLabel.Text))

@@ -17,6 +17,7 @@ namespace T_ReXcape
         private Int32 positionX;
         private Int32 positionY;
 
+        // constants for hook position
         public static Int32 positionLeft = 1;
         public static Int32 positionRight = 2;
         public static Int32 positionCenter = 3;
@@ -29,9 +30,7 @@ namespace T_ReXcape
         /// <param name="_key">Key of item</param>
         /// <param name="_width">Width of item</param>
         /// <param name="_height">Height of item</param>
-        public Item(String _key,
-                    Int32 _width,
-                    Int32 _height)
+        public Item(String _key, Int32 _width, Int32 _height)
         {
             key = _key;
             width = _width;

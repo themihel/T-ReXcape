@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animation.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="EasyTimer.cs" />
     <Compile Include="Game.cs">
@@ -60,6 +61,7 @@
     <Compile Include="GameEditor.Designer.cs">
       <DependentUpon>GameEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="GarbageCollector.cs" />
     <Compile Include="INIFile.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemCollection.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sound.cs" />
     <Compile Include="StartUp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +154,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\moat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blast.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
