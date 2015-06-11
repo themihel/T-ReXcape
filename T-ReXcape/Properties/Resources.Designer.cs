@@ -172,9 +172,9 @@ namespace T_ReXcape.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.IO.UnmanagedMemoryStream ähnlich wie System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream trexcape_oldschool {
+        internal static System.IO.UnmanagedMemoryStream trexcape_soundtrack {
             get {
-                return ResourceManager.GetStream("trexcape_oldschool", resourceCulture);
+                return ResourceManager.GetStream("trexcape_soundtrack", resourceCulture);
             }
         }
         
