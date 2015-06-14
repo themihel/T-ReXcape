@@ -20,15 +20,6 @@ namespace T_ReXcape
 
             // init garbage collector
             GarbageCollector.init(mapPanel, 500);
-
-            // play soundtrack
-            if (Config.getPlayMusic())
-            {
-                // @TODO soundtrack-player static in Sound Class to access everywhere?
-                Sound soundtrack = new Sound();
-                soundtrack.setSoundtrack();
-                soundtrack.playLoop();
-            }
         }
 
         /// <summary>

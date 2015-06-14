@@ -15,6 +15,12 @@ namespace T_ReXcape
         {
             InitializeComponent();
             openFileDialog1.Filter = Config.getMapFileFilter();
+
+            // play soundtrack
+            if (Config.getPlayMusic())
+            {
+                Sound.playSoundtrack();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -6,64 +6,26 @@ using System.Text;
 
 namespace T_ReXcape
 {
-    class Sound
+    static class Sound
     {
-        // variables
-        SoundPlayer player;
+        // soundtrack
+        static SoundPlayer soundtrackPlayer = new SoundPlayer();
 
         /// <summary>
-        /// Init player
+        /// start playing soundtrack
         /// </summary>
-        public Sound()
+        static public void playSoundtrack()
         {
-            player = new SoundPlayer();
+            soundtrackPlayer.Stream = Properties.Resources.trexcape_soundtrack;
+            soundtrackPlayer.PlayLooping();
         }
 
         /// <summary>
-        /// set track to soundtrack
+        /// stop playing soundtrack
         /// </summary>
-        public void setSoundtrack()
+        static public void stopSoundtrack()
         {
-            player.Stream = Properties.Resources.trexcape_soundtrack;
-        }
-
-        /// <summary>
-        /// Play track once;
-        /// </summary>
-        public void playOnce()
-        {
-            
-        }
-
-        /// <summary>
-        /// Play track in loop
-        /// </summary>
-        public void playLoop()
-        {
-            if (isReadyToPlay())
-            {
-                player.PlayLooping();
-            }
-        }
-
-        /// <summary>
-        /// Stop track
-        /// </summary>
-        public void stop()
-        {
-            if (isReadyToPlay())
-            {
-                player.Stop();
-            }
-        }
-
-        /// <summary>
-        /// checks if player is ready to play
-        /// </summary>
-        private Boolean isReadyToPlay()
-        {
-            // @TODO more validation?
-            return player.Stream != null ? true : false;
+            soundtrackPlayer.Stop();
         }
 
         /// <summary>

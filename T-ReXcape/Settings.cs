@@ -21,7 +21,7 @@ namespace T_ReXcape
             if (Config.getFullscreen())
                 fullscreenCheck.Checked = true;
 
-            if (Config.getPlayMusic())
+            if (Config.getPlayMusic()) // @TODO fix music starting again on load event // discuss
                 musicCheck.Checked = true;
 
             if (Config.getPlaySoundEffects())
@@ -36,6 +36,16 @@ namespace T_ReXcape
         private void musicCheck_CheckedChanged(object sender, EventArgs e)
         {
             Config.setPlayMusic(((CheckBox)sender).Checked);
+
+            // set music status
+            if (((CheckBox)sender).Checked)
+            {
+                Sound.playSoundtrack();
+            }
+            else
+            {
+                Sound.stopSoundtrack();
+            }
         }
 
         private void soundeffectCheck_CheckedChanged(object sender, EventArgs e)
