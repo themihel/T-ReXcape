@@ -19,7 +19,6 @@ C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.exe
 C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.pdb
 C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.exe
 C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.pdb
-C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Form1.resources
 C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Properties.Resources.resources
 C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.csproj.GenerateResource.Cache
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.exe
@@ -34,3 +33,9 @@ D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.exe.co
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Game.resources
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Settings.resources
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.StartUp.resources
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.exe.config
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.csprojResolveAssemblyReference.cache
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Game.resources
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.GameEditor.resources
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Settings.resources
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.StartUp.resources

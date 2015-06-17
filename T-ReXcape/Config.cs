@@ -43,7 +43,7 @@ namespace T_ReXcape
         static public void initItems()
         {
             Item player1start = new Item("player1start", 3 * blockSize, 3 * blockSize);
-            player1start.setBackground("giphy");
+            player1start.setBackground("dino_left");
             player1start.setMaxOnPanel(1);
             player1start.setName("Spieler 1 Start");
             player1start.setHookPosition(Item.positionCenter, Item.positionBottom);
@@ -57,7 +57,7 @@ namespace T_ReXcape
             ItemCollection.addItem(player1destination);
 
             Item player2start = new Item("player2start", 3 * blockSize, 3 * blockSize);
-            player2start.setBackground("giphy");
+            player2start.setBackground("dino_right");
             player2start.setMaxOnPanel(1);
             player2start.setName("Spieler 2 Start");
             player2start.setHookPosition(Item.positionCenter, Item.positionBottom);

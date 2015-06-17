@@ -161,6 +161,21 @@
   <ItemGroup>
     <None Include="Resources\trexcape_soundtrack.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dino_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dino_down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dino_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dino_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bgtest.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
