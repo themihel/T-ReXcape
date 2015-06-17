@@ -562,7 +562,7 @@ namespace T_ReXcape
                 // loop through item with same x coordinates and calculate next object
                 foreach (Control child in mapPanel.Controls)
                 {
-                    if (child.Left == 0Pos)
+                    if (child.Left == xPos)
                     {
                         currentValue = yPos - child.Top;
                         if (currentValue > 0 &&  currentValue < lastValue) {
