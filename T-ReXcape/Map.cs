@@ -545,7 +545,7 @@ namespace T_ReXcape
             // could return child to check if it's a direction change
 
             // init point
-            Point destPoint;
+            Point destPoint = new Point(0, 0);
 
             // value
             Int32 lastValue;
