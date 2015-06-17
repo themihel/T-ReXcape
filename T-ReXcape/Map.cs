@@ -538,5 +538,117 @@ namespace T_ReXcape
         {
             return block * blockSize;
         }
+
+        public Point getLastPointWOCollision(Point currentPoint, Int16 direction)
+        {
+            // @TODO testing // not tested yet / just an idea
+            // could return child to check if it's a direction change
+
+            // init point
+            Point destPoint;
+
+            // value
+            Int32 lastValue;
+            Int32 currentValue;
+
+            // get coordinates
+            Int32 xPos = currentPoint.X;
+            Int32 yPos = currentPoint.Y;
+
+            if (direction == 0) // top
+            {
+                lastValue = mapPanel.Height;
+
+                // loop through item with same x coordinates and calculate next object
+                foreach (Control child in mapPanel.Controls)
+                {
+                    if (child.Left == 0Pos)
+                    {
+                        currentValue = yPos - child.Top;
+                        if (currentValue > 0 &&  currentValue < lastValue) {
+                            lastValue = currentValue;
+                            destPoint = new Point(xPos, (child.Top + blockSize));
+                        }
+                    }
+                }
+
+                if (lastValue == mapPanel.Height)
+                {
+                    destPoint = new Point(xPos, 0);
+                }
+            }
+            else if (direction == 1) // right
+            {
+                lastValue = 0;
+
+                // loop through item with same y coordinates and calculate next object
+                foreach (Control child in mapPanel.Controls)
+                {
+                    if (child.Top == yPos)
+                    {
+                        currentValue = child.Left - xPos;
+                        if (currentValue < mapPanel.Width && currentValue < lastValue)
+                        {
+                            lastValue = currentValue;
+                            destPoint = new Point((child.Left - blockSize), yPos);
+                        }
+                    }
+                }
+
+                if (lastValue == 0)
+                {
+                    destPoint = new Point(mapPanel.Width-blockSize, yPos);
+                }
+            }
+            else if (direction == 2) // down
+            {
+                lastValue = 0;
+
+                // loop through item with same x coordinates and calculate next object
+                foreach (Control child in mapPanel.Controls)
+                {
+                    if (child.Left == xPos)
+                    {
+                        currentValue = child.Top - yPos;
+                        if (currentValue < mapPanel.Height && currentValue < lastValue)
+                        {
+                            lastValue = currentValue;
+                            destPoint = new Point(xPos, (child.Top - blockSize));
+                        }
+                    }
+                }
+
+                if (lastValue == 0)
+                {
+                    destPoint = new Point(xPos, mapPanel.Width - blockSize);
+                }
+            }
+            else if (direction == 3) // left
+            {
+                lastValue = mapPanel.Width;
+
+                // loop through item with same y coordinates and calculate next object
+                foreach (Control child in mapPanel.Controls)
+                {
+                    if (child.Top == yPos)
+                    {
+                        currentValue = xPos - child.Left;
+                        if (currentValue > 0 && currentValue < lastValue)
+                        {
+                            lastValue = currentValue;
+                            destPoint = new Point((child.Left + blockSize), yPos);
+                        }
+                    }
+                }
+
+                if (lastValue == 0)
+                {
+                    destPoint = new Point(0, yPos);
+                }
+            }
+
+            // return
+            return destPoint;
+        }
     }
 }
