@@ -364,7 +364,7 @@
             0});
             this.NUD_panelWidth.Name = "NUD_panelWidth";
             this.NUD_panelWidth.Size = new System.Drawing.Size(45, 20);
-            this.NUD_panelWidth.TabIndex = 7;
+            this.NUD_panelWidth.TabIndex = 6;
             this.NUD_panelWidth.Value = new decimal(new int[] {
             1,
             0,
@@ -382,7 +382,7 @@
             0});
             this.NUD_panelHeight.Name = "NUD_panelHeight";
             this.NUD_panelHeight.Size = new System.Drawing.Size(45, 20);
-            this.NUD_panelHeight.TabIndex = 6;
+            this.NUD_panelHeight.TabIndex = 7;
             this.NUD_panelHeight.Value = new decimal(new int[] {
             1,
             0,

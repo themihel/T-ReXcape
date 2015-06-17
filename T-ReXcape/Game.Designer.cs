@@ -93,9 +93,9 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(125, 121);
+            this.panel1.Location = new System.Drawing.Point(23, 298);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(100, 100);
+            this.panel1.Size = new System.Drawing.Size(150, 143);
             this.panel1.TabIndex = 5;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
@@ -105,7 +105,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(29, 31);
+            this.label2.Location = new System.Drawing.Point(54, 49);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 39);
             this.label2.TabIndex = 0;

@@ -75,26 +75,27 @@ namespace T_ReXcape
             map.loadMap(file);
             map.setAllObjectsOnMap();
 
-            Point mapPosition = new Point(0, 0);
-
-            if (Config.getFullscreen())
-            {
-                // center panel on form
-                mapPosition = new Point((mapPanel.Parent.Width - mapPanel.Width) / 2, (mapPanel.Parent.Height - mapPanel.Height) / 2);
-            }
-
-            // set map panel location on form
-            mapPanel.Location = mapPosition;
-
             // set form size to map size (only in window mode)
             if (!Config.getFullscreen())
             {
-                this.Height = map.getHeight();
-                this.Width = map.getWidth();
+                Size newSize = new Size(map.getWidth(), map.getHeight());
+                if (newSize.Width < pausePanel.Width)
+                    newSize.Width = pausePanel.Width;
+
+                if (newSize.Height < pausePanel.Height)
+                    newSize.Height = pausePanel.Height;
+
+                this.ClientSize = newSize;
             }
 
             // center pause menu on form
-            pausePanel.Location = new Point((this.Width - pausePanel.Width) / 2, (this.Height - pausePanel.Height) / 2);
+            pausePanel.Location = new Point((this.ClientSize.Width - pausePanel.Width) / 2, (this.ClientSize.Height - pausePanel.Height) / 2);
+
+            // center panel on form
+            Point mapPosition = new Point((this.ClientSize.Width - mapPanel.Width) / 2, (this.ClientSize.Height - mapPanel.Height) / 2);
+
+            // set map panel location on form
+            mapPanel.Location = mapPosition;
 
             // for debug
             map.setGrid(true);
