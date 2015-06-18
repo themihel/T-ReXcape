@@ -104,7 +104,7 @@ namespace T_ReXcape
             Animation anim = new Animation(mapPanel);
             PictureBox obj = sender as PictureBox;
 
-            anim.explodeOnObject(obj);
+            anim.eraseObject(obj);
 
             obj.Image = null;
             obj.BackColor = Color.Transparent;

@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Media;
 using System.Text;
+using System.Windows.Forms;
 
 namespace T_ReXcape
 {
@@ -33,9 +37,7 @@ namespace T_ReXcape
         /// </summary>
         public static void playBoom()
         {
-            SoundPlayer player = new SoundPlayer();
-            player.Stream = Properties.Resources.blast;
-            player.Play();
+            playSound(Properties.Resources.blast);
         }
 
         /// <summary>
@@ -43,8 +45,13 @@ namespace T_ReXcape
         /// </summary>
         public static void playErase()
         {
+            playSound(Properties.Resources.erase_sound);
+        }
+
+        private static void playSound(System.IO.UnmanagedMemoryStream sound)
+        {
             SoundPlayer player = new SoundPlayer();
-            player.Stream = Properties.Resources.erase_sound;
+            player.Stream = sound;
             player.Play();
         }
     }
