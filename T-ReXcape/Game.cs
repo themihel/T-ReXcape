@@ -96,9 +96,6 @@ namespace T_ReXcape
 
             // set map panel location on form
             mapPanel.Location = mapPosition;
-
-            // for debug
-            map.setGrid(true);
         }
 
         // @TODO testing only

@@ -62,6 +62,36 @@ namespace T_ReXcape
             {
                 img.Image = null;
             }, 1200);
-        }       
+        }
+
+
+        public void eraseObject(PictureBox obj)
+        {
+            // calculate animation position
+            Point position = obj.Location;
+
+            // create new picture box with animation
+            PictureBox img = new PictureBox();
+            img.Width = obj.Width;
+            img.Height = obj.Height;
+            img.BackColor = Color.Transparent;
+            img.Image = (Image)Properties.Resources.ResourceManager.GetObject("erase");
+            img.SizeMode = PictureBoxSizeMode.Zoom;
+            img.Location = position;
+            img.Name = "erase";
+
+            // add animation to map panel
+            mapPanel.Controls.Add(img);
+            img.BringToFront();
+
+            // play sound
+            Sound.playErase();
+
+            // remove image after delay so garbage collector can remove it later on
+            EasyTimer.SetTimeout(() =>
+            {
+                img.Image = null;
+            }, 1000);
+        }
     }
 }

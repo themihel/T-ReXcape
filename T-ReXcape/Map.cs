@@ -138,32 +138,7 @@ namespace T_ReXcape
         {
             return isGridShown;
         }
-
-        /// <summary>
-        /// toggles grid
-        /// </summary>
-        public void toggleGrid()
-        {
-            isGridShown = !isGridShown;
-            setGrid(isGridShown);
-        }
-
-        /// <summary>
-        /// sets grid to specific status
-        /// </summary>
-        /// <param name="activate">grid-status</param>
-        public void setGrid(bool activate)
-        {
-            if (activate)
-            {
-                mapPanel.BackgroundImage = getBackground(true);
-            }
-            else
-            {
-                mapPanel.BackgroundImage = getBackground(false);
-            }
-        }
-
+                
         /// <summary>
         /// checks if there are any elements on map // otherwise throws exception
         /// </summary>
@@ -216,6 +191,9 @@ namespace T_ReXcape
         /// <param name="filename">path and filename</param>
         public void loadMap(String filename)
         {
+            // set background
+            mapPanel.BackgroundImage = getBackground();
+
             if (!File.Exists(filename))
                 throw new IOException("File not exists");
 
@@ -312,42 +290,32 @@ namespace T_ReXcape
         /// </summary>
         /// <param name="withGrid">grid status</param>
         /// <returns>returns bitmap with / without grid</returns>
-        private Bitmap getBackground(bool withGrid = false)
+        private Bitmap getBackground()
         {
-            Bitmap background;
-            if (withGrid)
+            if (bgWithGrid == null)
             {
-                // save recourses if created
-                if (bgWithGrid == null)
-                {
-                    // get original image
-                    Image bg = Properties.Resources.grass;
-                    // set pen
-                    Pen pen = new Pen(new SolidBrush(gridColor));
-                    // calculate new image size. always multiple size of block
-                    int width = (bg.Size.Width / blockSize) * blockSize;
-                    int height = (bg.Size.Height / blockSize) * blockSize;
+                // set pen
+                Pen pen = new Pen(new SolidBrush(gridColor));
 
-                    // create new image to draw on
-                    bgWithGrid = new Bitmap(bg, width, height);
-                    Graphics gr = Graphics.FromImage(bgWithGrid);
-                    for (int i = 0; i <= blockSize; i++)
-                    {
-                        for (int j = 0; j <= blockSize; j++)
-                        {
-                            // draw grid on new image
-                            gr.DrawRectangle(pen, i * blockSize, j * blockSize, blockSize, blockSize);
-                        }
-                    }
-                }
-                background = bgWithGrid;
+                int width = blockSize;
+                int height = blockSize;
+
+                // create new image
+                bgWithGrid = new Bitmap(width, height);
+                Graphics gr = Graphics.FromImage(bgWithGrid);
+                gr.DrawRectangle(pen, 0, 0, blockSize, blockSize);
+                Random rand = new Random();
+                String tempFile = Path.GetTempPath() + "T-ReXCape" + rand.NextDouble() + ".jpg";
+                bgWithGrid.Save(tempFile);
+                
+                Bitmap tmpBitmap = new Bitmap(tempFile);
+                bgWithGrid = new Bitmap(tmpBitmap);
+                tmpBitmap.Dispose();
+
+                File.Delete(tempFile);
             }
-            else
-            {
-                // get original image without any changes
-                background = Properties.Resources.grass;
-            }
-            return background;
+
+            return bgWithGrid;
         }
 
         /// <summary>
@@ -649,6 +617,11 @@ namespace T_ReXcape
 
             // return
             return destPoint;
+        }
+
+        public void redrawBackground()
+        {
+            mapPanel.BackgroundImage = getBackground();
         }
     }
 }

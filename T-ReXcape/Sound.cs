@@ -37,5 +37,15 @@ namespace T_ReXcape
             player.Stream = Properties.Resources.blast;
             player.Play();
         }
+
+        /// <summary>
+        /// Play Erase sound once
+        /// </summary>
+        public static void playErase()
+        {
+            SoundPlayer player = new SoundPlayer();
+            player.Stream = Properties.Resources.erase_sound;
+            player.Play();
+        }
     }
 }

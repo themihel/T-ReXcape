@@ -331,7 +331,6 @@
             // mapPanel
             // 
             this.mapPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.mapPanel.BackgroundImage = global::T_ReXcape.Properties.Resources.grass;
             this.mapPanel.Location = new System.Drawing.Point(1, 1);
             this.mapPanel.Name = "mapPanel";
             this.mapPanel.Size = new System.Drawing.Size(552, 413);
@@ -481,8 +480,6 @@
             this.MinimumSize = new System.Drawing.Size(200, 200);
             this.Name = "GameEditor";
             this.Text = "Map Editor";
-            this.ResizeBegin += new System.EventHandler(this.Form1_ResizeBegin);
-            this.ResizeEnd += new System.EventHandler(this.Form1_ResizeEnd);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);

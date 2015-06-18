@@ -36,6 +36,7 @@ namespace T_ReXcape
 
             // init Map and register events
             map = new Map(mapPanel);
+            map.redrawBackground();
             map.registerControlClickEventHandler(new System.EventHandler(dragDropMouseClick));
             map.registerControlDoubleClickEventHandler(new System.EventHandler(removeClick));
 
@@ -125,20 +126,12 @@ namespace T_ReXcape
                 {
                     map.setDragObject((Control)sender);
                     map.getDragObject().BackColor = Config.getActiveColor();
-
-                    // if grid not activated in settings, show it on moved object
-                    if (!map.getGridStatus())
-                        map.setGrid(true);
                 }
                 else
                 {
                     // reset everything on second click
-
                     map.getDragObject().BackColor = Color.Transparent;
                     map.setDragObject(null);
-
-                    if (!map.getGridStatus())
-                        map.setGrid(false);
                 }
             }
         }
@@ -160,15 +153,12 @@ namespace T_ReXcape
                 Animation anim = new Animation(mapPanel);
                 PictureBox obj = sender as PictureBox;
 
-                anim.explodeOnObject(obj);
+                anim.eraseObject(obj);
 
                 obj.Image = null;
                 obj.BackColor = Color.Transparent;
 
                 map.setDragObject(null);
-
-                if (!map.getGridStatus())
-                    map.setGrid(false);
             }
         }
 
@@ -235,7 +225,6 @@ namespace T_ReXcape
         /// <param name="e"></param>
         private void rasterUmschaltenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            map.toggleGrid();
             rasterUmschaltenToolStripMenuItem.Checked = map.getGridStatus();
         }
 
@@ -257,34 +246,7 @@ namespace T_ReXcape
                 }
             }
         }
-
-        /// <summary>
-        /// removes grid when resizing
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Form1_ResizeBegin(object sender, EventArgs e)
-        {
-            if (map.getGridStatus())
-            {
-                map.setGrid(false);
-            }
-        }
-
-        /// <summary>
-        /// set grid back to current status
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Form1_ResizeEnd(object sender, EventArgs e)
-        {
-            if (map.getGridStatus())
-            {
-                map.setGrid(true);
-            }
-            
-        }
-
+        
         /// <summary>
         /// load map file
         /// </summary>
