@@ -219,16 +219,6 @@ namespace T_ReXcape
         }
 
         /// <summary>
-        /// toggle grid on map
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void rasterUmschaltenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            rasterUmschaltenToolStripMenuItem.Checked = map.getGridStatus();
-        }
-
-        /// <summary>
         /// create new map
         /// </summary>
         /// <param name="sender"></param>
@@ -313,17 +303,22 @@ namespace T_ReXcape
             }
         }
 
-        private void NUD_panelWidth_Leave(object sender, EventArgs e)
+        /// <summary>
+        /// Update map size on tab change
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NUD_panelLeave(object sender, EventArgs e)
         {
             map.updateMapSizeBlocks(Convert.ToInt32(NUD_panelWidth.Value), Convert.ToInt32(NUD_panelHeight.Value));
         }
 
-        private void NUD_panelHeight_Leave(object sender, EventArgs e)
-        {
-            map.updateMapSizeBlocks(Convert.ToInt32(NUD_panelWidth.Value), Convert.ToInt32(NUD_panelHeight.Value));
-        }
-
-        private void speichernUnterToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Menu beenden
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }

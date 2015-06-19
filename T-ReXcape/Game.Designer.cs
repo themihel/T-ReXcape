@@ -123,7 +123,7 @@
             this.Controls.Add(this.pausePanel);
             this.Controls.Add(this.mapPanel);
             this.ForeColor = System.Drawing.Color.CadetBlue;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Game";
