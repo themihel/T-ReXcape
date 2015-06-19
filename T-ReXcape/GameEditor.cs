@@ -38,7 +38,6 @@ namespace T_ReXcape
             map = new Map(mapPanel);
             map.redrawBackground();
             map.registerControlClickEventHandler(new System.EventHandler(dragDropMouseClick));
-            map.registerControlDoubleClickEventHandler(new System.EventHandler(removeClick));
 
             // init garbage collector
             GarbageCollector.init(mapPanel);
@@ -116,10 +115,11 @@ namespace T_ReXcape
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dragDropMouseClick(Object sender, EventArgs e)
+        private void dragDropMouseClick(object sender, EventArgs e)
         {
+            MouseEventArgs me = (MouseEventArgs)e;
             // check sender type
-            if (sender.GetType().IsSubclassOf(typeof(Control)))
+            if (sender.GetType().IsSubclassOf(typeof(Control)) && me.Button != MouseButtons.Right)
             {
                 // check if object targeted
                 if (map.getDragObject() == null)
@@ -134,31 +134,21 @@ namespace T_ReXcape
                     map.setDragObject(null);
                 }
             }
-        }
-
-        /// <summary>
-        /// double click removes object
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void removeClick(Object sender, EventArgs e)
-        {
-            // check target object
-            if (map.getDragObject() == null)
-                return;
-
-            DialogResult result = MessageBox.Show("Möchten Sie dieses Objekt sicher entfernen?", "Objekt entfernen?", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
+            else if (me.Button == MouseButtons.Right)
             {
-                Animation anim = new Animation(mapPanel);
-                PictureBox obj = sender as PictureBox;
+                //DialogResult result = MessageBox.Show("Möchten Sie dieses Objekt sicher entfernen?", "Objekt entfernen?", MessageBoxButtons.YesNo);
+                if (true) // result == DialogResult.Yes)
+                {
+                    Animation anim = new Animation(mapPanel);
+                    PictureBox obj = sender as PictureBox;
 
-                anim.eraseObject(obj);
+                    anim.eraseObject(obj);
 
-                obj.Image = null;
-                obj.BackColor = Color.Transparent;
+                    obj.Image = null;
+                    obj.BackColor = Color.Transparent;
 
-                map.setDragObject(null);
+                    map.setDragObject(null);
+                }
             }
         }
 

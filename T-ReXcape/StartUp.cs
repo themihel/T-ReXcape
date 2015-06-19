@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -63,7 +64,15 @@ namespace T_ReXcape
                 // when editor closed, close main (StartUp) form to close programm
                 game.FormClosed += (s, args) => this.Show();
                 game.loadFile(openFileDialog1.FileName);
-                game.Show();
+                try
+                {
+                    game.Show();
+                }
+                catch (Exception ex)
+                {
+                    this.Show();
+                    Debug.WriteLine(ex.Message);
+                }
             }
         }
 

@@ -73,7 +73,15 @@ namespace T_ReXcape
             Map map = new Map(mapPanel);
             map.registerControlClickEventHandler(item_Click);
             map.loadMap(file);
-            map.setAllObjectsOnMap();
+            try
+            {
+                map.setAllObjectsOnMap();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Close();
+            }
 
             // set form size to map size (only in window mode)
             if (!Config.getFullscreen())

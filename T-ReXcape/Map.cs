@@ -243,9 +243,10 @@ namespace T_ReXcape
             {
                 // index
                 int i = 0;
+                bool check;
 
                 // validate Item
-                while (validation.validateKeyParams("map", item.getKey(), i, itemCheckParams))
+                while (check = validation.validateKeyParams("map", item.getKey(), i, itemCheckParams))
                 {
                     // get Item position
                     int posX = blockToPixel(Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".x")));
@@ -254,6 +255,14 @@ namespace T_ReXcape
                     setObjectOnMap(item.getKey(), new Point(posX, posY));
                     // increment index
                     i++;
+                }
+                if (!check)
+                {
+                    DialogResult result = MessageBox.Show("Es ist ein Fehler aufgetretten. Weiter laden?", "Fehler", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.No)
+                    {
+                        throw new Exception("Fehler beim Laden. Element nicht gefunden. Nutzer abgebrochen.");
+                    }
                 }
             }
         }
@@ -362,29 +371,32 @@ namespace T_ReXcape
             Debug.WriteLine(name);
 
             // prepare item
-            PictureBox img = new PictureBox();
-            img.Width = item.getWidth();
-            img.Height = item.getHeight();
-            img.BackColor = Color.Transparent;
-            img.Image = (Image)Properties.Resources.ResourceManager.GetObject(item.getBackground());
-            img.SizeMode = PictureBoxSizeMode.Zoom;
-            img.Location = position;
-            img.Name = name + getItemCount(name);
-            img.Cursor = Cursors.Hand;
+            item.Width = item.getWidth();
+            item.Height = item.getHeight();
+            item.BackColor = Color.Transparent;
+            item.Image = item.getImage();
+            item.SizeMode = PictureBoxSizeMode.Zoom;
+            item.Location = position;
+            item.Name = name + getItemCount(name);
+            item.Cursor = Cursors.Hand;
 
             // if set: add remove event
             if (controlClickEventHandler != null)
             {
-                img.Click += controlClickEventHandler;
-                img.MouseMove += new MouseEventHandler(itemMouseMove);
+                item.Click += controlClickEventHandler;
+                item.MouseMove += new MouseEventHandler(itemMouseMove);
             }
 
             // if set: add remove event
             if (controlDoubleClickEventHandler != null)
-                img.DoubleClick += controlDoubleClickEventHandler;
+                item.DoubleClick += controlDoubleClickEventHandler;
+
+            item.MouseDown += new MouseEventHandler(Item.mouseDown);
+            item.MouseUp += new MouseEventHandler(Item.mouseUp);
+            item.MouseMove += new MouseEventHandler(Item.mouseMove);
 
             // return image
-            return img;
+            return item;
         }
 
         /// <summary>

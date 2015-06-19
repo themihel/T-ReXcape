@@ -1,21 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace T_ReXcape
 {
-    class Item
+    class Item : PictureBox
     {
         // variables
         private String key;
-        private String background;
+        private Image imageLeft;
+        private Image imageRight;
+        private Image imageTop;
+        private Image imageBottom;
         private Int32 maxOnPanel;
         private String name;
         private Int32 width;
         private Int32 height;
         private Int32 positionX;
         private Int32 positionY;
+        private Int16 direction;
 
         // constants for hook position
         public static Int32 positionLeft = 1;
@@ -23,6 +30,11 @@ namespace T_ReXcape
         public static Int32 positionCenter = 3;
         public static Int32 positionTop = 4;
         public static Int32 positionBottom = 5;
+
+        public static Int16 directionLeft = 1;
+        public static Int16 directionRight = 2;
+        public static Int16 directionTop = 3;
+        public static Int16 directionBottom = 4;
         
         /// <summary>
         /// Constructor
@@ -38,6 +50,8 @@ namespace T_ReXcape
             // set default hook position
             positionX = positionLeft;
             positionY = positionTop;
+            // defalut direction to left
+            direction = directionLeft;
         }
 
         /// <summary>
@@ -48,16 +62,7 @@ namespace T_ReXcape
         {
             name = _name;
         }
-
-        /// <summary>
-        /// Sets background of item
-        /// </summary>
-        /// <param name="_background">Background filename related to ressources</param>
-        public void setBackground(String _background)
-        {
-            background = _background;
-        }
-
+        
         /// <summary>
         /// Sets maximum amount of objects on panel // 0 = disabled
         /// </summary>
@@ -116,9 +121,28 @@ namespace T_ReXcape
         /// <summary>
         /// Returns background filname related to ressources
         /// </summary>
-        public String getBackground()
+        public Image getImage()
         {
-            return background;
+            if (direction == directionLeft)
+            {
+                return imageLeft;
+            }
+            else if (direction == directionRight)
+            {
+                return imageRight;
+            }
+            else if (direction == directionTop)
+            {
+                return imageTop;
+            }
+            else if (direction == directionBottom)
+            {
+                return imageBottom;
+            }
+            else
+            {
+                throw new Exception("wrong direction id");
+            }
         }
 
         /// <summary>
@@ -195,6 +219,112 @@ namespace T_ReXcape
                 offset = blockSize / 2;
             }
             return offset;
+        }
+
+        public void setDirection(Int16 dir)
+        {
+            // check given direction id
+            if(dir == directionLeft || 
+                dir == directionRight || 
+                dir == directionTop ||
+                dir == directionBottom)
+            {
+                if (
+                    ((direction == directionLeft || direction == directionRight) &&
+                    (dir == directionTop || dir == directionBottom))
+                    ||
+                    ((direction == directionTop || direction == directionBottom) &&
+                    (dir == directionLeft || dir == directionRight))
+                    )
+                {
+                    flipSize();
+                }
+                direction = dir;
+                updateImage();
+            }
+        }
+
+        public void setImageLeft(Image img)
+        {
+            imageLeft = img;
+        }
+
+        public void setImageRight(Image img)
+        {
+            imageRight = img;
+        }
+
+        public void setImageTop(Image img)
+        {
+            imageTop = img;
+        }
+
+        public void setImageBottom(Image img)
+        {
+            imageBottom = img;
+        }
+
+        public void setImageAllDirections(Image img)
+        {
+            imageLeft = img;
+            imageRight = img;
+            imageTop = img;
+            imageBottom = img;
+        }
+
+        private void updateImage()
+        {
+            Image = getImage();
+        }
+
+        private void flipSize()
+        {
+            int tmp = Height;
+            Height = Width;
+            Width = tmp;
+        }
+
+
+        static Point mousePosition;
+
+        public static void mouseDown(object sender, MouseEventArgs e)
+        {
+            Control cntr = sender as Control;
+            mousePosition = new Point(cntr.Width / 2, cntr.Height / 2);
+        }
+
+        public static void mouseUp(object sender, MouseEventArgs e)
+        {
+            mousePosition = default(Point);
+        }
+
+        public static void mouseMove(object sender, MouseEventArgs e)
+        {
+            if (!mousePosition.Equals(default(Point)))
+            {
+                int newX = e.X - mousePosition.X;
+                int newY = mousePosition.Y - e.Y;
+                if (newX < newY && (newX * -1) < newY && newY > 0)
+                {
+                    // top
+                    ((Item)sender).setDirection(Item.directionTop);
+                }
+                else if (newX > newY && (newX * -1) > newY && newY < 0)
+                {
+                    // bottom
+                    ((Item)sender).setDirection(Item.directionBottom);
+                }
+                else if (newY < newX && (newY * -1) < newX && newX > 0)
+                {
+                    // right
+                    ((Item)sender).setDirection(Item.directionRight);
+                }
+                else if (newY > newX && (newY * -1) > newX && newX < 0)
+                {
+                    // left
+                    ((Item)sender).setDirection(Item.directionLeft);
+                }
+            }
         }
     }
 }
