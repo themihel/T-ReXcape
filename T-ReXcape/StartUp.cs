@@ -13,7 +13,10 @@ namespace T_ReXcape
     {
         public StartUp()
         {
+            // inti components
             InitializeComponent();
+
+            // set map filter
             openFileDialog1.Filter = Config.getMapFileFilter();
 
             // play soundtrack
@@ -21,9 +24,21 @@ namespace T_ReXcape
             {
                 Sound.playSoundtrack();
             }
+
+            // get fullscreen settings
+            if (Config.getFullscreen())
+            {
+                cbFullscreen.Checked = true;
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+        /// <summary>
+        /// Opens game editor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnMapEditor_Click(object sender, EventArgs e)
         {
             this.Hide();
             Config.setDefaultBlockSize();
@@ -34,7 +49,12 @@ namespace T_ReXcape
             editor.Show();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Opens level loader
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnLoadLevel_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK && Util.validateMapFilePath(openFileDialog1.FileName))
             {
@@ -47,21 +67,26 @@ namespace T_ReXcape
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+
+        /// <summary>
+        /// Exit game
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void goFullscreenCheck_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Toogle fullscreen mode
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cbFullscreen_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox check = sender as CheckBox;
-            Config.setFullscreen(check.Checked);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Settings settings = new Settings();
-            settings.ShowDialog();
+            Config.setFullscreen(((CheckBox)sender).Checked);
+            Config.saveSettings();
         }
     }
 }
