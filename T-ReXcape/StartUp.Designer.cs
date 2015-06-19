@@ -33,6 +33,7 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.cbFullscreen = new System.Windows.Forms.CheckBox();
+            this.cbSoundtrack = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnMapEditor
@@ -77,6 +78,18 @@
             this.cbFullscreen.UseVisualStyleBackColor = false;
             this.cbFullscreen.CheckedChanged += new System.EventHandler(this.cbFullscreen_CheckedChanged);
             // 
+            // cbSoundtrack
+            // 
+            this.cbSoundtrack.AutoSize = true;
+            this.cbSoundtrack.BackColor = System.Drawing.Color.Transparent;
+            this.cbSoundtrack.Location = new System.Drawing.Point(676, 571);
+            this.cbSoundtrack.Name = "cbSoundtrack";
+            this.cbSoundtrack.Size = new System.Drawing.Size(81, 17);
+            this.cbSoundtrack.TabIndex = 5;
+            this.cbSoundtrack.Text = "Soundtrack";
+            this.cbSoundtrack.UseVisualStyleBackColor = false;
+            this.cbSoundtrack.CheckedChanged += new System.EventHandler(this.cbSoundtrack_CheckedChanged);
+            // 
             // StartUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -84,6 +97,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = global::T_ReXcape.Properties.Resources.bgtest;
             this.ClientSize = new System.Drawing.Size(851, 600);
+            this.Controls.Add(this.cbSoundtrack);
             this.Controls.Add(this.cbFullscreen);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnLoadLevel);
@@ -105,5 +119,6 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.CheckBox cbFullscreen;
+        private System.Windows.Forms.CheckBox cbSoundtrack;
     }
 }

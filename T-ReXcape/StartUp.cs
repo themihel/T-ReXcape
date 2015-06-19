@@ -31,6 +31,12 @@ namespace T_ReXcape
             {
                 cbFullscreen.Checked = true;
             }
+
+            // get Soundtrack setting
+            if (Config.getPlayMusic())
+            {
+                cbSoundtrack.Checked = true;
+            }
         }
 
 
@@ -94,7 +100,34 @@ namespace T_ReXcape
         /// <param name="e"></param>
         private void cbFullscreen_CheckedChanged(object sender, EventArgs e)
         {
+            // set config
             Config.setFullscreen(((CheckBox)sender).Checked);
+
+            // save config
+            Config.saveSettings();
+        }
+
+        /// <summary>
+        /// Toggle music
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cbSoundtrack_CheckedChanged(object sender, EventArgs e)
+        {
+            // set config
+            Config.setPlayMusic(((CheckBox)sender).Checked);
+
+            // set music status
+            if (((CheckBox)sender).Checked)
+            {
+                Sound.playSoundtrack();
+            }
+            else
+            {
+                Sound.stopSoundtrack();
+            }
+
+            // save config
             Config.saveSettings();
         }
     }

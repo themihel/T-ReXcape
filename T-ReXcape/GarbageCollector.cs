@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -8,7 +9,11 @@ namespace T_ReXcape
 {
     class GarbageCollector
     {
+        // mapPanel
         public static Panel mapPanel;
+
+        // tempRemove
+        static private List<String> tempRemove = new List<String>();
 
         /// <summary>
         /// init garbage collector
@@ -42,6 +47,40 @@ namespace T_ReXcape
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// adds file to remove on close
+        /// </summary>
+        /// <param name="filename">Filenames in temp directory</param>
+        public static void addTempRemove(String filename)
+        {
+            tempRemove.Add(filename);
+        }
+
+        /// <summary>
+        /// clears temp directory
+        /// </summary>
+        public static void clearTempDir()
+        {
+            // init filepath
+            String filePath;
+
+            // loop through tempFiles
+            foreach (var filename in tempRemove)
+            {
+                // generate filePath
+                filePath = System.IO.Path.GetTempPath() + filename;
+                // check if file exists
+                if (File.Exists(filePath))
+                {
+                    // remove file
+                    File.Delete(filePath);
+                }
+            }
+
+            // clear list
+            tempRemove.Clear();
         }
     }
 }
