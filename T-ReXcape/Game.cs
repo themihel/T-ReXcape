@@ -60,14 +60,6 @@ namespace T_ReXcape
 
                 // set new blocksize
                 Config.setBlockSize(newBlockSize);
-
-                // set menubar
-                menuBar.Height = Config.getMenuBarHeight();
-                menuBar.Width = maxWidth;
-                menuBar.Location = new Point(0, 0);
-
-                // set pause button
-                btnMenuPause.Location = new Point((maxWidth - btnMenuPause.Size.Width) / 2, (Config.getMenuBarHeight() - btnMenuPause.Size.Height) / 2);
             }
             else
             {
@@ -106,15 +98,15 @@ namespace T_ReXcape
                     newSize.Height = pausePanel.Height;
 
                 this.ClientSize = newSize;
-
-                // set menubar
-                menuBar.Height = Config.getMenuBarHeight();
-                menuBar.Width = this.ClientSize.Width;
-                menuBar.Location = new Point(0, 0);
-
-                // set pause button
-                btnMenuPause.Location = new Point((this.ClientSize.Width - btnMenuPause.Size.Width) / 2, (Config.getMenuBarHeight() - btnMenuPause.Size.Height) / 2);
             }
+
+            // set menubar
+            menuBar.Height = Config.getMenuBarHeight();
+            menuBar.Width = this.ClientSize.Width;
+            menuBar.Location = new Point(0, 0);
+
+            // set pause button
+            btnMenuPause.Location = new Point((this.ClientSize.Width - btnMenuPause.Size.Width) / 2, (Config.getMenuBarHeight() - btnMenuPause.Size.Height) / 2);
 
             // center pause menu on form
             pausePanel.Location = new Point((this.ClientSize.Width - pausePanel.Width) / 2, (this.ClientSize.Height - pausePanel.Height) / 2);
