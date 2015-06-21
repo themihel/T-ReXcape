@@ -19,6 +19,9 @@ namespace T_ReXcape
         static private Color activeColor = Color.Red;
         static private Color gridColor = Color.Gray;
 
+        // size menu bar
+        static private Int32 menuBarHeight = 50;
+
 
         /// <summary>
         /// sets block size
@@ -108,6 +111,15 @@ namespace T_ReXcape
         static public void disposeAllItems()
         {
             ItemCollection.disposeAllItems();
+        }
+
+        /// <summary>
+        /// returns height of menu panel
+        /// </summary>
+        /// <returns></returns>
+        static public Int32 getMenuBarHeight()
+        {
+            return menuBarHeight;
         }
 
         /// <summary>

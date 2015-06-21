@@ -32,18 +32,20 @@
             this.button1 = new System.Windows.Forms.Button();
             this.pausePanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnMenuPause = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
+            this.menuBar = new System.Windows.Forms.Panel();
             this.pausePanel.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.menuBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // mapPanel
             // 
             this.mapPanel.BackColor = System.Drawing.SystemColors.Control;
             this.mapPanel.BackgroundImage = global::T_ReXcape.Properties.Resources.grass;
-            this.mapPanel.Location = new System.Drawing.Point(12, 12);
+            this.mapPanel.Location = new System.Drawing.Point(40, 109);
             this.mapPanel.Name = "mapPanel";
             this.mapPanel.Size = new System.Drawing.Size(78, 77);
             this.mapPanel.TabIndex = 3;
@@ -63,7 +65,7 @@
             this.pausePanel.BackColor = System.Drawing.Color.DarkRed;
             this.pausePanel.Controls.Add(this.label1);
             this.pausePanel.Controls.Add(this.button1);
-            this.pausePanel.Location = new System.Drawing.Point(375, 54);
+            this.pausePanel.Location = new System.Drawing.Point(261, 143);
             this.pausePanel.Name = "pausePanel";
             this.pausePanel.Size = new System.Drawing.Size(231, 285);
             this.pausePanel.TabIndex = 0;
@@ -78,17 +80,17 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Pause";
             // 
-            // button2
+            // btnMenuPause
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(563, 12);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(43, 36);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "| |";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnMenuPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMenuPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMenuPause.Location = new System.Drawing.Point(216, 3);
+            this.btnMenuPause.Name = "btnMenuPause";
+            this.btnMenuPause.Size = new System.Drawing.Size(43, 36);
+            this.btnMenuPause.TabIndex = 4;
+            this.btnMenuPause.Text = "| |";
+            this.btnMenuPause.UseVisualStyleBackColor = true;
+            this.btnMenuPause.Click += new System.EventHandler(this.button2_Click);
             // 
             // panel1
             // 
@@ -112,14 +114,23 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "X";
             // 
+            // menuBar
+            // 
+            this.menuBar.BackColor = System.Drawing.Color.DarkGray;
+            this.menuBar.Controls.Add(this.btnMenuPause);
+            this.menuBar.Location = new System.Drawing.Point(12, 12);
+            this.menuBar.Name = "menuBar";
+            this.menuBar.Size = new System.Drawing.Size(480, 76);
+            this.menuBar.TabIndex = 6;
+            // 
             // Game
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(618, 462);
+            this.Controls.Add(this.menuBar);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.pausePanel);
             this.Controls.Add(this.mapPanel);
             this.ForeColor = System.Drawing.Color.CadetBlue;
@@ -133,6 +144,7 @@
             this.pausePanel.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.menuBar.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -143,8 +155,9 @@
         private System.Windows.Forms.Panel pausePanel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnMenuPause;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel menuBar;
     }
 }

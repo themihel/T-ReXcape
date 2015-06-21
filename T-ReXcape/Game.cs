@@ -40,8 +40,12 @@ namespace T_ReXcape
         public void loadFile(String file)
         {
             // calculate maximum resolution
-            int maxHeight = Screen.PrimaryScreen.WorkingArea.Height;
-            int maxWidth = Screen.PrimaryScreen.WorkingArea.Width;
+            Int32 maxHeight = Screen.PrimaryScreen.WorkingArea.Height - Config.getMenuBarHeight();
+            Int32 maxWidth = Screen.PrimaryScreen.WorkingArea.Width;
+
+            // set pause button size relativ to menuBar
+            btnMenuPause.Width = Config.getMenuBarHeight() - 5;
+            btnMenuPause.Height = Config.getMenuBarHeight() - 5;
 
             if (Config.getFullscreen())
             {   
@@ -50,12 +54,20 @@ namespace T_ReXcape
                 tmpMap.loadMap(file);
 
                 // calculate new blocksize to zoom map in fullscreen
-                int countBlockSizeWidth = maxWidth / tmpMap.getWidthBlocks();
-                int countBlockSizeHeight = maxHeight / tmpMap.getHeightBlocks();
-                int newBlockSize = (countBlockSizeHeight > countBlockSizeWidth) ? countBlockSizeWidth : countBlockSizeHeight;
+                Int32 countBlockSizeWidth = maxWidth / tmpMap.getWidthBlocks();
+                Int32 countBlockSizeHeight = maxHeight / tmpMap.getHeightBlocks();
+                Int32 newBlockSize = (countBlockSizeHeight > countBlockSizeWidth) ? countBlockSizeWidth : countBlockSizeHeight;
 
                 // set new blocksize
                 Config.setBlockSize(newBlockSize);
+
+                // set menubar
+                menuBar.Height = Config.getMenuBarHeight();
+                menuBar.Width = maxWidth;
+                menuBar.Location = new Point(0, 0);
+
+                // set pause button
+                btnMenuPause.Location = new Point((maxWidth - btnMenuPause.Size.Width) / 2, (Config.getMenuBarHeight() - btnMenuPause.Size.Height) / 2);
             }
             else
             {
@@ -86,7 +98,7 @@ namespace T_ReXcape
             // set form size to map size (only in window mode)
             if (!Config.getFullscreen())
             {
-                Size newSize = new Size(map.getWidth(), map.getHeight());
+                Size newSize = new Size(map.getWidth(), map.getHeight() + Config.getMenuBarHeight());
                 if (newSize.Width < pausePanel.Width)
                     newSize.Width = pausePanel.Width;
 
@@ -94,13 +106,21 @@ namespace T_ReXcape
                     newSize.Height = pausePanel.Height;
 
                 this.ClientSize = newSize;
+
+                // set menubar
+                menuBar.Height = Config.getMenuBarHeight();
+                menuBar.Width = this.ClientSize.Width;
+                menuBar.Location = new Point(0, 0);
+
+                // set pause button
+                btnMenuPause.Location = new Point((this.ClientSize.Width - btnMenuPause.Size.Width) / 2, (Config.getMenuBarHeight() - btnMenuPause.Size.Height) / 2);
             }
 
             // center pause menu on form
             pausePanel.Location = new Point((this.ClientSize.Width - pausePanel.Width) / 2, (this.ClientSize.Height - pausePanel.Height) / 2);
 
             // center panel on form
-            Point mapPosition = new Point((this.ClientSize.Width - mapPanel.Width) / 2, (this.ClientSize.Height - mapPanel.Height) / 2);
+            Point mapPosition = new Point((this.ClientSize.Width - mapPanel.Width) / 2, (this.ClientSize.Height - mapPanel.Height + Config.getMenuBarHeight()) / 2);
 
             // set map panel location on form
             mapPanel.Location = mapPosition;
