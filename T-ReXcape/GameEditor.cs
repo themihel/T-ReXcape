@@ -21,21 +21,19 @@ namespace T_ReXcape
         // variables
         Point mousePosition;
         Map map;
+        Item copyItem;
 
         public GameEditor()
         {
             // init formComponents
             InitializeComponent();
-
-            // init Items
-            Config.initItems();
-           
+                       
             // set file filters
             openFileDialog1.Filter = Config.getMapFileFilter();
             saveFileDialog1.Filter = Config.getMapFileFilter();
 
             // init Map and register events
-            map = new Map(mapPanel);
+            map = new Map(ref mapPanel);
             map.redrawBackground();
             map.registerControlClickEventHandler(new System.EventHandler(dragDropMouseClick));
 
@@ -118,23 +116,7 @@ namespace T_ReXcape
         private void dragDropMouseClick(object sender, EventArgs e)
         {
             MouseEventArgs me = (MouseEventArgs)e;
-            // check sender type
-            if (sender.GetType().IsSubclassOf(typeof(Control)) && me.Button != MouseButtons.Right)
-            {
-                // check if object targeted
-                if (map.getDragObject() == null)
-                {
-                    map.setDragObject((Control)sender);
-                    map.getDragObject().BackColor = Config.getActiveColor();
-                }
-                else
-                {
-                    // reset everything on second click
-                    map.getDragObject().BackColor = Color.Transparent;
-                    map.setDragObject(null);
-                }
-            }
-            else if (me.Button == MouseButtons.Right)
+            if (me.Button == MouseButtons.Right)
             {
                 //DialogResult result = MessageBox.Show("Möchten Sie dieses Objekt sicher entfernen?", "Objekt entfernen?", MessageBoxButtons.YesNo);
                 if (true) // result == DialogResult.Yes)
@@ -147,6 +129,21 @@ namespace T_ReXcape
                     obj.Image = null;
                     obj.BackColor = Color.Transparent;
 
+                    map.setDragObject(null);
+                }
+            }
+            else
+            {
+                // check if object targeted
+                if (map.getDragObject() == null)
+                {
+                    map.setDragObject((Item)sender);
+                    map.getDragObject().BackColor = Config.getActiveColor();
+                }
+                else
+                {
+                    // reset everything on second click
+                    map.getDragObject().BackColor = Color.Transparent;
                     map.setDragObject(null);
                 }
             }
@@ -288,7 +285,13 @@ namespace T_ReXcape
                 // reset after delay
                 EasyTimer.SetTimeout(() =>
                 {
-                    statusLabel.Text = "-";
+                    try {
+                        statusLabel.Text = "-";
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex.Message);
+                    }
                 }, (int)seconds * 1000);
             }
         }
@@ -311,6 +314,72 @@ namespace T_ReXcape
         private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void GameEditor_Load(object sender, EventArgs e)
+        {
+            int i = 0;
+            Debug.WriteLine(ItemCollection.getAllItems().Count);
+            Config.initItems();
+            Debug.WriteLine(ItemCollection.getAllItems().Count);
+            foreach (Item itemOriginal in ItemCollection.getAllItems())
+            {
+                Item item = itemOriginal.clone();
+                item.Location = new Point(i, 0);
+                item.Cursor = Cursors.Hand;
+                item.Click += new EventHandler(itemHolderClick);
+                itemHolder.Controls.Add(item);
+
+                i += item.getWidth();
+            }
+        }
+
+        private void itemHolderClick(object sender, EventArgs e)
+        {
+            if (map.getLastAddedItem() != null)
+            {
+                Item lastItem = map.getLastAddedItem();
+                if (
+                    lastItem.Location.X < 0 ||
+                    lastItem.Location.Y < 0 ||
+                    lastItem.Location.X > mapPanel.Width ||
+                    lastItem.Location.Y > mapPanel.Height
+                    )
+                {
+                    mapPanel.Controls.Remove(lastItem);
+                }
+            }
+
+            Item item = sender as Item;
+            if (map.setObjectOnMap(item.getKey(), new Point(0 - item.Width, 0 - item.Height)))
+            {
+                map.setDragObject(map.getLastAddedItem());
+                map.getDragObject().BackColor = Config.getActiveColor();
+            }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (map.getDragObject() != null && keyData == (Keys.Control | Keys.C))
+            {
+                Debug.WriteLine("copy object");
+                copyItem = map.getDragObject();
+                return true;
+            }
+            else if (copyItem != null && keyData == (Keys.Control | Keys.V))
+            {
+                Debug.WriteLine("paste object");
+                
+                if (map.getDragObject() != null)
+                    map.getDragObject().BackColor = Color.Transparent;
+
+                Item pasteItem = copyItem.clone();
+                map.cloneItem(pasteItem, new Point(0 - pasteItem.Width, 0 - pasteItem.Height));
+                map.setDragObject(map.getLastAddedItem());
+                map.getDragObject().BackColor = Config.getActiveColor();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

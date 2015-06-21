@@ -50,7 +50,8 @@ namespace T_ReXcape
             if (Config.getFullscreen())
             {   
                 // load map temporary 
-                Map tmpMap = new Map(new Panel());
+                Panel tmpPanel = new Panel();
+                Map tmpMap = new Map(ref tmpPanel);
                 tmpMap.loadMap(file);
 
                 // calculate new blocksize to zoom map in fullscreen
@@ -74,7 +75,7 @@ namespace T_ReXcape
             Config.initItems();
 
             // load actual map and draw everything
-            Map map = new Map(mapPanel);
+            Map map = new Map(ref mapPanel);
             map.registerControlClickEventHandler(item_Click);
             map.loadMap(file);
             try

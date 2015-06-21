@@ -20,7 +20,7 @@ namespace T_ReXcape
         private Int32 blockSize;
 
         // drag object temp var
-        Control dragDropObject;
+        Item dragDropObject;
 
         // colors
         private Color activeColor;
@@ -39,11 +39,14 @@ namespace T_ReXcape
         // loaded file
         IniFile mapFile;
 
+        // last added item
+        private Item lastAddedItem;
+
         /// <summary>
         /// initialise Map with panel / loads configs from config class
         /// </summary>
         /// <param name="mapPanel">Form Panel (Map)</param>
-        public Map(Panel mapPanel)
+        public Map(ref Panel mapPanel)
         {
             // set panel
             this.mapPanel = mapPanel;
@@ -112,7 +115,8 @@ namespace T_ReXcape
         /// registers control eventhandler for doubleClick
         /// </summary>
         /// <param name="controlDoubleClickEventHandler">eventhandler for doubleClick</param>
-        public void registerControlDoubleClickEventHandler(System.EventHandler controlDoubleClickEventHandler) {
+        public void registerControlDoubleClickEventHandler(System.EventHandler controlDoubleClickEventHandler)
+        {
             this.controlDoubleClickEventHandler = controlDoubleClickEventHandler;
         }
 
@@ -125,7 +129,8 @@ namespace T_ReXcape
         {
             if (getDragObject() != null)
             {
-                Point newPos = new Point(((Control)sender).Location.X + e.X, ((Control)sender).Location.Y + e.Y);
+                Item item = sender as Item;
+                Point newPos = new Point(item.Location.X + e.X, item.Location.Y + e.Y);
                 dragObjectToPoint(newPos);
             }
         }
@@ -138,7 +143,7 @@ namespace T_ReXcape
         {
             return isGridShown;
         }
-                
+
         /// <summary>
         /// checks if there are any elements on map // otherwise throws exception
         /// </summary>
@@ -170,7 +175,7 @@ namespace T_ReXcape
             mapFile.IniWriteValue("config", "width", pixelToBlock(mapPanel.Width).ToString());
 
             // write all objects on map
-            foreach (Control child in mapPanel.Controls)
+            foreach (Item child in mapPanel.Controls)
             {
                 String name = child.Name;
                 Point position = child.Location;
@@ -212,7 +217,8 @@ namespace T_ReXcape
                 String[] configKeys = { "width", "height" };
 
                 // validate config keys
-                if (validation.validateKeyGroup("config", configKeys)) {
+                if (validation.validateKeyGroup("config", configKeys))
+                {
                     // set size
                     updateMapSizeBlocks(Convert.ToInt32(mapFile.IniReadValue("config", "width")), Convert.ToInt32(mapFile.IniReadValue("config", "height")));
                 }
@@ -316,7 +322,7 @@ namespace T_ReXcape
                 Random rand = new Random();
                 String tempFile = Path.GetTempPath() + "T-ReXCape" + rand.NextDouble() + ".jpg";
                 bgWithGrid.Save(tempFile);
-                
+
                 Bitmap tmpBitmap = new Bitmap(tempFile);
                 bgWithGrid = new Bitmap(tmpBitmap);
                 tmpBitmap.Dispose();
@@ -336,10 +342,11 @@ namespace T_ReXcape
         {
             if (!ItemCollection.isItemSet(key) || ItemCollection.getItemByKey(key).getMaxOnPanel() > getItemCount(key))
             {
-                PictureBox newItem = prepareMapItem(key, position);
+                Item newItem = prepareMapItem(key, position);
                 bool checkPosition = fitInHere(newItem.Location, newItem.Width, newItem.Height);
                 if (checkPosition)
                 {
+                    lastAddedItem = newItem;
                     mapPanel.Controls.Add(newItem);
                 }
                 else
@@ -358,9 +365,9 @@ namespace T_ReXcape
         /// <param name="name">item name/key</param>
         /// <param name="position">item position</param>
         /// <returns>returns prepared pricturebox</returns>
-        private PictureBox prepareMapItem(String name, Point position)
+        private Item prepareMapItem(String name, Point position)
         {
-            Item item = ItemCollection.getItemByKey(name);
+            Item item = ItemCollection.getItemByKey(name).clone();
 
             // add offset to position
             position = Util.getAccuratePosition(position, blockSize);
@@ -380,20 +387,7 @@ namespace T_ReXcape
             item.Name = name + getItemCount(name);
             item.Cursor = Cursors.Hand;
 
-            // if set: add remove event
-            if (controlClickEventHandler != null)
-            {
-                item.Click += controlClickEventHandler;
-                item.MouseMove += new MouseEventHandler(itemMouseMove);
-            }
-
-            // if set: add remove event
-            if (controlDoubleClickEventHandler != null)
-                item.DoubleClick += controlDoubleClickEventHandler;
-
-            item.MouseDown += new MouseEventHandler(Item.mouseDown);
-            item.MouseUp += new MouseEventHandler(Item.mouseUp);
-            item.MouseMove += new MouseEventHandler(Item.mouseMove);
+            addEvents(ref item);
 
             // return image
             return item;
@@ -415,10 +409,9 @@ namespace T_ReXcape
         /// <returns>returns if object fits or not</returns>
         public bool dragObjectToPoint(Point position)
         {
-            Control obj = getDragObject();
+            Item item = getDragObject();
             Point newPos = Util.getAccuratePosition(position, Config.getBlockSize());
-            Item item = ItemCollection.getItemByKey(Util.removeDigitsFromString(obj.Name));
-            // @TODO tidy up a little =)
+
             newPos.X = newPos.X + item.getPositionOffsetX() + item.getBlockOffsetX(Config.getBlockSize());
             newPos.Y = newPos.Y + item.getPositionOffsetY() + item.getBlockOffsetY(Config.getBlockSize());
 
@@ -426,7 +419,7 @@ namespace T_ReXcape
 
             if (fit)
             {
-                obj.Location = newPos;
+                item.Location = newPos;
             }
             return fit;
         }
@@ -435,7 +428,7 @@ namespace T_ReXcape
         /// sets current dragged item
         /// </summary>
         /// <param name="obj">drag-object</param>
-        public void setDragObject(Control obj)
+        public void setDragObject(Item obj)
         {
             dragDropObject = obj;
         }
@@ -444,7 +437,7 @@ namespace T_ReXcape
         /// returns current dragged item
         /// </summary>
         /// <returns>drag-object</returns>
-        public Control getDragObject()
+        public Item getDragObject()
         {
             return dragDropObject;
         }
@@ -459,18 +452,25 @@ namespace T_ReXcape
         private bool fitInHere(Point position, Int32 width, Int32 height)
         {
             Boolean ok = true;
-            foreach (Control itemControl in getAllItemsOnMap())
+            // check only if position is on map.
+            // otherwise is position valid but garbage collector will delete it
+            if (position.X >= 0 && position.X <= mapPanel.Width &&
+                position.Y >= 0 && position.Y <= mapPanel.Height)
             {
-                if (getDragObject() == null || !getDragObject().Name.Equals(itemControl.Name))
+                foreach (Control itemControl in getAllItemsOnMap())
                 {
-                    int distanceLeft = position.X - (itemControl.Location.X + itemControl.Width);
-                    int distanceRight = itemControl.Location.X - (position.X + width);
-                    int distanceTop = itemControl.Location.Y - (position.Y + height);
-                    int distanceBottom = position.Y - (itemControl.Location.Y + itemControl.Height);
-
-                    if (distanceLeft < 0 && distanceRight < 0 && distanceTop < 0 && distanceBottom < 0)
+                    Debug.WriteLine("check pos");
+                    if (getDragObject() == null || !getDragObject().Name.Equals(itemControl.Name))
                     {
-                        ok = false;
+                        int distanceLeft = position.X - (itemControl.Location.X + itemControl.Width);
+                        int distanceRight = itemControl.Location.X - (position.X + width);
+                        int distanceTop = itemControl.Location.Y - (position.Y + height);
+                        int distanceBottom = position.Y - (itemControl.Location.Y + itemControl.Height);
+
+                        if (distanceLeft < 0 && distanceRight < 0 && distanceTop < 0 && distanceBottom < 0)
+                        {
+                            ok = false;
+                        }
                     }
                 }
             }
@@ -540,12 +540,13 @@ namespace T_ReXcape
                 lastValue = mapPanel.Height;
 
                 // loop through item with same x coordinates and calculate next object
-                foreach (Control child in mapPanel.Controls)
+                foreach (Item child in mapPanel.Controls)
                 {
                     if (child.Left == xPos)
                     {
                         currentValue = yPos - child.Top;
-                        if (currentValue > 0 &&  currentValue < lastValue) {
+                        if (currentValue > 0 && currentValue < lastValue)
+                        {
                             lastValue = currentValue;
                             destPoint = new Point(xPos, (child.Top + blockSize));
                         }
@@ -562,7 +563,7 @@ namespace T_ReXcape
                 lastValue = 0;
 
                 // loop through item with same y coordinates and calculate next object
-                foreach (Control child in mapPanel.Controls)
+                foreach (Item child in mapPanel.Controls)
                 {
                     if (child.Top == yPos)
                     {
@@ -577,7 +578,7 @@ namespace T_ReXcape
 
                 if (lastValue == 0)
                 {
-                    destPoint = new Point(mapPanel.Width-blockSize, yPos);
+                    destPoint = new Point(mapPanel.Width - blockSize, yPos);
                 }
             }
             else if (direction == 2) // down
@@ -585,7 +586,7 @@ namespace T_ReXcape
                 lastValue = 0;
 
                 // loop through item with same x coordinates and calculate next object
-                foreach (Control child in mapPanel.Controls)
+                foreach (Item child in mapPanel.Controls)
                 {
                     if (child.Left == xPos)
                     {
@@ -608,7 +609,7 @@ namespace T_ReXcape
                 lastValue = mapPanel.Width;
 
                 // loop through item with same y coordinates and calculate next object
-                foreach (Control child in mapPanel.Controls)
+                foreach (Item child in mapPanel.Controls)
                 {
                     if (child.Top == yPos)
                     {
@@ -634,6 +635,42 @@ namespace T_ReXcape
         public void redrawBackground()
         {
             mapPanel.BackgroundImage = getBackground();
+        }
+
+        private void addEvents(ref Item item)
+        {
+            // if set: add remove event
+            if (controlClickEventHandler != null)
+            {
+                item.Click += controlClickEventHandler;
+                item.MouseMove += new MouseEventHandler(itemMouseMove);
+            }
+
+            // if set: add remove event
+            if (controlDoubleClickEventHandler != null)
+                item.DoubleClick += controlDoubleClickEventHandler;
+
+            item.MouseDown += new MouseEventHandler(Item.mouseDown);
+            item.MouseUp += new MouseEventHandler(Item.mouseUp);
+            item.MouseMove += new MouseEventHandler(Item.mouseMove);
+        }
+
+        public Item getLastAddedItem()
+        {
+            return lastAddedItem;
+        }
+
+        public bool cloneItem(Item item, Point position)
+        {
+            Item newItem = item.clone();
+            addEvents(ref newItem);
+            bool checkPosition = fitInHere(newItem.Location, newItem.Width, newItem.Height);
+            if (checkPosition)
+            {
+                lastAddedItem = newItem;
+                mapPanel.Controls.Add(newItem);
+            }
+            return checkPosition;
         }
     }
 }

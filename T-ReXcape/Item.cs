@@ -18,8 +18,6 @@ namespace T_ReXcape
         private Image imageBottom;
         private Int32 maxOnPanel;
         private String name;
-        private Int32 width;
-        private Int32 height;
         private Int32 positionX;
         private Int32 positionY;
         private Int16 direction;
@@ -45,13 +43,32 @@ namespace T_ReXcape
         public Item(String _key, Int32 _width, Int32 _height)
         {
             key = _key;
-            width = _width;
-            height = _height;
+            Width = _width;
+            Height = _height;
             // set default hook position
             positionX = positionLeft;
             positionY = positionTop;
             // defalut direction to left
             direction = directionLeft;
+
+            BackColor = Color.Transparent;
+            SizeMode = PictureBoxSizeMode.Zoom;
+        }
+
+        public Item clone()
+        {
+            Debug.WriteLine("clone");
+            Debug.WriteLine("direction " + direction);
+            Item cloneItem = new Item(this.key, this.Width, this.Height);
+            cloneItem.setImageLeft(imageLeft);
+            cloneItem.setImageRight(imageRight);
+            cloneItem.setImageTop(imageTop);
+            cloneItem.setImageBottom(imageBottom);
+            cloneItem.setMaxOnPanel(maxOnPanel);
+            cloneItem.setName(name);
+            cloneItem.setHookPosition(positionX, positionY);
+            cloneItem.setDirection(direction);
+            return cloneItem;
         }
 
         /// <summary>
@@ -107,7 +124,7 @@ namespace T_ReXcape
         /// </summary>
         public Int32 getWidth()
         {
-            return width;
+            return Width;
         }
 
         /// <summary>
@@ -115,7 +132,7 @@ namespace T_ReXcape
         /// </summary>
         public Int32 getHeight()
         {
-            return height;
+            return Height;
         }
 
         /// <summary>
@@ -161,11 +178,11 @@ namespace T_ReXcape
             int offset = 0;
             if (positionX == positionRight)
             {
-                offset = width;
+                offset = Width;
             }
             else if (positionX == positionCenter)
             {
-                offset = width / 2;
+                offset = Width / 2;
             }
             return offset * -1;
         }
@@ -178,11 +195,11 @@ namespace T_ReXcape
             int offset = 0;
             if (positionY == positionBottom)
             {
-                offset = height;
+                offset = Height;
             }
             else if (positionY == positionCenter)
             {
-                offset = height / 2;
+                offset = Height / 2;
             }
             return offset * -1;
         }
@@ -247,21 +264,25 @@ namespace T_ReXcape
         public void setImageLeft(Image img)
         {
             imageLeft = img;
+            updateImage();
         }
 
         public void setImageRight(Image img)
         {
             imageRight = img;
+            updateImage();
         }
 
         public void setImageTop(Image img)
         {
             imageTop = img;
+            updateImage();
         }
 
         public void setImageBottom(Image img)
         {
             imageBottom = img;
+            updateImage();
         }
 
         public void setImageAllDirections(Image img)
@@ -270,6 +291,7 @@ namespace T_ReXcape
             imageRight = img;
             imageTop = img;
             imageBottom = img;
+            updateImage();
         }
 
         private void updateImage()
@@ -289,8 +311,8 @@ namespace T_ReXcape
 
         public static void mouseDown(object sender, MouseEventArgs e)
         {
-            Control cntr = sender as Control;
-            mousePosition = new Point(cntr.Width / 2, cntr.Height / 2);
+            Item item = sender as Item;
+            mousePosition = new Point(item.Width / 2, item.Height / 2);
         }
 
         public static void mouseUp(object sender, MouseEventArgs e)
@@ -304,22 +326,22 @@ namespace T_ReXcape
             {
                 int newX = e.X - mousePosition.X;
                 int newY = mousePosition.Y - e.Y;
-                if (newX < newY && (newX * -1) < newY && newY > 0)
+                if (newX < newY && (newX * -1) < newY && newY > 50)
                 {
                     // top
                     ((Item)sender).setDirection(Item.directionTop);
                 }
-                else if (newX > newY && (newX * -1) > newY && newY < 0)
+                else if (newX > newY && (newX * -1) > newY && newY < -50)
                 {
                     // bottom
                     ((Item)sender).setDirection(Item.directionBottom);
                 }
-                else if (newY < newX && (newY * -1) < newX && newX > 0)
+                else if (newY < newX && (newY * -1) < newX && newX > 50)
                 {
                     // right
                     ((Item)sender).setDirection(Item.directionRight);
                 }
-                else if (newY > newX && (newY * -1) > newX && newX < 0)
+                else if (newY > newX && (newY * -1) > newX && newX < -50)
                 {
                     // left
                     ((Item)sender).setDirection(Item.directionLeft);
