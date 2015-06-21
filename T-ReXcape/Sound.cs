@@ -17,30 +17,37 @@ namespace T_ReXcape
         // soundtrack
         static private MediaPlayer soundtrackPlayer = new MediaPlayer();
         static private Boolean soundtrackLoaded = false;
+        static private String soundtrackName = "";
 
         /// <summary>
         /// start playing soundtrack
         /// </summary>
         static public void playSoundtrack()
         {
-            // load
-            if (!soundtrackLoaded)
+            // checks settings
+            if (Config.getPlayMusic())
             {
-                loadSoundtrack();
+                // load
+                if (!soundtrackLoaded)
+                {
+                    loadSoundtrack();
+                }
+                // play
+                soundtrackPlayer.Play();
             }
-            // play
-            soundtrackPlayer.Play();
         }
 
-        
+        /// <summary>
+        /// load Soundtrack
+        /// </summary>
         static private void loadSoundtrack()
         {
             // generate filename
             Random rand = new Random();
-            String tempFileName =  "tmp" + rand.Next() + ".wav";
+            String soundtrackName = "tmp" + rand.Next() + ".wav";
 
             // filepath
-            String tempFilePath = System.IO.Path.GetTempPath() + tempFileName;
+            String tempFilePath = System.IO.Path.GetTempPath() + soundtrackName;
             
             
             
@@ -61,7 +68,7 @@ namespace T_ReXcape
                         fileStream.Close();
 
                         // add filename to garbage collector
-                        GarbageCollector.addTempRemove(tempFileName);
+                        GarbageCollector.addTempRemove(soundtrackName);
                     }
                     catch (Exception ex)
                     {
@@ -116,11 +123,18 @@ namespace T_ReXcape
             playSound(Properties.Resources.erase_sound);
         }
 
+        /// <summary>
+        /// Plays simple sounds (used for soundeffects)
+        /// </summary>
+        /// <param name="sound">Ressource file</param>
         private static void playSound(System.IO.UnmanagedMemoryStream sound)
         {
-            SoundPlayer player = new SoundPlayer();
-            player.Stream = sound;
-            player.Play();
+            if (Config.getPlaySoundEffects())
+            {
+                SoundPlayer player = new SoundPlayer();
+                player.Stream = sound;
+                player.Play();
+            }
         }
     }
 }
