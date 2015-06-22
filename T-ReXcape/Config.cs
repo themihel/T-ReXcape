@@ -45,63 +45,62 @@ namespace T_ReXcape
         /// </summary>
         static public void initItems()
         {
-            Item player1start = new Item("player1start", 3 * blockSize, 3 * blockSize);
+            Item player1start = new Item("player1start", 4 * blockSize, 4 * blockSize);
             player1start.setImageLeft(Properties.Resources.dino_left);
             player1start.setImageRight(Properties.Resources.dino_right);
             player1start.setImageTop(Properties.Resources.dino_up);
             player1start.setImageBottom(Properties.Resources.dino_down);
             player1start.setMaxOnPanel(1);
-            player1start.setName("Spieler 1 Start");
+            player1start.setName("Spieler 1");
             player1start.setHookPosition(Item.positionCenter, Item.positionBottom);
             ItemCollection.addItem(player1start);
 
-            Item player1destination = new Item("player1destination", 3 * blockSize, 4 * blockSize);
-            player1start.setImageAllDirections(Properties.Resources.rocket1);
-            player1destination.setMaxOnPanel(1);
-            player1destination.setName("Spieler 1 Ziel");
-            player1destination.setHookPosition(Item.positionCenter, Item.positionBottom);
-            ItemCollection.addItem(player1destination);
+            Item destination = new Item("destination", 3 * blockSize, 4 * blockSize);
+            destination.setImageAllDirections(Properties.Resources.rocket1);
+            destination.setMaxOnPanel(1);
+            destination.setName("Ziel");
+            destination.setHookPosition(Item.positionCenter, Item.positionBottom);
+            ItemCollection.addItem(destination);
 
-            Item player2start = new Item("player2start", 3 * blockSize, 3 * blockSize);
-            player1start.setImageLeft(Properties.Resources.dino_left);
-            player1start.setImageRight(Properties.Resources.dino_right);
-            player1start.setImageTop(Properties.Resources.dino_up);
-            player1start.setImageBottom(Properties.Resources.dino_down);
+            Item player2start = new Item("player2start", 4 * blockSize, 4 * blockSize);
+            player2start.setImageLeft(Properties.Resources.dino_left);
+            player2start.setImageRight(Properties.Resources.dino_right);
+            player2start.setImageTop(Properties.Resources.dino_up);
+            player2start.setImageBottom(Properties.Resources.dino_down);
             player2start.setMaxOnPanel(1);
-            player2start.setName("Spieler 2 Start");
+            player2start.setName("Spieler 2");
             player2start.setHookPosition(Item.positionCenter, Item.positionBottom);
             ItemCollection.addItem(player2start);
 
-            Item player2destination = new Item("player2destination", 3 * blockSize, 4 * blockSize);
-            player2destination.setImageAllDirections(Properties.Resources.rocket1);
-            player2destination.setMaxOnPanel(1);
-            player2destination.setName("Spieler 2 Ziel");
-            player2destination.setHookPosition(Item.positionCenter, Item.positionBottom);
-            ItemCollection.addItem(player2destination);
+            Item wall = new Item("wall", 2 * blockSize, 4 * blockSize);
+            wall.setImageLeft(Properties.Resources.wallv);
+            wall.setImageRight(Properties.Resources.wallv);
+            wall.setImageTop(Properties.Resources.wallh);
+            wall.setImageBottom(Properties.Resources.wallh);
+            wall.setMaxOnPanel(99);
+            wall.setName("Mauer");
+            ItemCollection.addItem(wall);
 
-            Item wallv = new Item("wallv", 2 * blockSize, 4 * blockSize);
-            wallv.setImageLeft(Properties.Resources.wallv);
-            wallv.setImageRight(Properties.Resources.wallv);
-            wallv.setImageTop(Properties.Resources.wallh);
-            wallv.setImageBottom(Properties.Resources.wallh);
-            wallv.setMaxOnPanel(99);
-            wallv.setName("Mauer vertikal");
-            ItemCollection.addItem(wallv);
-            
-            Item goright = new Item("goright", blockSize, blockSize);
-            goright.setImageLeft(Properties.Resources.goleft);
-            goright.setImageRight(Properties.Resources.goright);
-            goright.setImageTop(Properties.Resources.gotop);
-            goright.setImageBottom(Properties.Resources.gobottom);
-            goright.setMaxOnPanel(99);
-            goright.setName("Bewegung - rechts");
-            ItemCollection.addItem(goright);
+            Item goTo = new Item("goto", 2 * blockSize, 2 * blockSize);
+            goTo.setImageLeft(Properties.Resources.goleft);
+            goTo.setImageRight(Properties.Resources.goright);
+            goTo.setImageTop(Properties.Resources.gotop);
+            goTo.setImageBottom(Properties.Resources.gobottom);
+            goTo.setMaxOnPanel(99);
+            goTo.setName("Bewegung");
+            ItemCollection.addItem(goTo);
 
-            Item hole = new Item("hole", blockSize * 4, blockSize * 4);
+            Item hole = new Item("hole", 2 * blockSize, 2 * blockSize);
             hole.setImageAllDirections(Properties.Resources.moat);
             hole.setMaxOnPanel(99);
             hole.setName("Loch");
             ItemCollection.addItem(hole);
+
+            Item bomb = new Item("bomb", 2 * blockSize, 2 * blockSize);
+            bomb.setImageAllDirections(Properties.Resources.bomb);
+            bomb.setMaxOnPanel(99);
+            bomb.setName("Bombe");
+            ItemCollection.addItem(bomb);
         }
 
 

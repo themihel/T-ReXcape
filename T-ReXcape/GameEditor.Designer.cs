@@ -290,10 +290,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.mapTab);
             this.tabControl.Controls.Add(this.infoTab);
-            this.tabControl.Location = new System.Drawing.Point(0, 117);
+            this.tabControl.Location = new System.Drawing.Point(0, 143);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(625, 415);
+            this.tabControl.Size = new System.Drawing.Size(625, 389);
             this.tabControl.TabIndex = 3;
             this.tabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl_Selected);
             // 
@@ -304,7 +304,7 @@
             this.mapTab.Location = new System.Drawing.Point(4, 22);
             this.mapTab.Margin = new System.Windows.Forms.Padding(0);
             this.mapTab.Name = "mapTab";
-            this.mapTab.Size = new System.Drawing.Size(617, 389);
+            this.mapTab.Size = new System.Drawing.Size(617, 363);
             this.mapTab.TabIndex = 0;
             this.mapTab.Text = "Map";
             this.mapTab.UseVisualStyleBackColor = true;
@@ -314,7 +314,7 @@
             this.mapPanel.BackColor = System.Drawing.SystemColors.Control;
             this.mapPanel.Location = new System.Drawing.Point(1, 1);
             this.mapPanel.Name = "mapPanel";
-            this.mapPanel.Size = new System.Drawing.Size(608, 385);
+            this.mapPanel.Size = new System.Drawing.Size(560, 350);
             this.mapPanel.TabIndex = 2;
             this.mapPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mapPanel_MouseClick);
             this.mapPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mapPanel_MouseMove);
@@ -329,7 +329,7 @@
             this.infoTab.Location = new System.Drawing.Point(4, 22);
             this.infoTab.Name = "infoTab";
             this.infoTab.Padding = new System.Windows.Forms.Padding(3);
-            this.infoTab.Size = new System.Drawing.Size(616, 460);
+            this.infoTab.Size = new System.Drawing.Size(617, 389);
             this.infoTab.TabIndex = 1;
             this.infoTab.Text = "Infos";
             this.infoTab.UseVisualStyleBackColor = true;
@@ -453,11 +453,12 @@
             // 
             this.itemHolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.itemHolder.AutoSize = true;
+            this.itemHolder.AutoScroll = true;
             this.itemHolder.BackColor = System.Drawing.Color.Silver;
+            this.itemHolder.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.itemHolder.Location = new System.Drawing.Point(12, 27);
             this.itemHolder.Name = "itemHolder";
-            this.itemHolder.Size = new System.Drawing.Size(601, 84);
+            this.itemHolder.Size = new System.Drawing.Size(601, 100);
             this.itemHolder.TabIndex = 4;
             // 
             // GameEditor

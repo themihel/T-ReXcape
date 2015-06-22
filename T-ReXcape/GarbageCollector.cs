@@ -42,11 +42,13 @@ namespace T_ReXcape
                 if (ctn != null && ctn is PictureBox)
                 {
                     if (
-                        ctn.Image == null ||
+                        (ctn.Image == null ||
                         ctn.Location.X < 0 ||
                         ctn.Location.Y < 0 ||
                         ctn.Location.X > mapPanel.Width ||
-                        ctn.Location.Y > mapPanel.Height
+                        ctn.Location.Y > mapPanel.Height)
+
+                        && ctn.BackColor != Config.getActiveColor()
                         )
                     {
                         mapPanel.Controls.Remove(ctn);
