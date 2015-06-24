@@ -51,14 +51,14 @@ namespace T_ReXcape
             player1start.setImageTop(Properties.Resources.dino_up);
             player1start.setImageBottom(Properties.Resources.dino_down);
             player1start.setMaxOnPanel(1);
-            player1start.setName("Spieler 1");
+            player1start.setDescription("Spieler 1");
             player1start.setHookPosition(Item.positionCenter, Item.positionBottom);
             ItemCollection.addItem(player1start);
 
             Item destination = new Item("destination", 3 * blockSize, 4 * blockSize);
             destination.setImageAllDirections(Properties.Resources.rocket1);
             destination.setMaxOnPanel(1);
-            destination.setName("Ziel");
+            destination.setDescription("Ziel");
             destination.setHookPosition(Item.positionCenter, Item.positionBottom);
             ItemCollection.addItem(destination);
 
@@ -68,7 +68,7 @@ namespace T_ReXcape
             player2start.setImageTop(Properties.Resources.dino_up);
             player2start.setImageBottom(Properties.Resources.dino_down);
             player2start.setMaxOnPanel(1);
-            player2start.setName("Spieler 2");
+            player2start.setDescription("Spieler 2");
             player2start.setHookPosition(Item.positionCenter, Item.positionBottom);
             ItemCollection.addItem(player2start);
 
@@ -78,7 +78,7 @@ namespace T_ReXcape
             wall.setImageTop(Properties.Resources.wallh);
             wall.setImageBottom(Properties.Resources.wallh);
             wall.setMaxOnPanel(99);
-            wall.setName("Mauer");
+            wall.setDescription("Mauer");
             ItemCollection.addItem(wall);
 
             Item goTo = new Item("goto", 2 * blockSize, 2 * blockSize);
@@ -87,19 +87,19 @@ namespace T_ReXcape
             goTo.setImageTop(Properties.Resources.gotop);
             goTo.setImageBottom(Properties.Resources.gobottom);
             goTo.setMaxOnPanel(99);
-            goTo.setName("Bewegung");
+            goTo.setDescription("Bewegung");
             ItemCollection.addItem(goTo);
 
             Item hole = new Item("hole", 2 * blockSize, 2 * blockSize);
             hole.setImageAllDirections(Properties.Resources.moat);
             hole.setMaxOnPanel(99);
-            hole.setName("Loch");
+            hole.setDescription("Loch");
             ItemCollection.addItem(hole);
 
             Item bomb = new Item("bomb", 2 * blockSize, 2 * blockSize);
             bomb.setImageAllDirections(Properties.Resources.bomb);
             bomb.setMaxOnPanel(99);
-            bomb.setName("Bombe");
+            bomb.setDescription("Bombe");
             ItemCollection.addItem(bomb);
         }
 

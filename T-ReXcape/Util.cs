@@ -31,7 +31,7 @@ namespace T_ReXcape
         /// <returns>Returns string without digits</returns>
         static public String removeDigitsFromString(String s)
         {
-            return Regex.Replace(s, @"\d$", "");
+            return Regex.Replace(s, @"\d+$", "");
         }
 
         /// <summary>

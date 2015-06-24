@@ -44,67 +44,67 @@ namespace T_ReXcape
         // add objects
         private void addPlayer1Start(object sender, EventArgs e)
         {
-            if (!map.setObjectOnMap("player1start", mousePosition))
+            if (map.setObjectOnMap("player1start", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void zielToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            if (!map.setObjectOnMap("player1destination", mousePosition))
+            if (map.setObjectOnMap("player1destination", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void startToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            if (!map.setObjectOnMap("player2start", mousePosition))
+            if (map.setObjectOnMap("player2start", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void zielToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            if (!map.setObjectOnMap("player2destination", mousePosition))
+            if (map.setObjectOnMap("player2destination", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void mauerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!map.setObjectOnMap("wallv", mousePosition))
+            if (map.setObjectOnMap("wallv", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void grubbeToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (!map.setObjectOnMap("wallh", mousePosition))
+            if (map.setObjectOnMap("wallh", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
         
         private void rechtsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!map.setObjectOnMap("goright", mousePosition))
+            if (map.setObjectOnMap("goright", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void linksToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!map.setObjectOnMap("goleft", mousePosition))
+            if (map.setObjectOnMap("goleft", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void obenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!map.setObjectOnMap("gotop", mousePosition))
+            if (map.setObjectOnMap("gotop", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void untenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!map.setObjectOnMap("gobottom", mousePosition))
+            if (map.setObjectOnMap("gobottom", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
         private void lochToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(!map.setObjectOnMap("hole", mousePosition))
+            if(map.setObjectOnMap("hole", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
@@ -199,7 +199,7 @@ namespace T_ReXcape
                 // show map/item information
                 foreach (Item item in ItemCollection.getAllItems())
                 {
-                    dataGridView1.Rows.Add(item.getName(), item.getMaxOnPanel(), map.getItemCount(item.getKey()));
+                    dataGridView1.Rows.Add(item.getDescription(), item.getMaxOnPanel(), map.getItemCount(item.getKey()));
                 }
             }
             
@@ -319,9 +319,7 @@ namespace T_ReXcape
         private void GameEditor_Load(object sender, EventArgs e)
         {
             int i = 0;
-            Debug.WriteLine(ItemCollection.getAllItems().Count);
             Config.initItems();
-            Debug.WriteLine(ItemCollection.getAllItems().Count);
             foreach (Item itemOriginal in ItemCollection.getAllItems())
             {
                 Item item = itemOriginal.clone();
@@ -332,6 +330,13 @@ namespace T_ReXcape
 
                 i += item.getWidth();
             }
+            int widthInBlocks = map.pixelToBlock(mapPanel.Width);
+            int heightInBlocks = map.pixelToBlock(mapPanel.Height);
+            
+            NUD_panelWidth.Value = widthInBlocks;
+            NUD_panelHeight.Value = heightInBlocks;
+
+            map.updateMapSizeBlocks(widthInBlocks, heightInBlocks);
         }
 
         private void itemHolderClick(object sender, EventArgs e)
@@ -351,7 +356,7 @@ namespace T_ReXcape
             }
 
             Item item = sender as Item;
-            if (map.setObjectOnMap(item.getKey(), new Point(0 - item.Width, 0 - item.Height)))
+            if (map.setObjectOnMap(item.getKey(), new Point(0 - item.Width, 0 - item.Height)) != null)
             {
                 map.setDragObject(map.getLastAddedItem());
                 map.getDragObject().BackColor = Config.getActiveColor();
@@ -362,24 +367,26 @@ namespace T_ReXcape
         {
             if (map.getDragObject() != null && keyData == (Keys.Control | Keys.C))
             {
-                Debug.WriteLine("copy object");
                 copyItem = map.getDragObject();
                 return true;
             }
             else if (copyItem != null && keyData == (Keys.Control | Keys.V))
-            {
-                Debug.WriteLine("paste object");
-                
+            {   
                 if (map.getDragObject() != null)
                     map.getDragObject().BackColor = Color.Transparent;
 
                 Item pasteItem = copyItem.clone();
-                map.cloneItem(pasteItem, new Point(0 - pasteItem.Width, 0 - pasteItem.Height));
+                map.cloneItem(pasteItem, new Point(0 - pasteItem.Width * 2, 0 - pasteItem.Height * 2));
                 map.setDragObject(map.getLastAddedItem());
                 map.getDragObject().BackColor = Config.getActiveColor();
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(map.getItemCount("wall").ToString());
         }
     }
 }

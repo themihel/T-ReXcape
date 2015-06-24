@@ -174,19 +174,29 @@ namespace T_ReXcape
             mapFile.IniWriteValue("config", "height", pixelToBlock(mapPanel.Height).ToString());
             mapFile.IniWriteValue("config", "width", pixelToBlock(mapPanel.Width).ToString());
 
+            Dictionary<string, int> counts = new Dictionary<string, int>();
+
             // write all objects on map
             foreach (Item child in mapPanel.Controls)
             {
                 String name = child.Name;
                 Point position = child.Location;
-                Item item = ItemCollection.getItemByKey(Util.removeDigitsFromString(name));
+                Item item = child as Item;
+
+                if (counts.Keys.Contains(name))
+                    counts[name]++;
+                else
+                    counts.Add(name, 0);
+                
                 // calculate actual position back
                 position.X = position.X - item.getPositionOffsetX() - item.getBlockOffsetX(blockSize);
                 position.Y = position.Y - item.getPositionOffsetY() - item.getBlockOffsetY(blockSize);
-
+                int direction = item.getDirection();
+                
                 // write position
-                mapFile.IniWriteValue("map", name + ".x", pixelToBlock(position.X).ToString());
-                mapFile.IniWriteValue("map", name + ".y", pixelToBlock(position.Y).ToString());
+                mapFile.IniWriteValue("map", name + counts[name] + ".x", pixelToBlock(position.X).ToString());
+                mapFile.IniWriteValue("map", name + counts[name] + ".y", pixelToBlock(position.Y).ToString());
+                mapFile.IniWriteValue("map", name + counts[name] + ".direction", direction.ToString());
             }
         }
 
@@ -241,7 +251,7 @@ namespace T_ReXcape
             Validate validation = new Validate(mapFile);
 
             // set item checkParams
-            String[] itemCheckParams = { ".x", ".y" };
+            String[] itemCheckParams = { ".x", ".y", ".direction" };
 
             // @TODO better key check
             // load all known objects
@@ -257,18 +267,15 @@ namespace T_ReXcape
                     // get Item position
                     int posX = blockToPixel(Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".x")));
                     int posY = blockToPixel(Convert.ToInt32(mapFile.IniReadValue("map", item.getKey() + i + ".y")));
+                    int direction = Convert.ToInt16(mapFile.IniReadValue("map", item.getKey() + i + ".direction"));
                     // set item on map
-                    setObjectOnMap(item.getKey(), new Point(posX, posY));
+                    Item addedItem = setObjectOnMap(item.getKey(), new Point(posX, posY));
+                    if (addedItem != null)
+                    {
+                        addedItem.setDirection(direction);
+                    }
                     // increment index
                     i++;
-                }
-                if (!check)
-                {
-                    DialogResult result = MessageBox.Show("Es ist ein Fehler aufgetretten. Weiter laden?", "Fehler", MessageBoxButtons.YesNo);
-                    if (result == DialogResult.No)
-                    {
-                        throw new Exception("Fehler beim Laden. Element nicht gefunden. Nutzer abgebrochen.");
-                    }
                 }
             }
         }
@@ -288,9 +295,11 @@ namespace T_ReXcape
         /// <returns>returns amount of specific items</returns>
         public Int32 getItemCount(String name)
         {
+            Debug.WriteLine("getItemCount: " + name);
             Int32 result = 0;
             foreach (Control child in mapPanel.Controls)
             {
+                Debug.WriteLine(child.Name);
                 // remove last diggit to count all with same name
                 if (Util.removeDigitsFromString(child.Name).Equals(name))
                 {
@@ -338,7 +347,7 @@ namespace T_ReXcape
         /// </summary>
         /// <param name="key">item name / key</param>
         /// <param name="position">item position</param>
-        public bool setObjectOnMap(String key, Point position)
+        public Item setObjectOnMap(String key, Point position)
         {
             if (!ItemCollection.isItemSet(key) || ItemCollection.getItemByKey(key).getMaxOnPanel() > getItemCount(key))
             {
@@ -348,15 +357,10 @@ namespace T_ReXcape
                 {
                     lastAddedItem = newItem;
                     mapPanel.Controls.Add(newItem);
+                    return newItem;
                 }
-                else
-                {
-                    newItem = null;
-                }
-
-                return checkPosition;
             }
-            return false;
+            return null;
         }
 
         /// <summary>
@@ -375,7 +379,7 @@ namespace T_ReXcape
             position.Y = position.Y + item.getPositionOffsetY() + item.getBlockOffsetY(blockSize);
 
             // @TODO remove after debug
-            Debug.WriteLine(name);
+            Debug.WriteLine("prepare Item: " + name);
 
             // prepare item
             item.Width = item.getWidth();
@@ -384,7 +388,7 @@ namespace T_ReXcape
             item.Image = item.getImage();
             item.SizeMode = PictureBoxSizeMode.Zoom;
             item.Location = position;
-            item.Name = name + getItemCount(name);
+            item.Name = name;
             item.Cursor = Cursors.Hand;
 
             addEvents(ref item);
@@ -459,8 +463,7 @@ namespace T_ReXcape
             {
                 foreach (Control itemControl in getAllItemsOnMap())
                 {
-                    Debug.WriteLine("check pos");
-                    if (getDragObject() == null || !getDragObject().Name.Equals(itemControl.Name))
+                    if (getDragObject() == null || !getDragObject().Equals(itemControl))
                     {
                         int distanceLeft = position.X - (itemControl.Location.X + itemControl.Width);
                         int distanceRight = itemControl.Location.X - (position.X + width);
@@ -519,7 +522,7 @@ namespace T_ReXcape
             return block * blockSize;
         }
 
-        public Point getLastPointWOCollision(Point currentPoint, Int16 direction)
+        public Point getLastPointWOCollision(Point currentPoint, int direction)
         {
             // @TODO testing // not tested yet / just an idea
             // could return child to check if it's a direction change
@@ -663,6 +666,7 @@ namespace T_ReXcape
         public bool cloneItem(Item item, Point position)
         {
             Item newItem = item.clone();
+            newItem.Location = position;
             addEvents(ref newItem);
             bool checkPosition = fitInHere(newItem.Location, newItem.Width, newItem.Height);
             if (checkPosition)

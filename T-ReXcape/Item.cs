@@ -11,16 +11,15 @@ namespace T_ReXcape
     class Item : PictureBox
     {
         // variables
-        private String key;
         private Image imageLeft;
         private Image imageRight;
         private Image imageTop;
         private Image imageBottom;
         private Int32 maxOnPanel;
-        private String name;
         private Int32 positionX;
         private Int32 positionY;
-        private Int16 direction;
+        private int direction;
+        private String description = "";
 
         // constants for hook position
         public static Int32 positionLeft = 1;
@@ -29,10 +28,10 @@ namespace T_ReXcape
         public static Int32 positionTop = 4;
         public static Int32 positionBottom = 5;
 
-        public static Int16 directionLeft = 1;
-        public static Int16 directionRight = 2;
-        public static Int16 directionTop = 3;
-        public static Int16 directionBottom = 4;
+        public static int directionLeft = 1;
+        public static int directionRight = 2;
+        public static int directionTop = 3;
+        public static int directionBottom = 4;
         
         /// <summary>
         /// Constructor
@@ -42,7 +41,7 @@ namespace T_ReXcape
         /// <param name="_height">Height of item</param>
         public Item(String _key, Int32 _width, Int32 _height)
         {
-            key = _key;
+            Name = _key;
             Width = _width;
             Height = _height;
             // set default hook position
@@ -55,17 +54,21 @@ namespace T_ReXcape
             SizeMode = PictureBoxSizeMode.Zoom;
         }
 
+        public void setKey(String value)
+        {
+            Name = value;
+        }
+
         public Item clone()
         {
-            Debug.WriteLine("clone");
-            Debug.WriteLine("direction " + direction);
-            Item cloneItem = new Item(this.key, this.Width, this.Height);
+            Debug.WriteLine("clone key: " + this.Name);
+            Item cloneItem = new Item(this.Name, this.Width, this.Height);
             cloneItem.setImageLeft(imageLeft);
             cloneItem.setImageRight(imageRight);
             cloneItem.setImageTop(imageTop);
             cloneItem.setImageBottom(imageBottom);
             cloneItem.setMaxOnPanel(maxOnPanel);
-            cloneItem.setName(name);
+            cloneItem.setDescription(description);
             cloneItem.setHookPosition(positionX, positionY);
             cloneItem.setDirection(direction);
             return cloneItem;
@@ -75,9 +78,9 @@ namespace T_ReXcape
         /// Sets name of item
         /// </summary>
         /// <param name="_name">Name of item</param>
-        public void setName(String _name)
+        public void setDescription(String _description)
         {
-            name = _name;
+            description = _description;
         }
         
         /// <summary>
@@ -108,7 +111,7 @@ namespace T_ReXcape
         /// </summary>
         public String getKey()
         {
-            return key;
+            return Name;
         }
 
         /// <summary>
@@ -165,9 +168,9 @@ namespace T_ReXcape
         /// <summary>
         /// Returns item-name
         /// </summary>
-        public String getName()
+        public String getDescription()
         {
-            return name;
+            return description;
         }
 
         /// <summary>
@@ -238,7 +241,7 @@ namespace T_ReXcape
             return offset;
         }
 
-        public void setDirection(Int16 dir)
+        public void setDirection(int dir)
         {
             // check given direction id
             if(dir == directionLeft || 
@@ -259,6 +262,11 @@ namespace T_ReXcape
                 direction = dir;
                 updateImage();
             }
+        }
+
+        public int getDirection()
+        {
+            return direction;
         }
 
         public void setImageLeft(Image img)
