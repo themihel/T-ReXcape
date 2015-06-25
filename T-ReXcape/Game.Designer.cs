@@ -140,6 +140,7 @@
             this.Name = "Game";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game";
+            this.Shown += new System.EventHandler(this.Game_Shown);
             this.pausePanel.ResumeLayout(false);
             this.pausePanel.PerformLayout();
             this.panel1.ResumeLayout(false);

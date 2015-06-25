@@ -12,8 +12,10 @@ namespace T_ReXcape
 {
     public partial class Game : Form
     {
-        public Game(bool fullscreen = false)
+        Form formToCloseAfterLoad;
+        public Game(Form form, bool fullscreen = false)
         {
+            formToCloseAfterLoad = form;
             InitializeComponent();
             if (fullscreen)
                 goFullscreen();
@@ -200,6 +202,11 @@ namespace T_ReXcape
                     label2.Text = "⇐";
                 }
             }
+        }
+
+        private void Game_Shown(object sender, EventArgs e)
+        {
+            formToCloseAfterLoad.Hide();
         }
     }
 }

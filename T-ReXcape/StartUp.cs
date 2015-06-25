@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -39,6 +40,20 @@ namespace T_ReXcape
             }
         }
 
+        private void StartUp_Load(object sender, EventArgs e)
+        {
+            foreach (String entry in Properties.Settings.Default.files)
+            {
+                if (!Util.validateMapFilePath(entry))
+                {
+                    Properties.Settings.Default.files.Remove(entry);
+                    continue;
+                }
+                mapStrip.Items.Add(entry);
+            }
+            Properties.Settings.Default.Save();
+        }
+
 
         /// <summary>
         /// Opens game editor
@@ -63,23 +78,10 @@ namespace T_ReXcape
         /// <param name="e"></param>
         private void btnLoadLevel_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK && Util.validateMapFilePath(openFileDialog1.FileName))
-            {
-                this.Hide();
-                Game game = new Game(Config.getFullscreen());
-                // when editor closed, close main (StartUp) form to close programm
-                game.FormClosed += (s, args) => this.Show();
-                game.loadFile(openFileDialog1.FileName);
-                try
-                {
-                    game.Show();
-                }
-                catch (Exception ex)
-                {
-                    this.Show();
-                    Debug.WriteLine(ex.Message);
-                }
-            }
+            Button btn = sender as Button;
+            Point pnt = new Point(0, btn.Height);
+            pnt = btn.PointToScreen(pnt);
+            mapStrip.Show(pnt);
         }
 
 
@@ -129,6 +131,52 @@ namespace T_ReXcape
 
             // save config
             Config.saveSettings();
+        }
+        
+        private void addNewMapPath(String path)
+        {
+            if (!Properties.Settings.Default.files.Contains(path))
+            {
+                Properties.Settings.Default.files.Add(path);
+                Properties.Settings.Default.Save();
+                mapStrip.Items.Add(path);
+            }
+        }
+
+        private void mapStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            mapStrip.Close();
+            ToolStripItem item = e.ClickedItem;
+            String path = "";
+
+            if (item.Tag != null && 
+                item.Tag.Equals("browse") && 
+                openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                path = openFileDialog1.FileName;
+            }
+            else
+            {
+                path = item.Text;
+            }
+
+            if(Util.validateMapFilePath(path)) {
+                Game game = new Game(this, Config.getFullscreen());
+                // when editor closed, close main (StartUp) form to close programm
+                game.FormClosed += (s, args) => this.Show();
+                game.loadFile(path);
+                addNewMapPath(path);
+
+                try
+                {
+                    game.Show();
+                }
+                catch (Exception ex)
+                {
+                    this.Show();
+                    Debug.WriteLine(ex.Message);
+                } 
+            }
         }
     }
 }

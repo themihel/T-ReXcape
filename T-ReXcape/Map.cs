@@ -210,7 +210,7 @@ namespace T_ReXcape
             mapPanel.BackgroundImage = getBackground();
 
             if (!File.Exists(filename))
-                throw new IOException("File not exists");
+                throw new IOException("File not exists '" + filename + "'");
 
             // clear map panel
             clearMap();
@@ -569,7 +569,7 @@ namespace T_ReXcape
         /// </summary>
         /// <param name="itemName">String of item name</param>
         /// <returns>Array of all found items</returns>
-        public Item[] getItemsByName(String itemName)
+        public List<Item> getItemsByName(String itemName)
         {
             // new list
             List<Item> foundItems = new List<Item>();
@@ -584,7 +584,7 @@ namespace T_ReXcape
                 }
             }
             // return
-            return foundItems.ToArray();
+            return foundItems;
         }
     }
 }

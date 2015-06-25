@@ -28,12 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnMapEditor = new System.Windows.Forms.Button();
             this.btnLoadLevel = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.cbFullscreen = new System.Windows.Forms.CheckBox();
             this.cbSoundtrack = new System.Windows.Forms.CheckBox();
+            this.mapStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.durchsuchenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mapStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnMapEditor
@@ -90,6 +95,27 @@
             this.cbSoundtrack.UseVisualStyleBackColor = false;
             this.cbSoundtrack.CheckedChanged += new System.EventHandler(this.cbSoundtrack_CheckedChanged);
             // 
+            // mapStrip
+            // 
+            this.mapStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.durchsuchenToolStripMenuItem,
+            this.toolStripSeparator1});
+            this.mapStrip.Name = "mapStrip";
+            this.mapStrip.Size = new System.Drawing.Size(157, 32);
+            this.mapStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mapStrip_ItemClicked);
+            // 
+            // durchsuchenToolStripMenuItem
+            // 
+            this.durchsuchenToolStripMenuItem.Name = "durchsuchenToolStripMenuItem";
+            this.durchsuchenToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.durchsuchenToolStripMenuItem.Tag = "browse";
+            this.durchsuchenToolStripMenuItem.Text = "Durchsuchen ...";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
+            // 
             // StartUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -107,6 +133,8 @@
             this.Name = "StartUp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "StartUp";
+            this.Load += new System.EventHandler(this.StartUp_Load);
+            this.mapStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,5 +148,8 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.CheckBox cbFullscreen;
         private System.Windows.Forms.CheckBox cbSoundtrack;
+        private System.Windows.Forms.ContextMenuStrip mapStrip;
+        private System.Windows.Forms.ToolStripMenuItem durchsuchenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
