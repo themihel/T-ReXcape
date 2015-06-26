@@ -42,16 +42,24 @@ namespace T_ReXcape
 
         private void StartUp_Load(object sender, EventArgs e)
         {
-            foreach (String entry in Properties.Settings.Default.files)
+            try
             {
-                if (!Util.validateMapFilePath(entry))
+                foreach (String entry in Properties.Settings.Default.files)
                 {
-                    Properties.Settings.Default.files.Remove(entry);
-                    continue;
+                    if (!Util.validateMapFilePath(entry))
+                    {
+                        Properties.Settings.Default.files.Remove(entry);
+                        continue;
+                    }
+                    mapStrip.Items.Add(entry);
                 }
-                mapStrip.Items.Add(entry);
+                Properties.Settings.Default.Save();
             }
-            Properties.Settings.Default.Save();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
 
