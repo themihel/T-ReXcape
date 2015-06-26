@@ -25,7 +25,6 @@ D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.pd
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.GameEditor.resources
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.exe.config
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Game.resources
-D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Settings.resources
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.StartUp.resources
 C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.exe.config
 C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.exe

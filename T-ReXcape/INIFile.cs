@@ -6,8 +6,10 @@ namespace T_ReXcape
 {
     public class IniFile
     {
+        // path variable
         public string path;
 
+        // import DLLs
         [DllImport("kernel32")]
         private static extern long WritePrivateProfileString(string section, string key,string val,string filePath);
         [DllImport("kernel32")]

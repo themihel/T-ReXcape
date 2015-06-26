@@ -25,16 +25,6 @@ namespace T_ReXcape
         }
 
         /// <summary>
-        /// Removes digits from String
-        /// </summary>
-        /// <param name="s">Parse string</param>
-        /// <returns>Returns string without digits</returns>
-        static public String removeDigitsFromString(String s)
-        {
-            return Regex.Replace(s, @"\d+$", "");
-        }
-
-        /// <summary>
         /// validate given file
         /// </summary>
         /// <param name="file"></param>

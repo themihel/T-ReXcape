@@ -23,48 +23,9 @@ namespace T_ReXcape
         }
 
         /// <summary>
-        /// creates an explosion over given object
+        /// Starts rubber animation on specific object
         /// </summary>
-        /// <param name="obj"></param>
-        public void explodeOnObject(PictureBox obj)
-        {
-            // calculate Sizes
-            int boomSize = (obj.Width > obj.Height) ? obj.Width : obj.Height;
-            int minSize = (obj.Width < obj.Height) ? obj.Width : obj.Height;
-
-            // add offset to cover object properly
-            boomSize += offset;
-
-            // calculate animation position
-            Point position = obj.Location;
-            position.X -= offset;
-            position.Y -= ((boomSize - minSize) / 2) + offset;
-
-            // create new picture box with animation
-            PictureBox img = new PictureBox();
-            img.Width = boomSize;
-            img.Height = boomSize;
-            img.BackColor = Color.Transparent;
-            img.Image = (Image)Properties.Resources.ResourceManager.GetObject("spideyblast");
-            img.SizeMode = PictureBoxSizeMode.Zoom;
-            img.Location = position;
-            img.Name = "boom";
-
-            // add animation to map panel
-            mapPanel.Controls.Add(img);
-            img.BringToFront();
-
-            // play boom sound
-            Sound.playBoom();
-
-            // remove image after delay so garbage collector can remove it later on
-            EasyTimer.SetTimeout(() =>
-            {
-                img.Image = null;
-            }, 1200);
-        }
-
-
+        /// <param name="obj">Picturebox</param>
         public void eraseObject(PictureBox obj)
         {
             // calculate animation position

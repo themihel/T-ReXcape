@@ -13,7 +13,7 @@ namespace T_ReXcape
         /// <summary>
         /// add new item to list
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="item">Item to add</param>
         static public void addItem(Item item)
         {
             items.Add(item);
@@ -22,41 +22,56 @@ namespace T_ReXcape
         /// <summary>
         /// find item in list by his key
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="key">Name / key of item</param>
         /// <returns>Item</returns>
         static public Item getItemByKey(String key)
         {
+            // searched Item
             Item tmp = null;
+
+            // search for item
             foreach (Item item in items)
             {
+                // item key equals current item
                 if (key.Equals(item.getKey()))
                 {
+                    // item found -> break
                     tmp = item;
                     break;
                 }
             }
+
+            // throw exception if item wasn't found
             if (tmp == null)
                 throw new Exception("key not found: " + key);
 
+            // return item
             return tmp;
         }
 
         /// <summary>
         /// check if item is in list by his key
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns>Boolean</returns>
+        /// <param name="key">Name / key of item</param>
+        /// <returns>Boolean if item is set</returns>
         static public bool isItemSet(String key)
         {
+            // checkState
             bool result = false;
+
+            // search item
             foreach (Item item in items)
             {
+                // item key equals current item
                 if (key.Equals(item.getKey()))
                 {
+                    // item found -> break
                     result = true;
                     break;
                 }
             }
+
+            // return checkState if item was found
             return result;
         }
 

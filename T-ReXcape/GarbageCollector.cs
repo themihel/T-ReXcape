@@ -33,8 +33,6 @@ namespace T_ReXcape
         /// <summary>
         /// garbage collector tick
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private static void garbageTick(object sender, EventArgs e)
         {
             foreach (PictureBox ctn in mapPanel.Controls)

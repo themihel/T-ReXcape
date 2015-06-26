@@ -127,9 +127,6 @@
   <data name="bomb" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bomb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dino1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dino1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="dino_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dino_down.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -147,9 +144,6 @@
   </data>
   <data name="erase_sound" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\erase_sound.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="giphy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\giphy.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gobottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gobottom.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -171,9 +165,6 @@
   </data>
   <data name="rocket1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rocket1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="spideyblast" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\spideyblast.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="trexcape_soundtrack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\trexcape_soundtrack.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

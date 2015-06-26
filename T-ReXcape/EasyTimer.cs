@@ -15,12 +15,16 @@ namespace T_ReXcape
         /// <returns>Timer / itself</returns>
         public static IDisposable SetInterval(Action method, int delayInMilliseconds)
         {
+            // create timer
             System.Timers.Timer timer = new System.Timers.Timer(delayInMilliseconds);
+
+            // add method to elapsed-event
             timer.Elapsed += (source, e) =>
             {
                 method();
             };
 
+            // start timer
             timer.Enabled = true;
             timer.Start();
             
@@ -36,13 +40,19 @@ namespace T_ReXcape
         /// <returns>Timer / itself</returns>
         public static IDisposable SetTimeout(Action method, int delayInMilliseconds)
         {
+            // create timer
             System.Timers.Timer timer = new System.Timers.Timer(delayInMilliseconds);
+
+            // add method to elapsed-event
             timer.Elapsed += (source, e) =>
             {
                 method();
             };
 
+            // remove auto-restart
             timer.AutoReset = false;
+
+            // start timer
             timer.Enabled = true;
             timer.Start();
 

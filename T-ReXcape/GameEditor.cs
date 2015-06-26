@@ -18,11 +18,18 @@ namespace T_ReXcape
 {
     public partial class GameEditor : Form
     {
-        // variables
+        // last mouse position
         Point mousePosition;
+
+        // map
         Map map;
+
+        // copy / paste item
         Item copyItem;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public GameEditor()
         {
             // init formComponents
@@ -41,70 +48,57 @@ namespace T_ReXcape
             GarbageCollector.init(mapPanel);
         }
                 
-        // add objects
-        private void addPlayer1Start(object sender, EventArgs e)
+        /// <summary>
+        /// Add player1start item
+        /// </summary>
+        private void spieler1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (map.setObjectOnMap("player1start", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
-        private void zielToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            if (map.setObjectOnMap("player1destination", mousePosition) == null)
-                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
-        }
-
-        private void startToolStripMenuItem3_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Add player2start item
+        /// </summary>
+        private void spieler2ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (map.setObjectOnMap("player2start", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
-        private void zielToolStripMenuItem3_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Add destination item
+        /// </summary>
+        private void zielToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (map.setObjectOnMap("player2destination", mousePosition) == null)
+            if (map.setObjectOnMap("destination", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
-        private void mauerToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Add goto item
+        /// </summary>
+        private void umleitungToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (map.setObjectOnMap("wallv", mousePosition) == null)
+            if (map.setObjectOnMap("goto", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
-        private void grubbeToolStripMenuItem1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Add wall item
+        /// </summary>
+        private void wandToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (map.setObjectOnMap("wallh", mousePosition) == null)
-                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
-        }
-        
-        private void rechtsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (map.setObjectOnMap("goright", mousePosition) == null)
+            if (map.setObjectOnMap("wall", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
-        private void linksToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Add hole item
+        /// </summary>
+        private void lochToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            if (map.setObjectOnMap("goleft", mousePosition) == null)
-                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
-        }
-
-        private void obenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (map.setObjectOnMap("gotop", mousePosition) == null)
-                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
-        }
-
-        private void untenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (map.setObjectOnMap("gobottom", mousePosition) == null)
-                setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
-        }
-
-        private void lochToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if(map.setObjectOnMap("hole", mousePosition) == null)
+            if (map.setObjectOnMap("hole", mousePosition) == null)
                 setStatusLabelWithTimeout("Objekt konnte hier nicht plaziert werden.", 3);
         }
 
@@ -121,14 +115,18 @@ namespace T_ReXcape
                 //DialogResult result = MessageBox.Show("Möchten Sie dieses Objekt sicher entfernen?", "Objekt entfernen?", MessageBoxButtons.YesNo);
                 if (true) // result == DialogResult.Yes)
                 {
+                    // init animation and get tagged picture box
                     Animation anim = new Animation(mapPanel);
                     PictureBox obj = sender as PictureBox;
 
+                    // start animation
                     anim.eraseObject(obj);
 
+                    // optical remove picture box until collected from GarbageCollector
                     obj.Image = null;
                     obj.BackColor = Color.Transparent;
 
+                    // remove dragged object
                     map.setDragObject(null);
                 }
             }
@@ -152,8 +150,6 @@ namespace T_ReXcape
         /// <summary>
         /// moves locked object with mouse move
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void mapPanel_MouseMove(object sender, MouseEventArgs e)
         {
             if (map.getDragObject() != null)
@@ -168,8 +164,6 @@ namespace T_ReXcape
         /// <summary>
         /// opens context rightclick on map
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void mapPanel_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -182,8 +176,6 @@ namespace T_ReXcape
         /// <summary>
         /// update info page on select
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void tabControl_Selected(object sender, TabControlEventArgs e)
         {
             // only execute if infos page opened
@@ -208,8 +200,6 @@ namespace T_ReXcape
         /// <summary>
         /// create new map
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void neuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (map.getItemsCount() > 0)
@@ -227,11 +217,12 @@ namespace T_ReXcape
         /// <summary>
         /// load map file
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ladenToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // init BooleanVarialve
             bool itemsOnMap = false;
+
+            // check if items on map
             if (map.getItemsCount() > 0)
             {
                 itemsOnMap = true;
@@ -240,6 +231,7 @@ namespace T_ReXcape
                     itemsOnMap = false;
             }
 
+            // no items on map or user clicked ok -> remove old items and load map
             if (!itemsOnMap && openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 map.loadMap(openFileDialog1.FileName);
@@ -250,22 +242,24 @@ namespace T_ReXcape
         /// <summary>
         /// save map file
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void speichernToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
+                // check if any items on map
                 if (map.checkMapPanel())
                 {
+                    // filedialog
                     if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                     {
+                        // save map
                         map.saveMap(saveFileDialog1.FileName);
                     }
                 }
             }
             catch (Exception exception)
             {
+                // catch Exception (no items or save error)
                 MessageBox.Show(exception.Message);
             }
         }
@@ -273,8 +267,6 @@ namespace T_ReXcape
         /// <summary>
         /// set status text wich disapears after delay
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="seconds"></param>
         private void setStatusLabelWithTimeout(String text, float seconds = 1) 
         {
             if (!text.Equals(statusLabel.Text))
@@ -299,8 +291,6 @@ namespace T_ReXcape
         /// <summary>
         /// Update map size on tab change
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void NUD_panelLeave(object sender, EventArgs e)
         {
             map.updateMapSizeBlocks(Convert.ToInt32(NUD_panelWidth.Value), Convert.ToInt32(NUD_panelHeight.Value));
@@ -309,17 +299,23 @@ namespace T_ReXcape
         /// <summary>
         /// Menu beenden
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Load mapeditor
+        /// </summary>
         private void GameEditor_Load(object sender, EventArgs e)
         {
+            // variables
             int i = 0;
+
+            // init all items
             Config.initItems();
+
+            // store items in top panel
             foreach (Item itemOriginal in ItemCollection.getAllItems())
             {
                 Item item = itemOriginal.clone();
@@ -330,15 +326,22 @@ namespace T_ReXcape
 
                 i += item.getWidth();
             }
+
+            // get number of blocks of mapPanel
             int widthInBlocks = map.pixelToBlock(mapPanel.Width);
             int heightInBlocks = map.pixelToBlock(mapPanel.Height);
             
+            // set numeric up down in info panel
             NUD_panelWidth.Value = widthInBlocks;
             NUD_panelHeight.Value = heightInBlocks;
 
+            // update size of maps
             map.updateMapSizeBlocks(widthInBlocks, heightInBlocks);
         }
 
+        /// <summary>
+        /// item holder
+        /// </summary>
         private void itemHolderClick(object sender, EventArgs e)
         {
             if (map.getLastAddedItem() != null)
@@ -363,7 +366,13 @@ namespace T_ReXcape
             }
         }
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        /// <summary>
+        /// Add copy/paste functionality for items
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="keyData"></param>
+        /// <returns></returns>
+        protected override Boolean ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (map.getDragObject() != null && keyData == (Keys.Control | Keys.C))
             {
@@ -384,9 +393,11 @@ namespace T_ReXcape
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void testToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(map.getItemCount("wall").ToString());
-        }
+        
+
+
+
+        
+
     }
 }

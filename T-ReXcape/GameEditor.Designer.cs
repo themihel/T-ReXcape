@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -43,20 +43,8 @@
             this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editorContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.spieler1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.zielToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.spieler2ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.startToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.zielToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.hindernisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mauerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.grubbeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.lochToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.umleitungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rechtsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.linksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.obenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.untenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.mapTab = new System.Windows.Forms.TabPage();
             this.mapPanel = new System.Windows.Forms.Panel();
@@ -71,7 +59,9 @@
             this.set = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.itemHolder = new System.Windows.Forms.Panel();
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zielToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lochToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.editorContextMenu.SuspendLayout();
@@ -106,8 +96,7 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mapToolStripMenuItem,
-            this.testToolStripMenuItem});
+            this.mapToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(625, 24);
@@ -164,126 +153,33 @@
             this.editorContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.spieler1ToolStripMenuItem,
             this.spieler2ToolStripMenuItem1,
-            this.hindernisToolStripMenuItem,
-            this.umleitungToolStripMenuItem});
+            this.zielToolStripMenuItem,
+            this.umleitungToolStripMenuItem,
+            this.wandToolStripMenuItem,
+            this.lochToolStripMenuItem});
             this.editorContextMenu.Name = "mapAddStuff";
-            this.editorContextMenu.Size = new System.Drawing.Size(131, 92);
+            this.editorContextMenu.Size = new System.Drawing.Size(153, 158);
             // 
             // spieler1ToolStripMenuItem
             // 
-            this.spieler1ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startToolStripMenuItem2,
-            this.zielToolStripMenuItem2});
             this.spieler1ToolStripMenuItem.Name = "spieler1ToolStripMenuItem";
-            this.spieler1ToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
-            this.spieler1ToolStripMenuItem.Text = "Spieler 1";
-            // 
-            // startToolStripMenuItem2
-            // 
-            this.startToolStripMenuItem2.Name = "startToolStripMenuItem2";
-            this.startToolStripMenuItem2.Size = new System.Drawing.Size(98, 22);
-            this.startToolStripMenuItem2.Text = "Start";
-            this.startToolStripMenuItem2.Click += new System.EventHandler(this.addPlayer1Start);
-            // 
-            // zielToolStripMenuItem2
-            // 
-            this.zielToolStripMenuItem2.Name = "zielToolStripMenuItem2";
-            this.zielToolStripMenuItem2.Size = new System.Drawing.Size(98, 22);
-            this.zielToolStripMenuItem2.Text = "Ziel";
-            this.zielToolStripMenuItem2.Click += new System.EventHandler(this.zielToolStripMenuItem2_Click);
+            this.spieler1ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.spieler1ToolStripMenuItem.Text = "Start Spieler 1";
+            this.spieler1ToolStripMenuItem.Click += new System.EventHandler(this.spieler1ToolStripMenuItem_Click);
             // 
             // spieler2ToolStripMenuItem1
             // 
-            this.spieler2ToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startToolStripMenuItem3,
-            this.zielToolStripMenuItem3});
             this.spieler2ToolStripMenuItem1.Name = "spieler2ToolStripMenuItem1";
-            this.spieler2ToolStripMenuItem1.Size = new System.Drawing.Size(130, 22);
-            this.spieler2ToolStripMenuItem1.Text = "Spieler 2";
-            // 
-            // startToolStripMenuItem3
-            // 
-            this.startToolStripMenuItem3.Name = "startToolStripMenuItem3";
-            this.startToolStripMenuItem3.Size = new System.Drawing.Size(98, 22);
-            this.startToolStripMenuItem3.Text = "Start";
-            this.startToolStripMenuItem3.Click += new System.EventHandler(this.startToolStripMenuItem3_Click);
-            // 
-            // zielToolStripMenuItem3
-            // 
-            this.zielToolStripMenuItem3.Name = "zielToolStripMenuItem3";
-            this.zielToolStripMenuItem3.Size = new System.Drawing.Size(98, 22);
-            this.zielToolStripMenuItem3.Text = "Ziel";
-            this.zielToolStripMenuItem3.Click += new System.EventHandler(this.zielToolStripMenuItem3_Click);
-            // 
-            // hindernisToolStripMenuItem
-            // 
-            this.hindernisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mauerToolStripMenuItem,
-            this.grubbeToolStripMenuItem1,
-            this.lochToolStripMenuItem});
-            this.hindernisToolStripMenuItem.Name = "hindernisToolStripMenuItem";
-            this.hindernisToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
-            this.hindernisToolStripMenuItem.Text = "Hindernis";
-            // 
-            // mauerToolStripMenuItem
-            // 
-            this.mauerToolStripMenuItem.Name = "mauerToolStripMenuItem";
-            this.mauerToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.mauerToolStripMenuItem.Text = "Mauer vertikal";
-            this.mauerToolStripMenuItem.Click += new System.EventHandler(this.mauerToolStripMenuItem_Click);
-            // 
-            // grubbeToolStripMenuItem1
-            // 
-            this.grubbeToolStripMenuItem1.Name = "grubbeToolStripMenuItem1";
-            this.grubbeToolStripMenuItem1.Size = new System.Drawing.Size(164, 22);
-            this.grubbeToolStripMenuItem1.Text = "Mauer horizontal";
-            this.grubbeToolStripMenuItem1.Click += new System.EventHandler(this.grubbeToolStripMenuItem1_Click);
-            // 
-            // lochToolStripMenuItem
-            // 
-            this.lochToolStripMenuItem.Name = "lochToolStripMenuItem";
-            this.lochToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.lochToolStripMenuItem.Text = "Loch";
-            this.lochToolStripMenuItem.Click += new System.EventHandler(this.lochToolStripMenuItem_Click);
+            this.spieler2ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.spieler2ToolStripMenuItem1.Text = "Start Spieler 2";
+            this.spieler2ToolStripMenuItem1.Click += new System.EventHandler(this.spieler2ToolStripMenuItem1_Click);
             // 
             // umleitungToolStripMenuItem
             // 
-            this.umleitungToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.rechtsToolStripMenuItem,
-            this.linksToolStripMenuItem,
-            this.obenToolStripMenuItem,
-            this.untenToolStripMenuItem});
             this.umleitungToolStripMenuItem.Name = "umleitungToolStripMenuItem";
-            this.umleitungToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.umleitungToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.umleitungToolStripMenuItem.Text = "Umleitung";
-            // 
-            // rechtsToolStripMenuItem
-            // 
-            this.rechtsToolStripMenuItem.Name = "rechtsToolStripMenuItem";
-            this.rechtsToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-            this.rechtsToolStripMenuItem.Text = "Rechts";
-            this.rechtsToolStripMenuItem.Click += new System.EventHandler(this.rechtsToolStripMenuItem_Click);
-            // 
-            // linksToolStripMenuItem
-            // 
-            this.linksToolStripMenuItem.Name = "linksToolStripMenuItem";
-            this.linksToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-            this.linksToolStripMenuItem.Text = "Links";
-            this.linksToolStripMenuItem.Click += new System.EventHandler(this.linksToolStripMenuItem_Click);
-            // 
-            // obenToolStripMenuItem
-            // 
-            this.obenToolStripMenuItem.Name = "obenToolStripMenuItem";
-            this.obenToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-            this.obenToolStripMenuItem.Text = "Oben";
-            this.obenToolStripMenuItem.Click += new System.EventHandler(this.obenToolStripMenuItem_Click);
-            // 
-            // untenToolStripMenuItem
-            // 
-            this.untenToolStripMenuItem.Name = "untenToolStripMenuItem";
-            this.untenToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-            this.untenToolStripMenuItem.Text = "Unten";
-            this.untenToolStripMenuItem.Click += new System.EventHandler(this.untenToolStripMenuItem_Click);
+            this.umleitungToolStripMenuItem.Click += new System.EventHandler(this.umleitungToolStripMenuItem_Click);
             // 
             // tabControl
             // 
@@ -397,14 +293,14 @@
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.objectName,
@@ -414,20 +310,20 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle17;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle18;
             this.dataGridView1.Size = new System.Drawing.Size(602, 353);
             this.dataGridView1.TabIndex = 0;
             // 
@@ -463,12 +359,26 @@
             this.itemHolder.Size = new System.Drawing.Size(601, 100);
             this.itemHolder.TabIndex = 4;
             // 
-            // testToolStripMenuItem
+            // zielToolStripMenuItem
             // 
-            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
-            this.testToolStripMenuItem.Text = "test";
-            this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
+            this.zielToolStripMenuItem.Name = "zielToolStripMenuItem";
+            this.zielToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.zielToolStripMenuItem.Text = "Ziel";
+            this.zielToolStripMenuItem.Click += new System.EventHandler(this.zielToolStripMenuItem_Click);
+            // 
+            // wandToolStripMenuItem
+            // 
+            this.wandToolStripMenuItem.Name = "wandToolStripMenuItem";
+            this.wandToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wandToolStripMenuItem.Text = "Wand";
+            this.wandToolStripMenuItem.Click += new System.EventHandler(this.wandToolStripMenuItem_Click);
+            // 
+            // lochToolStripMenuItem
+            // 
+            this.lochToolStripMenuItem.Name = "lochToolStripMenuItem";
+            this.lochToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.lochToolStripMenuItem.Text = "Loch";
+            this.lochToolStripMenuItem.Click += new System.EventHandler(this.lochToolStripMenuItem_Click_1);
             // 
             // GameEditor
             // 
@@ -517,14 +427,7 @@
         private System.Windows.Forms.TabPage infoTab;
         private System.Windows.Forms.ContextMenuStrip editorContextMenu;
         private System.Windows.Forms.ToolStripMenuItem spieler1ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem zielToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem spieler2ToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem zielToolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem hindernisToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mauerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem grubbeToolStripMenuItem1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn objectName;
@@ -533,16 +436,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem umleitungToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rechtsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem linksToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem obenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem untenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem lochToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.NumericUpDown NUD_panelWidth;
         private System.Windows.Forms.NumericUpDown NUD_panelHeight;
         private System.Windows.Forms.Panel itemHolder;
-        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zielToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wandToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lochToolStripMenuItem;
     }
 }
 

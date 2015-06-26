@@ -108,14 +108,6 @@ namespace T_ReXcape
         }
 
         /// <summary>
-        /// Play Boom sound once
-        /// </summary>
-        public static void playBoom()
-        {
-            playSound(Properties.Resources.blast);
-        }
-
-        /// <summary>
         /// Play Erase sound once
         /// </summary>
         public static void playErase()

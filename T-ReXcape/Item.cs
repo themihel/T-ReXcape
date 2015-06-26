@@ -10,28 +10,40 @@ namespace T_ReXcape
 {
     class Item : PictureBox
     {
-        // variables
+        // images
         private Image imageLeft;
         private Image imageRight;
         private Image imageTop;
         private Image imageBottom;
+
+        // maximum number of items on panel
         private Int32 maxOnPanel;
+
+        // postion
         private Int32 positionX;
         private Int32 positionY;
-        private int direction;
+        
+        // desription
         private String description = "";
 
         // constants for hook position
-        public static Int32 positionLeft = 1;
-        public static Int32 positionRight = 2;
-        public static Int32 positionCenter = 3;
-        public static Int32 positionTop = 4;
-        public static Int32 positionBottom = 5;
+        public const Int32 positionLeft = 1;
+        public const Int32 positionRight = 2;
+        public const Int32 positionCenter = 3;
+        public const Int32 positionTop = 4;
+        public const Int32 positionBottom = 5;
 
-        public static int directionLeft = 1;
-        public static int directionRight = 2;
-        public static int directionTop = 3;
-        public static int directionBottom = 4;
+        // direction
+        private int direction;
+
+        // constans for directions
+        public const int directionLeft = 1;
+        public const int directionRight = 2;
+        public const int directionTop = 3;
+        public const int directionBottom = 4;
+
+        // mouse postion
+        static Point mousePosition;
         
         /// <summary>
         /// Constructor
@@ -54,11 +66,10 @@ namespace T_ReXcape
             SizeMode = PictureBoxSizeMode.Zoom;
         }
 
-        public void setKey(String value)
-        {
-            Name = value;
-        }
-
+        /// <summary>
+        /// clone item
+        /// </summary>
+        /// <returns>Returns copy of current item</returns>
         public Item clone()
         {
             Debug.WriteLine("clone key: " + this.Name);
@@ -241,6 +252,10 @@ namespace T_ReXcape
             return offset;
         }
 
+        /// <summary>
+        /// Sets direction of item
+        /// </summary>
+        /// <param name="dir">direction</param>
         public void setDirection(int dir)
         {
             // check given direction id
@@ -264,35 +279,59 @@ namespace T_ReXcape
             }
         }
 
+        /// <summary>
+        /// Returns directions of item 
+        /// </summary>
+        /// <returns>Direction of item</returns>
         public int getDirection()
         {
             return direction;
         }
 
+        /// <summary>
+        /// set left-Image of item
+        /// </summary>
+        /// <param name="img">Image (left)</param>
         public void setImageLeft(Image img)
         {
             imageLeft = img;
             updateImage();
         }
 
+        /// <summary>
+        /// set right-Image of item
+        /// </summary>
+        /// <param name="img">Image (right)</param>
         public void setImageRight(Image img)
         {
             imageRight = img;
             updateImage();
         }
 
+        /// <summary>
+        /// set top-Image of item
+        /// </summary>
+        /// <param name="img">Image (top)</param>
         public void setImageTop(Image img)
         {
             imageTop = img;
             updateImage();
         }
 
+        /// <summary>
+        /// set bottom-Image of item
+        /// </summary>
+        /// <param name="img">Image (bottom)</param>
         public void setImageBottom(Image img)
         {
             imageBottom = img;
             updateImage();
         }
 
+        /// <summary>
+        /// sets Image for all directions
+        /// </summary>
+        /// <param name="img">Image (all)</param>
         public void setImageAllDirections(Image img)
         {
             imageLeft = img;
@@ -302,11 +341,17 @@ namespace T_ReXcape
             updateImage();
         }
 
+        /// <summary>
+        /// Updates current image of item
+        /// </summary>
         private void updateImage()
         {
             Image = getImage();
         }
 
+        /// <summary>
+        /// Flips dimensions of image
+        /// </summary>
         private void flipSize()
         {
             int tmp = Height;
@@ -314,20 +359,26 @@ namespace T_ReXcape
             Width = tmp;
         }
 
-
-        static Point mousePosition;
-
+        /// <summary>
+        /// gets center mouse postion of item
+        /// </summary>
         public static void mouseDown(object sender, MouseEventArgs e)
         {
             Item item = sender as Item;
             mousePosition = new Point(item.Width / 2, item.Height / 2);
         }
 
+        /// <summary>
+        /// default value
+        /// </summary>
         public static void mouseUp(object sender, MouseEventArgs e)
         {
             mousePosition = default(Point);
         }
 
+        /// <summary>
+        /// mouse move handler / updates direction
+        /// </summary>
         public static void mouseMove(object sender, MouseEventArgs e)
         {
             if (!mousePosition.Equals(default(Point)))

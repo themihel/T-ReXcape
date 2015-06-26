@@ -103,15 +103,6 @@ namespace T_ReXcape
             ItemCollection.addItem(bomb);
         }
 
-
-        /// <summary>
-        /// reset all items
-        /// </summary>
-        static public void disposeAllItems()
-        {
-            ItemCollection.disposeAllItems();
-        }
-
         /// <summary>
         /// returns height of menu panel
         /// </summary>

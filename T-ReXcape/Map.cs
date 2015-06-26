@@ -123,8 +123,6 @@ namespace T_ReXcape
         /// <summary>
         /// action handler for mouse movement on item
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void itemMouseMove(object sender, MouseEventArgs e)
         {
             if (getDragObject() != null)
@@ -133,15 +131,6 @@ namespace T_ReXcape
                 Point newPos = new Point(item.Location.X + e.X, item.Location.Y + e.Y);
                 dragObjectToPoint(newPos);
             }
-        }
-
-        /// <summary>
-        /// returns current status of grid
-        /// </summary>
-        /// <returns>grid-status</returns>
-        public Boolean getGridStatus()
-        {
-            return isGridShown;
         }
 
         /// <summary>
@@ -201,7 +190,7 @@ namespace T_ReXcape
         }
 
         /// <summary>
-        /// loads map to specific path/file
+        /// loads map from specific path/file
         /// </summary>
         /// <param name="filename">path and filename</param>
         public void loadMap(String filename)
@@ -245,6 +234,9 @@ namespace T_ReXcape
             }
         }
 
+        /// <summary>
+        /// Adds all items to map
+        /// </summary>
         public void setAllObjectsOnMap()
         {
             // init validation
@@ -295,18 +287,7 @@ namespace T_ReXcape
         /// <returns>returns amount of specific items</returns>
         public Int32 getItemCount(String name)
         {
-            Debug.WriteLine("getItemCount: " + name);
-            Int32 result = 0;
-            foreach (Control child in mapPanel.Controls)
-            {
-                Debug.WriteLine(child.Name);
-                // remove last diggit to count all with same name
-                if (Util.removeDigitsFromString(child.Name).Equals(name))
-                {
-                    result++;
-                }
-            }
-            return result;
+            return getItemsByName(name).Count;
         }
 
         /// <summary>
@@ -522,11 +503,18 @@ namespace T_ReXcape
             return block * blockSize;
         }
 
+        /// <summary>
+        /// Redraws background
+        /// </summary>
         public void redrawBackground()
         {
             mapPanel.BackgroundImage = getBackground();
         }
 
+        /// <summary>
+        /// Add events to item
+        /// </summary>
+        /// <param name="item">Item</param>
         private void addEvents(ref Item item)
         {
             // if set: add remove event
@@ -545,22 +533,40 @@ namespace T_ReXcape
             item.MouseMove += new MouseEventHandler(Item.mouseMove);
         }
 
+        /// <summary>
+        /// Returns last added item
+        /// </summary>
+        /// <returns>Item (last added)</returns>
         public Item getLastAddedItem()
         {
             return lastAddedItem;
         }
 
+        /// <summary>
+        /// Clones item to specific postion
+        /// </summary>
+        /// <param name="item">Item to clone</param>
+        /// <param name="position">Position of new item</param>
+        /// <returns>Returns if item fits (-> added)</returns>
         public bool cloneItem(Item item, Point position)
         {
+            // copy item and set position
             Item newItem = item.clone();
             newItem.Location = position;
+
+            // add events
             addEvents(ref newItem);
+
+            // check if item fits
             bool checkPosition = fitInHere(newItem.Location, newItem.Width, newItem.Height);
             if (checkPosition)
             {
+                // add item
                 lastAddedItem = newItem;
                 mapPanel.Controls.Add(newItem);
             }
+
+            // return if item fits
             return checkPosition;
         }
 
@@ -583,6 +589,7 @@ namespace T_ReXcape
                     foundItems.Add(item);
                 }
             }
+
             // return
             return foundItems;
         }
