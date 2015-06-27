@@ -63,6 +63,12 @@
     <Compile Include="GameEditor.Designer.cs">
       <DependentUpon>GameEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameRules.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameRules.Designer.cs">
+      <DependentUpon>GameRules.cs</DependentUpon>
+    </Compile>
     <Compile Include="GarbageCollector.cs" />
     <Compile Include="INIFile.cs" />
     <Compile Include="Item.cs">
@@ -86,6 +92,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GameEditor.resx">
       <DependentUpon>GameEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameRules.resx">
+      <DependentUpon>GameRules.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

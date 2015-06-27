@@ -593,5 +593,21 @@ namespace T_ReXcape
             // return
             return foundItems;
         }
+
+        /// <summary>
+        /// Disables map functionality
+        /// </summary>
+        public void disable()
+        {
+            mapPanel.Enabled = false;
+        }
+
+        /// <summary>
+        /// Enables map functionality
+        /// </summary>
+        public void enable()
+        {
+            mapPanel.Enabled = true;
+        }
     }
 }

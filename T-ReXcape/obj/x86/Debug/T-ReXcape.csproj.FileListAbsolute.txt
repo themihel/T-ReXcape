@@ -37,3 +37,4 @@ C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Start
 C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.csproj.GenerateResource.Cache
 C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.exe
 C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.pdb
+D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.GameRules.resources

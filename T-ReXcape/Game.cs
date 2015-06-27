@@ -27,6 +27,18 @@ namespace T_ReXcape
 
             // init garbage collector
             GarbageCollector.init(mapPanel, 500);
+
+            // get Soundtrack setting
+            if (Config.getPlayMusic())
+            {
+                cbSoundtrack.Checked = true;
+            }
+
+            // get soundeffect setting
+            if (Config.getPlaySoundEffects())
+            {
+                cbSoundeffects.Checked = true;
+            }
         }
 
         /// <summary>
@@ -126,50 +138,122 @@ namespace T_ReXcape
             mapPanel.Location = mapPosition;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnMenuPause_Click(object sender, EventArgs e)
+        {
+            // check if pause menu is visiable
+            if (pausePanel.Visible)
+            {
+                continueGame();
+            }
+            else 
+            {
+                pauseGame();
+            }
+        }
+
         // @TODO testing only
         private void item_Click(object sender, EventArgs e)
         {
             Animation anim = new Animation(mapPanel);
             PictureBox obj = sender as PictureBox;
-
             anim.eraseObject(obj);
-
             obj.Image = null;
             obj.BackColor = Color.Transparent;
         }
 
         /// <summary>
-        /// @TODO
-        /// only for debug. has to be refactored
+        /// Pause game and show menu
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        private void pauseGame()
         {
-            this.Close();
+            // show pause menu
+            pausePanel.Visible = true;
+            // disable map
+            map.disable();
+            // @TODO disable timer
         }
 
         /// <summary>
-        /// @TODO
-        /// only for debug. has to be refactored
+        /// continue game and hide menu
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button2_Click(object sender, EventArgs e)
+        private void continueGame()
         {
-            if (pausePanel.Visible)
-            {
-                pausePanel.Visible = false;
-            }
-            else 
-            {
-                pausePanel.Visible = true;
-            }
+            // hide pause menu
+            pausePanel.Visible = false;
+            // enable map
+            map.enable();
+            // @TODO enable timer
         }
 
+        /// <summary>
+        /// Hide form after load
+        /// </summary>
         private void Game_Shown(object sender, EventArgs e)
         {
             formToCloseAfterLoad.Hide();
+        }
+
+        /// <summary>
+        /// Click on continue button -> continue Game
+        /// </summary>
+        private void btnContinue_Click(object sender, EventArgs e)
+        {
+            continueGame();
+        }
+
+        /// <summary>
+        /// Show game rules
+        /// </summary>
+        private void btnGameRules_Click(object sender, EventArgs e)
+        {
+            GameRules gr = new GameRules();
+            gr.ShowDialog();
+        }
+
+        /// <summary>
+        /// Enable / disable soundtrack
+        /// </summary>
+        private void cbSoundtrack_CheckedChanged(object sender, EventArgs e)
+        {
+            // set config
+            Config.setPlayMusic(((CheckBox)sender).Checked);
+
+            // set music status
+            if (((CheckBox)sender).Checked)
+            {
+                Sound.playSoundtrack();
+            }
+            else
+            {
+                Sound.stopSoundtrack();
+            }
+
+            // save config
+            Config.saveSettings();
+        }
+
+        /// <summary>
+        /// Enable / disable soundeffects
+        /// </summary>
+        private void cbSoundeffects_CheckedChanged(object sender, EventArgs e)
+        {
+            // set config
+            Config.setPlaySoundEffects(((CheckBox)sender).Checked);
+
+            // save config
+            Config.saveSettings();
+        }
+
+        /// <summary>
+        /// End game
+        /// </summary>
+        private void btnExitGame_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
