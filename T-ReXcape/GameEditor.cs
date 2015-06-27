@@ -380,15 +380,26 @@ namespace T_ReXcape
                 return true;
             }
             else if (copyItem != null && keyData == (Keys.Control | Keys.V))
-            {   
-                if (map.getDragObject() != null)
-                    map.getDragObject().BackColor = Color.Transparent;
+            {
+                // check if max on panel is reached
+                if (ItemCollection.getItemByKey(copyItem.getKey()).getMaxOnPanel() > map.getItemCount(copyItem.getKey()))
+                {
+                    // reset drag object
+                    if (map.getDragObject() != null)
+                        map.getDragObject().BackColor = Color.Transparent;
 
-                Item pasteItem = copyItem.clone();
-                map.cloneItem(pasteItem, new Point(0 - pasteItem.Width * 2, 0 - pasteItem.Height * 2));
-                map.setDragObject(map.getLastAddedItem());
-                map.getDragObject().BackColor = Config.getActiveColor();
-                return true;
+                    // place item
+                    Item pasteItem = copyItem.clone();
+                    map.cloneItem(pasteItem, new Point(0 - pasteItem.Width * 2, 0 - pasteItem.Height * 2));
+                    map.setDragObject(map.getLastAddedItem());
+                    map.getDragObject().BackColor = Config.getActiveColor();
+                    return true;
+                }
+                else
+                {
+                    // catch error when object was deleted
+                    copyItem = null;
+                }
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
