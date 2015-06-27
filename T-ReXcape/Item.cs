@@ -15,6 +15,13 @@ namespace T_ReXcape
         private Image imageRight;
         private Image imageTop;
         private Image imageBottom;
+        private Image imageWalkingLeft;
+        private Image imageWalkingRight;
+        private Image imageWalkingTop;
+        private Image imageWalkingBottom;
+
+        // is walking
+        private Boolean walking = false;
 
         // maximum number of items on panel
         private Int32 maxOnPanel;
@@ -78,6 +85,10 @@ namespace T_ReXcape
             cloneItem.setImageRight(imageRight);
             cloneItem.setImageTop(imageTop);
             cloneItem.setImageBottom(imageBottom);
+            cloneItem.setImageWalkingLeft(imageWalkingLeft);
+            cloneItem.setImageWalkingRight(imageWalkingRight);
+            cloneItem.setImageWalkingTop(imageWalkingTop);
+            cloneItem.setImageWalkingBottom(imageWalkingBottom);
             cloneItem.setMaxOnPanel(maxOnPanel);
             cloneItem.setDescription(description);
             cloneItem.setHookPosition(positionX, positionY);
@@ -156,19 +167,48 @@ namespace T_ReXcape
         {
             if (direction == directionLeft)
             {
-                return imageLeft;
+                if (walking)
+                {
+                    return imageWalkingLeft;
+                }
+                else
+                {
+                    return imageLeft;
+                }
+                
             }
             else if (direction == directionRight)
             {
-                return imageRight;
+                if (walking)
+                {
+                    return imageWalkingRight;
+                }
+                else
+                {
+                    return imageRight;
+                }
             }
             else if (direction == directionTop)
             {
-                return imageTop;
+                if (walking)
+                {
+                    return imageWalkingTop;
+                }
+                else
+                {
+                    return imageTop;
+                }
             }
             else if (direction == directionBottom)
             {
-                return imageBottom;
+                if (walking)
+                {
+                    return imageWalkingBottom;
+                }
+                else
+                {
+                    return imageBottom;
+                }
             }
             else
             {
@@ -329,6 +369,46 @@ namespace T_ReXcape
         }
 
         /// <summary>
+        /// set walking-left-Image of item
+        /// </summary>
+        /// <param name="img">Image (walking-left)</param>
+        public void setImageWalkingLeft(Image img)
+        {
+            imageWalkingLeft = img;
+            updateImage();
+        }
+
+        /// <summary>
+        /// set walking-right-Image of item
+        /// </summary>
+        /// <param name="img">Image (walking-right)</param>
+        public void setImageWalkingRight(Image img)
+        {
+            imageWalkingRight = img;
+            updateImage();
+        }
+
+        /// <summary>
+        /// set walking-top-Image of item
+        /// </summary>
+        /// <param name="img">Image (walking-top)</param>
+        public void setImageWalkingTop(Image img)
+        {
+            imageWalkingTop = img;
+            updateImage();
+        }
+
+        /// <summary>
+        /// set walking-bottom-Image of item
+        /// </summary>
+        /// <param name="img">Image (walking-bottom)</param>
+        public void setImageWalkingBottom(Image img)
+        {
+            imageWalkingBottom = img;
+            updateImage();
+        }
+
+        /// <summary>
         /// sets Image for all directions
         /// </summary>
         /// <param name="img">Image (all)</param>
@@ -357,6 +437,25 @@ namespace T_ReXcape
             int tmp = Height;
             Height = Width;
             Width = tmp;
+        }
+
+        /// <summary>
+        /// Set walking state
+        /// </summary>
+        /// <param name="walkingState">Boolean if item is walking</param>
+        public void setWalking(Boolean walkingState)
+        {
+            walking = walkingState;
+            updateImage();
+        }
+
+        /// <summary>
+        /// Returns if item is currently walking
+        /// </summary>
+        /// <returns>Boolean walking state</returns>
+        public Boolean isWalking()
+        {
+            return walking;
         }
 
         /// <summary>
