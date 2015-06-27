@@ -44,10 +44,11 @@ namespace T_ReXcape
         private int direction;
 
         // constans for directions
-        public const int directionLeft = 1;
-        public const int directionRight = 2;
-        public const int directionTop = 3;
-        public const int directionBottom = 4;
+        public const Int32 directionLeft = 1;
+        public const Int32 directionRight = 2;
+        public const Int32 directionTop = 3;
+        public const Int32 directionBottom = 4;
+        private Boolean ignoreDirection = false;
 
         // mouse postion
         static Point mousePosition;
@@ -165,7 +166,11 @@ namespace T_ReXcape
         /// </summary>
         public Image getImage()
         {
-            if (direction == directionLeft)
+            if (ignoreDirection)
+            {
+                return imageLeft;
+            }
+            else if (direction == directionLeft)
             {
                 if (walking)
                 {
@@ -418,6 +423,7 @@ namespace T_ReXcape
             imageRight = img;
             imageTop = img;
             imageBottom = img;
+            ignoreDirection = true;
             updateImage();
         }
 
@@ -434,9 +440,12 @@ namespace T_ReXcape
         /// </summary>
         private void flipSize()
         {
-            int tmp = Height;
-            Height = Width;
-            Width = tmp;
+            if (!ignoreDirection)
+            {
+                int tmp = Height;
+                Height = Width;
+                Width = tmp;
+            }
         }
 
         /// <summary>
