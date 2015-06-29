@@ -50,6 +50,10 @@ namespace T_ReXcape
             player1start.setImageRight(Properties.Resources.dino_right);
             player1start.setImageTop(Properties.Resources.dino_up);
             player1start.setImageBottom(Properties.Resources.dino_down);
+            player1start.setImageWalkingLeft(Properties.Resources.dino_walking_left);
+            player1start.setImageWalkingRight(Properties.Resources.dino_walking_right);
+            player1start.setImageWalkingTop(Properties.Resources.dino_walking_up);
+            player1start.setImageWalkingBottom(Properties.Resources.dino_walking_down);
             player1start.setMaxOnPanel(1);
             player1start.setDescription("Spieler 1");
             player1start.setHookPosition(Item.positionCenter, Item.positionBottom);

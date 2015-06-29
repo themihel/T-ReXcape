@@ -30,14 +30,14 @@
         {
             this.mapPanel = new System.Windows.Forms.Panel();
             this.pausePanel = new System.Windows.Forms.Panel();
+            this.btnExitGame = new System.Windows.Forms.Button();
+            this.cbSoundeffects = new System.Windows.Forms.CheckBox();
+            this.cbSoundtrack = new System.Windows.Forms.CheckBox();
+            this.btnGameRules = new System.Windows.Forms.Button();
+            this.btnContinue = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnMenuPause = new System.Windows.Forms.Button();
             this.menuBar = new System.Windows.Forms.Panel();
-            this.btnContinue = new System.Windows.Forms.Button();
-            this.btnGameRules = new System.Windows.Forms.Button();
-            this.cbSoundtrack = new System.Windows.Forms.CheckBox();
-            this.cbSoundeffects = new System.Windows.Forms.CheckBox();
-            this.btnExitGame = new System.Windows.Forms.Button();
             this.pausePanel.SuspendLayout();
             this.menuBar.SuspendLayout();
             this.SuspendLayout();
@@ -65,6 +65,60 @@
             this.pausePanel.Size = new System.Drawing.Size(231, 285);
             this.pausePanel.TabIndex = 0;
             this.pausePanel.Visible = false;
+            // 
+            // btnExitGame
+            // 
+            this.btnExitGame.Location = new System.Drawing.Point(21, 105);
+            this.btnExitGame.Name = "btnExitGame";
+            this.btnExitGame.Size = new System.Drawing.Size(184, 23);
+            this.btnExitGame.TabIndex = 7;
+            this.btnExitGame.Text = "Beenden";
+            this.btnExitGame.UseVisualStyleBackColor = true;
+            this.btnExitGame.Click += new System.EventHandler(this.btnExitGame_Click);
+            // 
+            // cbSoundeffects
+            // 
+            this.cbSoundeffects.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cbSoundeffects.AutoSize = true;
+            this.cbSoundeffects.Location = new System.Drawing.Point(124, 247);
+            this.cbSoundeffects.Name = "cbSoundeffects";
+            this.cbSoundeffects.Size = new System.Drawing.Size(81, 23);
+            this.cbSoundeffects.TabIndex = 6;
+            this.cbSoundeffects.Text = "Soundeffekte";
+            this.cbSoundeffects.UseVisualStyleBackColor = true;
+            this.cbSoundeffects.CheckedChanged += new System.EventHandler(this.cbSoundeffects_CheckedChanged);
+            // 
+            // cbSoundtrack
+            // 
+            this.cbSoundtrack.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cbSoundtrack.AutoSize = true;
+            this.cbSoundtrack.Location = new System.Drawing.Point(21, 247);
+            this.cbSoundtrack.Name = "cbSoundtrack";
+            this.cbSoundtrack.Size = new System.Drawing.Size(72, 23);
+            this.cbSoundtrack.TabIndex = 5;
+            this.cbSoundtrack.Text = "Soundtrack";
+            this.cbSoundtrack.UseVisualStyleBackColor = true;
+            this.cbSoundtrack.CheckedChanged += new System.EventHandler(this.cbSoundtrack_CheckedChanged);
+            // 
+            // btnGameRules
+            // 
+            this.btnGameRules.Location = new System.Drawing.Point(21, 76);
+            this.btnGameRules.Name = "btnGameRules";
+            this.btnGameRules.Size = new System.Drawing.Size(184, 23);
+            this.btnGameRules.TabIndex = 4;
+            this.btnGameRules.Text = "Spielregeln";
+            this.btnGameRules.UseVisualStyleBackColor = true;
+            this.btnGameRules.Click += new System.EventHandler(this.btnGameRules_Click);
+            // 
+            // btnContinue
+            // 
+            this.btnContinue.Location = new System.Drawing.Point(21, 47);
+            this.btnContinue.Name = "btnContinue";
+            this.btnContinue.Size = new System.Drawing.Size(184, 23);
+            this.btnContinue.TabIndex = 3;
+            this.btnContinue.Text = "Weiter";
+            this.btnContinue.UseVisualStyleBackColor = true;
+            this.btnContinue.Click += new System.EventHandler(this.btnContinue_Click);
             // 
             // label1
             // 
@@ -95,60 +149,6 @@
             this.menuBar.Name = "menuBar";
             this.menuBar.Size = new System.Drawing.Size(480, 76);
             this.menuBar.TabIndex = 6;
-            // 
-            // btnContinue
-            // 
-            this.btnContinue.Location = new System.Drawing.Point(21, 47);
-            this.btnContinue.Name = "btnContinue";
-            this.btnContinue.Size = new System.Drawing.Size(184, 23);
-            this.btnContinue.TabIndex = 3;
-            this.btnContinue.Text = "Weiter";
-            this.btnContinue.UseVisualStyleBackColor = true;
-            this.btnContinue.Click += new System.EventHandler(this.btnContinue_Click);
-            // 
-            // btnGameRules
-            // 
-            this.btnGameRules.Location = new System.Drawing.Point(21, 76);
-            this.btnGameRules.Name = "btnGameRules";
-            this.btnGameRules.Size = new System.Drawing.Size(184, 23);
-            this.btnGameRules.TabIndex = 4;
-            this.btnGameRules.Text = "Spielregeln";
-            this.btnGameRules.UseVisualStyleBackColor = true;
-            this.btnGameRules.Click += new System.EventHandler(this.btnGameRules_Click);
-            // 
-            // cbSoundtrack
-            // 
-            this.cbSoundtrack.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cbSoundtrack.AutoSize = true;
-            this.cbSoundtrack.Location = new System.Drawing.Point(21, 247);
-            this.cbSoundtrack.Name = "cbSoundtrack";
-            this.cbSoundtrack.Size = new System.Drawing.Size(72, 23);
-            this.cbSoundtrack.TabIndex = 5;
-            this.cbSoundtrack.Text = "Soundtrack";
-            this.cbSoundtrack.UseVisualStyleBackColor = true;
-            this.cbSoundtrack.CheckedChanged += new System.EventHandler(this.cbSoundtrack_CheckedChanged);
-            // 
-            // cbSoundeffects
-            // 
-            this.cbSoundeffects.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cbSoundeffects.AutoSize = true;
-            this.cbSoundeffects.Location = new System.Drawing.Point(124, 247);
-            this.cbSoundeffects.Name = "cbSoundeffects";
-            this.cbSoundeffects.Size = new System.Drawing.Size(81, 23);
-            this.cbSoundeffects.TabIndex = 6;
-            this.cbSoundeffects.Text = "Soundeffekte";
-            this.cbSoundeffects.UseVisualStyleBackColor = true;
-            this.cbSoundeffects.CheckedChanged += new System.EventHandler(this.cbSoundeffects_CheckedChanged);
-            // 
-            // btnExitGame
-            // 
-            this.btnExitGame.Location = new System.Drawing.Point(21, 105);
-            this.btnExitGame.Name = "btnExitGame";
-            this.btnExitGame.Size = new System.Drawing.Size(184, 23);
-            this.btnExitGame.TabIndex = 7;
-            this.btnExitGame.Text = "Beenden";
-            this.btnExitGame.UseVisualStyleBackColor = true;
-            this.btnExitGame.Click += new System.EventHandler(this.btnExitGame_Click);
             // 
             // Game
             // 

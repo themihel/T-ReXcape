@@ -42,6 +42,11 @@ namespace T_ReXcape
         // last added item
         private Item lastAddedItem;
 
+        Item walkingItem;
+        Timer walkTimer;
+        int walkSpeed = 2;
+        bool prepareToWalk = false;
+
         /// <summary>
         /// initialise Map with panel / loads configs from config class
         /// </summary>
@@ -55,6 +60,10 @@ namespace T_ReXcape
             blockSize = Config.getBlockSize();
             activeColor = Config.getActiveColor();
             gridColor = Config.getGridColor();
+
+            walkTimer = new Timer();
+            walkTimer.Interval = 10;
+            walkTimer.Tick += new EventHandler(walkTimer_Tick);
         }
 
         /// <summary>
@@ -295,7 +304,7 @@ namespace T_ReXcape
         /// </summary>
         /// <param name="withGrid">grid status</param>
         /// <returns>returns bitmap with / without grid</returns>
-        private Bitmap getBackground()
+        public Bitmap getBackground()
         {
             if (bgWithGrid == null)
             {
@@ -529,8 +538,18 @@ namespace T_ReXcape
                 item.DoubleClick += controlDoubleClickEventHandler;
 
             item.MouseDown += new MouseEventHandler(Item.mouseDown);
-            item.MouseUp += new MouseEventHandler(Item.mouseUp);
+            item.MouseUp += new MouseEventHandler(mouseUpItem);
             item.MouseMove += new MouseEventHandler(Item.mouseMove);
+        }
+
+        private void mouseUpItem(object sender, MouseEventArgs e)
+        {
+            Item.mouseUp(sender, e);
+            if (prepareToWalk)
+            {
+                walkingItem = sender as Item;
+                pleaseGo();
+            }
         }
 
         /// <summary>
@@ -608,6 +627,69 @@ namespace T_ReXcape
         public void enable()
         {
             mapPanel.Enabled = true;
+        }
+
+        public void setPrepareToWalk(bool val)
+        {
+            prepareToWalk = val;
+        }
+
+        private void pleaseGo()
+        {
+            if (walkingItem != null)
+            {
+                walkingItem.setWalking(true);
+                walkTimer.Start();
+            }
+        }
+
+        private void stopWalking()
+        {
+            if (walkingItem != null)
+            {
+                walkingItem.setWalking(false);
+            }
+            walkTimer.Stop();
+        }
+
+        private void walkTimer_Tick(object sender, EventArgs e)
+        {
+            if (mapPanel.Enabled != true)
+                return;
+
+            if (walkingItem != null)
+            {
+                moveToDirection(walkingItem.getDirection());
+            }
+        }
+
+        private void moveToDirection(int direction)
+        {
+            Point newLocation = new Point(walkingItem.Location.X, walkingItem.Location.Y);
+            switch (direction)
+            {
+                case Item.directionLeft:
+                    newLocation.X -= walkSpeed;
+                    break;
+                case Item.directionRight:
+                    newLocation.X += walkSpeed;
+                    break;
+                case Item.directionTop:
+                    newLocation.Y -= walkSpeed;
+                    break;
+                case Item.directionBottom:
+                    newLocation.Y += walkSpeed;
+                    break;
+            }
+
+            if (walkingItem.fitInHere(newLocation, mapPanel))
+            {
+                walkingItem.Location = newLocation;
+            }
+            else
+            {
+                stopWalking();
+            }
         }
     }
 }

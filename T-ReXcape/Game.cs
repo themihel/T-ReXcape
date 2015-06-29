@@ -95,6 +95,7 @@ namespace T_ReXcape
 
             // load actual map and draw everything
             map = new Map(ref mapPanel);
+            map.setPrepareToWalk(true);
             map.registerControlClickEventHandler(item_Click);
             map.loadMap(file);
             try
@@ -158,6 +159,8 @@ namespace T_ReXcape
         // @TODO testing only
         private void item_Click(object sender, EventArgs e)
         {
+            return;
+
             Animation anim = new Animation(mapPanel);
             PictureBox obj = sender as PictureBox;
             anim.eraseObject(obj);

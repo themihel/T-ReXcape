@@ -515,5 +515,36 @@ namespace T_ReXcape
                 }
             }
         }
+
+        public bool fitInHere(Point position, Panel mapPanel)
+        {   
+            Boolean ok = true;
+            // check only if position is on map.
+            // otherwise is position valid but garbage collector will delete it
+            if (position.X >= 0 && position.X + Width <= mapPanel.Width &&
+                position.Y >= 0 && position.Y + Height <= mapPanel.Height)
+            {
+                foreach (Control itemControl in mapPanel.Controls)
+                {
+                    if (itemControl != this)
+                    {
+                        int distanceLeft = position.X - (itemControl.Location.X + itemControl.Width);
+                        int distanceRight = itemControl.Location.X - (position.X + Width);
+                        int distanceTop = itemControl.Location.Y - (position.Y + Height);
+                        int distanceBottom = position.Y - (itemControl.Location.Y + itemControl.Height);
+
+                        if (distanceLeft < 0 && distanceRight < 0 && distanceTop < 0 && distanceBottom < 0)
+                        {
+                            ok = false;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                ok = false;
+            }
+            return ok;
+        }
     }
 }
