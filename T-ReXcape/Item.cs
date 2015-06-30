@@ -52,6 +52,17 @@ namespace T_ReXcape
 
         // mouse postion
         static Point mousePosition;
+
+        private Boolean collision = true;
+        private Int16 collisionAction;
+
+        public static Dictionary<string, Int16> collisionActions = new Dictionary<string, Int16>
+        {
+            {"stop", 1},
+            {"move", 2},
+            {"drop", 3},
+            {"win", 4}
+        };
         
         /// <summary>
         /// Constructor
@@ -94,6 +105,8 @@ namespace T_ReXcape
             cloneItem.setDescription(description);
             cloneItem.setHookPosition(positionX, positionY);
             cloneItem.setDirection(direction);
+            cloneItem.setCollision(collision);
+            cloneItem.setCollisionAction(collisionAction);
             return cloneItem;
         }
 
@@ -516,15 +529,15 @@ namespace T_ReXcape
             }
         }
 
-        public bool fitInHere(Point position, Panel mapPanel)
-        {   
-            Boolean ok = true;
+        public Item collisionObject(Point position, Panel mapPanel)
+        {
+            Item collisionItem = null;
             // check only if position is on map.
             // otherwise is position valid but garbage collector will delete it
             if (position.X >= 0 && position.X + Width <= mapPanel.Width &&
                 position.Y >= 0 && position.Y + Height <= mapPanel.Height)
             {
-                foreach (Control itemControl in mapPanel.Controls)
+                foreach (Item itemControl in mapPanel.Controls)
                 {
                     if (itemControl != this)
                     {
@@ -535,16 +548,32 @@ namespace T_ReXcape
 
                         if (distanceLeft < 0 && distanceRight < 0 && distanceTop < 0 && distanceBottom < 0)
                         {
-                            ok = false;
+                            collisionItem = itemControl;
                         }
                     }
                 }
             }
-            else
-            {
-                ok = false;
-            }
-            return ok;
+            return collisionItem;
+        }
+
+        public void setCollision(Boolean val)
+        {
+            collision = val;
+        }
+
+        public Boolean getCollosion()
+        {
+            return collision;
+        }
+
+        public void setCollisionAction(Int16 val)
+        {
+            collisionAction = val;
+        }
+
+        public Int16 getCollisionAction()
+        {
+            return collisionAction;
         }
     }
 }

@@ -35,7 +35,6 @@
             this.cbSoundtrack = new System.Windows.Forms.CheckBox();
             this.btnGameRules = new System.Windows.Forms.Button();
             this.btnContinue = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnMenuPause = new System.Windows.Forms.Button();
             this.menuBar = new System.Windows.Forms.Panel();
             this.pausePanel.SuspendLayout();
@@ -53,24 +52,24 @@
             // 
             // pausePanel
             // 
-            this.pausePanel.BackColor = System.Drawing.Color.DarkRed;
+            this.pausePanel.BackColor = System.Drawing.SystemColors.Control;
+            this.pausePanel.BackgroundImage = global::T_ReXcape.Properties.Resources.menu;
             this.pausePanel.Controls.Add(this.btnExitGame);
             this.pausePanel.Controls.Add(this.cbSoundeffects);
             this.pausePanel.Controls.Add(this.cbSoundtrack);
             this.pausePanel.Controls.Add(this.btnGameRules);
             this.pausePanel.Controls.Add(this.btnContinue);
-            this.pausePanel.Controls.Add(this.label1);
-            this.pausePanel.Location = new System.Drawing.Point(261, 143);
+            this.pausePanel.Location = new System.Drawing.Point(216, 145);
             this.pausePanel.Name = "pausePanel";
-            this.pausePanel.Size = new System.Drawing.Size(231, 285);
+            this.pausePanel.Size = new System.Drawing.Size(472, 252);
             this.pausePanel.TabIndex = 0;
             this.pausePanel.Visible = false;
             // 
             // btnExitGame
             // 
-            this.btnExitGame.Location = new System.Drawing.Point(21, 105);
+            this.btnExitGame.Location = new System.Drawing.Point(419, 18);
             this.btnExitGame.Name = "btnExitGame";
-            this.btnExitGame.Size = new System.Drawing.Size(184, 23);
+            this.btnExitGame.Size = new System.Drawing.Size(53, 23);
             this.btnExitGame.TabIndex = 7;
             this.btnExitGame.Text = "Beenden";
             this.btnExitGame.UseVisualStyleBackColor = true;
@@ -80,7 +79,7 @@
             // 
             this.cbSoundeffects.Appearance = System.Windows.Forms.Appearance.Button;
             this.cbSoundeffects.AutoSize = true;
-            this.cbSoundeffects.Location = new System.Drawing.Point(124, 247);
+            this.cbSoundeffects.Location = new System.Drawing.Point(195, 205);
             this.cbSoundeffects.Name = "cbSoundeffects";
             this.cbSoundeffects.Size = new System.Drawing.Size(81, 23);
             this.cbSoundeffects.TabIndex = 6;
@@ -92,7 +91,7 @@
             // 
             this.cbSoundtrack.Appearance = System.Windows.Forms.Appearance.Button;
             this.cbSoundtrack.AutoSize = true;
-            this.cbSoundtrack.Location = new System.Drawing.Point(21, 247);
+            this.cbSoundtrack.Location = new System.Drawing.Point(3, 148);
             this.cbSoundtrack.Name = "cbSoundtrack";
             this.cbSoundtrack.Size = new System.Drawing.Size(72, 23);
             this.cbSoundtrack.TabIndex = 5;
@@ -102,9 +101,9 @@
             // 
             // btnGameRules
             // 
-            this.btnGameRules.Location = new System.Drawing.Point(21, 76);
+            this.btnGameRules.Location = new System.Drawing.Point(92, 176);
             this.btnGameRules.Name = "btnGameRules";
-            this.btnGameRules.Size = new System.Drawing.Size(184, 23);
+            this.btnGameRules.Size = new System.Drawing.Size(113, 23);
             this.btnGameRules.TabIndex = 4;
             this.btnGameRules.Text = "Spielregeln";
             this.btnGameRules.UseVisualStyleBackColor = true;
@@ -112,22 +111,13 @@
             // 
             // btnContinue
             // 
-            this.btnContinue.Location = new System.Drawing.Point(21, 47);
+            this.btnContinue.Location = new System.Drawing.Point(293, 176);
             this.btnContinue.Name = "btnContinue";
-            this.btnContinue.Size = new System.Drawing.Size(184, 23);
+            this.btnContinue.Size = new System.Drawing.Size(110, 23);
             this.btnContinue.TabIndex = 3;
             this.btnContinue.Text = "Weiter";
             this.btnContinue.UseVisualStyleBackColor = true;
             this.btnContinue.Click += new System.EventHandler(this.btnContinue_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(94, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Pause";
             // 
             // btnMenuPause
             // 
@@ -155,7 +145,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(618, 462);
+            this.ClientSize = new System.Drawing.Size(716, 565);
             this.Controls.Add(this.menuBar);
             this.Controls.Add(this.pausePanel);
             this.Controls.Add(this.mapPanel);
@@ -178,7 +168,6 @@
 
         private System.Windows.Forms.Panel mapPanel;
         private System.Windows.Forms.Panel pausePanel;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnMenuPause;
         private System.Windows.Forms.Panel menuBar;
         private System.Windows.Forms.Button btnGameRules;

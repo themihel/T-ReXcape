@@ -57,6 +57,7 @@ namespace T_ReXcape
             player1start.setMaxOnPanel(1);
             player1start.setDescription("Spieler 1");
             player1start.setHookPosition(Item.positionCenter, Item.positionBottom);
+            player1start.setCollisionAction(Item.collisionActions["stop"]);
             ItemCollection.addItem(player1start);
 
             Item destination = new Item("destination", 3 * blockSize, 4 * blockSize);
@@ -64,6 +65,8 @@ namespace T_ReXcape
             destination.setMaxOnPanel(1);
             destination.setDescription("Ziel");
             destination.setHookPosition(Item.positionCenter, Item.positionBottom);
+            destination.setCollision(false);
+            destination.setCollisionAction(Item.collisionActions["win"]);
             ItemCollection.addItem(destination);
 
             Item player2start = new Item("player2start", 4 * blockSize, 4 * blockSize);
@@ -74,6 +77,7 @@ namespace T_ReXcape
             player2start.setMaxOnPanel(1);
             player2start.setDescription("Spieler 2");
             player2start.setHookPosition(Item.positionCenter, Item.positionBottom);
+            player2start.setCollisionAction(Item.collisionActions["stop"]);
             ItemCollection.addItem(player2start);
 
             Item wall = new Item("wall", 2 * blockSize, 4 * blockSize);
@@ -83,6 +87,7 @@ namespace T_ReXcape
             wall.setImageBottom(Properties.Resources.wallh);
             wall.setMaxOnPanel(99);
             wall.setDescription("Mauer");
+            wall.setCollisionAction(Item.collisionActions["stop"]);
             ItemCollection.addItem(wall);
 
             Item goTo = new Item("goto", 2 * blockSize, 2 * blockSize);
@@ -92,19 +97,17 @@ namespace T_ReXcape
             goTo.setImageBottom(Properties.Resources.gobottom);
             goTo.setMaxOnPanel(99);
             goTo.setDescription("Bewegung");
+            goTo.setCollision(false);
+            goTo.setCollisionAction(Item.collisionActions["move"]);
             ItemCollection.addItem(goTo);
 
             Item hole = new Item("hole", 2 * blockSize, 2 * blockSize);
             hole.setImageAllDirections(Properties.Resources.moat);
             hole.setMaxOnPanel(99);
             hole.setDescription("Loch");
+            hole.setCollision(false);
+            hole.setCollisionAction(Item.collisionActions["drop"]);
             ItemCollection.addItem(hole);
-
-            Item bomb = new Item("bomb", 2 * blockSize, 2 * blockSize);
-            bomb.setImageAllDirections(Properties.Resources.bomb);
-            bomb.setMaxOnPanel(99);
-            bomb.setDescription("Bombe");
-            ItemCollection.addItem(bomb);
         }
 
         /// <summary>

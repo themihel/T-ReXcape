@@ -70,13 +70,6 @@ namespace T_ReXcape
         /// <param name="e"></param>
         private void btnMapEditor_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Config.setDefaultBlockSize();
-            ItemCollection.disposeAllItems();
-            GameEditor editor = new GameEditor();
-            // when editor closed, close main (StartUp) form to close programm
-            editor.FormClosed += (s, args) => this.Close();
-            editor.Show();
         }
 
         /// <summary>
@@ -86,10 +79,6 @@ namespace T_ReXcape
         /// <param name="e"></param>
         private void btnLoadLevel_Click(object sender, EventArgs e)
         {
-            Button btn = sender as Button;
-            Point pnt = new Point(0, btn.Height);
-            pnt = btn.PointToScreen(pnt);
-            mapStrip.Show(pnt);
         }
 
 
@@ -100,7 +89,6 @@ namespace T_ReXcape
         /// <param name="e"></param>
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Close();
         }
 
         /// <summary>
@@ -185,6 +173,30 @@ namespace T_ReXcape
                     Debug.WriteLine(ex.Message);
                 } 
             }
+        }
+
+        private void load_panelbutton_MouseClick(object sender, MouseEventArgs e)
+        {
+            Panel btn = sender as Panel;
+            Point pnt = new Point(0, btn.Height);
+            pnt = btn.PointToScreen(pnt);
+            mapStrip.Show(pnt);
+        }
+
+        private void editor_panelbutton_MouseClick(object sender, MouseEventArgs e)
+        {
+            this.Hide();
+            Config.setDefaultBlockSize();
+            ItemCollection.disposeAllItems();
+            GameEditor editor = new GameEditor();
+            // when editor closed, close main (StartUp) form to close programm
+            editor.FormClosed += (s, args) => this.Close();
+            editor.Show();
+        }
+
+        private void exit_panelbutton_MouseClick(object sender, MouseEventArgs e)
+        {
+            this.Close();
         }
     }
 }

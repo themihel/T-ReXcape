@@ -665,6 +665,8 @@ namespace T_ReXcape
 
         private void moveToDirection(int direction)
         {
+            Boolean moveFarther = true;
+            Item collisionItem;
             Point newLocation = new Point(walkingItem.Location.X, walkingItem.Location.Y);
             switch (direction)
             {
@@ -682,14 +684,38 @@ namespace T_ReXcape
                     break;
             }
 
-            if (walkingItem.fitInHere(newLocation, mapPanel))
+            if ((collisionItem = walkingItem.collisionObject(newLocation, mapPanel)) != null)
             {
+                Debug.WriteLine("got collision: " + collisionItem.getCollisionAction());
+                if (collisionItem.getCollisionAction() == Item.collisionActions["stop"])
+                {
+                    moveFarther = false;
+                    stopWalking();
+                }
+                else if (collisionItem.getCollisionAction() == Item.collisionActions["move"])
+                {
+                    walkingItem.setDirection(collisionItem.getDirection());
+                }
+                else if (collisionItem.getCollisionAction() == Item.collisionActions["drop"])
+                {
+                    moveFarther = false;
+                    stopWalking();
+                    MessageBox.Show("TODO: move to start position & animate drop into hole");
+                }
+                else if (collisionItem.getCollisionAction() == Item.collisionActions["win"])
+                {
+                    moveFarther = false;
+                    stopWalking();
+                    MessageBox.Show("TODO: WIN");
+                }
+                else
+                {
+                    throw new Exception("got no valid collision Action");
+                }
+            }
+
+            if (moveFarther)
                 walkingItem.Location = newLocation;
-            }
-            else
-            {
-                stopWalking();
-            }
         }
     }
 }
