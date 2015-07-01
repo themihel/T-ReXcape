@@ -31,11 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Game));
             this.mapPanel = new System.Windows.Forms.Panel();
             this.pausePanel = new System.Windows.Forms.Panel();
-            this.btnExitGame = new System.Windows.Forms.Button();
-            this.cbSoundeffects = new System.Windows.Forms.CheckBox();
-            this.cbSoundtrack = new System.Windows.Forms.CheckBox();
-            this.btnGameRules = new System.Windows.Forms.Button();
-            this.btnContinue = new System.Windows.Forms.Button();
+            this.soundeffect_panelbutton = new System.Windows.Forms.Panel();
+            this.soundtrack_panelbutton = new System.Windows.Forms.Panel();
+            this.rules_panelbutton = new System.Windows.Forms.Panel();
+            this.continue_panelbutton = new System.Windows.Forms.Panel();
+            this.close_panelbutton = new System.Windows.Forms.Panel();
             this.btnMenuPause = new System.Windows.Forms.Button();
             this.menuBar = new System.Windows.Forms.Panel();
             this.pausePanel.SuspendLayout();
@@ -55,70 +55,66 @@
             // 
             this.pausePanel.BackColor = System.Drawing.SystemColors.Control;
             this.pausePanel.BackgroundImage = global::T_ReXcape.Properties.Resources.menu;
-            this.pausePanel.Controls.Add(this.btnExitGame);
-            this.pausePanel.Controls.Add(this.cbSoundeffects);
-            this.pausePanel.Controls.Add(this.cbSoundtrack);
-            this.pausePanel.Controls.Add(this.btnGameRules);
-            this.pausePanel.Controls.Add(this.btnContinue);
+            this.pausePanel.Controls.Add(this.soundeffect_panelbutton);
+            this.pausePanel.Controls.Add(this.soundtrack_panelbutton);
+            this.pausePanel.Controls.Add(this.rules_panelbutton);
+            this.pausePanel.Controls.Add(this.continue_panelbutton);
+            this.pausePanel.Controls.Add(this.close_panelbutton);
             this.pausePanel.Location = new System.Drawing.Point(210, 280);
             this.pausePanel.Name = "pausePanel";
             this.pausePanel.Size = new System.Drawing.Size(472, 252);
             this.pausePanel.TabIndex = 0;
             this.pausePanel.Visible = false;
             // 
-            // btnExitGame
+            // soundeffect_panelbutton
             // 
-            this.btnExitGame.Location = new System.Drawing.Point(419, 18);
-            this.btnExitGame.Name = "btnExitGame";
-            this.btnExitGame.Size = new System.Drawing.Size(53, 23);
-            this.btnExitGame.TabIndex = 7;
-            this.btnExitGame.Text = "Beenden";
-            this.btnExitGame.UseVisualStyleBackColor = true;
-            this.btnExitGame.Click += new System.EventHandler(this.btnExitGame_Click);
+            this.soundeffect_panelbutton.BackColor = System.Drawing.Color.Transparent;
+            this.soundeffect_panelbutton.Cursor = System.Windows.Forms.Cursors.Default;
+            this.soundeffect_panelbutton.Location = new System.Drawing.Point(11, 139);
+            this.soundeffect_panelbutton.Name = "soundeffect_panelbutton";
+            this.soundeffect_panelbutton.Size = new System.Drawing.Size(42, 41);
+            this.soundeffect_panelbutton.TabIndex = 12;
+            this.soundeffect_panelbutton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.soundeffect_panelbutton_MouseClick);
             // 
-            // cbSoundeffects
+            // soundtrack_panelbutton
             // 
-            this.cbSoundeffects.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cbSoundeffects.AutoSize = true;
-            this.cbSoundeffects.Location = new System.Drawing.Point(195, 205);
-            this.cbSoundeffects.Name = "cbSoundeffects";
-            this.cbSoundeffects.Size = new System.Drawing.Size(81, 23);
-            this.cbSoundeffects.TabIndex = 6;
-            this.cbSoundeffects.Text = "Soundeffekte";
-            this.cbSoundeffects.UseVisualStyleBackColor = true;
-            this.cbSoundeffects.CheckedChanged += new System.EventHandler(this.cbSoundeffects_CheckedChanged);
+            this.soundtrack_panelbutton.BackColor = System.Drawing.Color.Transparent;
+            this.soundtrack_panelbutton.Cursor = System.Windows.Forms.Cursors.Default;
+            this.soundtrack_panelbutton.Location = new System.Drawing.Point(12, 193);
+            this.soundtrack_panelbutton.Name = "soundtrack_panelbutton";
+            this.soundtrack_panelbutton.Size = new System.Drawing.Size(42, 41);
+            this.soundtrack_panelbutton.TabIndex = 11;
+            this.soundtrack_panelbutton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.soundtrack_panelbutton_MouseClick);
             // 
-            // cbSoundtrack
+            // rules_panelbutton
             // 
-            this.cbSoundtrack.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cbSoundtrack.AutoSize = true;
-            this.cbSoundtrack.Location = new System.Drawing.Point(3, 148);
-            this.cbSoundtrack.Name = "cbSoundtrack";
-            this.cbSoundtrack.Size = new System.Drawing.Size(72, 23);
-            this.cbSoundtrack.TabIndex = 5;
-            this.cbSoundtrack.Text = "Soundtrack";
-            this.cbSoundtrack.UseVisualStyleBackColor = true;
-            this.cbSoundtrack.CheckedChanged += new System.EventHandler(this.cbSoundtrack_CheckedChanged);
+            this.rules_panelbutton.BackColor = System.Drawing.Color.Transparent;
+            this.rules_panelbutton.Cursor = System.Windows.Forms.Cursors.Default;
+            this.rules_panelbutton.Location = new System.Drawing.Point(76, 161);
+            this.rules_panelbutton.Name = "rules_panelbutton";
+            this.rules_panelbutton.Size = new System.Drawing.Size(160, 60);
+            this.rules_panelbutton.TabIndex = 10;
+            this.rules_panelbutton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rules_panelbutton_MouseClick);
             // 
-            // btnGameRules
+            // continue_panelbutton
             // 
-            this.btnGameRules.Location = new System.Drawing.Point(92, 176);
-            this.btnGameRules.Name = "btnGameRules";
-            this.btnGameRules.Size = new System.Drawing.Size(113, 23);
-            this.btnGameRules.TabIndex = 4;
-            this.btnGameRules.Text = "Spielregeln";
-            this.btnGameRules.UseVisualStyleBackColor = true;
-            this.btnGameRules.Click += new System.EventHandler(this.btnGameRules_Click);
+            this.continue_panelbutton.BackColor = System.Drawing.Color.Transparent;
+            this.continue_panelbutton.Cursor = System.Windows.Forms.Cursors.Default;
+            this.continue_panelbutton.Location = new System.Drawing.Point(260, 161);
+            this.continue_panelbutton.Name = "continue_panelbutton";
+            this.continue_panelbutton.Size = new System.Drawing.Size(172, 60);
+            this.continue_panelbutton.TabIndex = 9;
+            this.continue_panelbutton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.continue_panelbutton_MouseClick);
             // 
-            // btnContinue
+            // close_panelbutton
             // 
-            this.btnContinue.Location = new System.Drawing.Point(293, 176);
-            this.btnContinue.Name = "btnContinue";
-            this.btnContinue.Size = new System.Drawing.Size(110, 23);
-            this.btnContinue.TabIndex = 3;
-            this.btnContinue.Text = "Weiter";
-            this.btnContinue.UseVisualStyleBackColor = true;
-            this.btnContinue.Click += new System.EventHandler(this.btnContinue_Click);
+            this.close_panelbutton.BackColor = System.Drawing.Color.Transparent;
+            this.close_panelbutton.Cursor = System.Windows.Forms.Cursors.Default;
+            this.close_panelbutton.Location = new System.Drawing.Point(422, 11);
+            this.close_panelbutton.Name = "close_panelbutton";
+            this.close_panelbutton.Size = new System.Drawing.Size(43, 46);
+            this.close_panelbutton.TabIndex = 8;
+            this.close_panelbutton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.close_panelbutton_MouseClick);
             // 
             // btnMenuPause
             // 
@@ -160,7 +156,6 @@
             this.Text = "T-Re X cape";
             this.Shown += new System.EventHandler(this.Game_Shown);
             this.pausePanel.ResumeLayout(false);
-            this.pausePanel.PerformLayout();
             this.menuBar.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -172,10 +167,10 @@
         private System.Windows.Forms.Panel pausePanel;
         private System.Windows.Forms.Button btnMenuPause;
         private System.Windows.Forms.Panel menuBar;
-        private System.Windows.Forms.Button btnGameRules;
-        private System.Windows.Forms.Button btnContinue;
-        private System.Windows.Forms.CheckBox cbSoundtrack;
-        private System.Windows.Forms.CheckBox cbSoundeffects;
-        private System.Windows.Forms.Button btnExitGame;
+        private System.Windows.Forms.Panel close_panelbutton;
+        private System.Windows.Forms.Panel continue_panelbutton;
+        private System.Windows.Forms.Panel rules_panelbutton;
+        private System.Windows.Forms.Panel soundtrack_panelbutton;
+        private System.Windows.Forms.Panel soundeffect_panelbutton;
     }
 }

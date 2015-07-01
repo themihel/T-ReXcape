@@ -23,6 +23,7 @@ namespace T_ReXcape
         // is walking
         private Boolean walking = false;
         private Boolean enableToWalk = false;
+        private Point startWalkingPos;
 
         // maximum number of items on panel
         private Int32 maxOnPanel;
@@ -470,6 +471,8 @@ namespace T_ReXcape
         public void setWalking(Boolean walkingState)
         {
             walking = walkingState;
+            if (walking)
+                startWalkingPos = this.Location;
             updateImage();
         }
 
@@ -488,7 +491,8 @@ namespace T_ReXcape
         public static void mouseDown(object sender, MouseEventArgs e)
         {
             Item item = sender as Item;
-            mousePosition = new Point(item.Width / 2, item.Height / 2);
+            if (!item.isWalking())
+                mousePosition = new Point(item.Width / 2, item.Height / 2);
         }
 
         /// <summary>
@@ -609,6 +613,11 @@ namespace T_ReXcape
         public void setEnableToWalk(Boolean val)
         {
             enableToWalk = val;
+        }
+
+        public void resetToStartPosition()
+        {
+            Location = startWalkingPos;
         }
     }
 }

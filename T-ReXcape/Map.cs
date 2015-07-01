@@ -727,7 +727,7 @@ namespace T_ReXcape
             if (item.getCollisionAction() == Item.collisionActions["drop"])
             {
                 stopWalking();
-                MessageBox.Show("TODO: move to start position & animate drop into hole");
+                walkingItem.resetToStartPosition();
             }
         }
 

@@ -31,13 +31,13 @@ namespace T_ReXcape
             // get Soundtrack setting
             if (Config.getPlayMusic())
             {
-                cbSoundtrack.Checked = true;
+                //cbSoundtrack.Checked = true;
             }
 
             // get soundeffect setting
             if (Config.getPlaySoundEffects())
             {
-                cbSoundeffects.Checked = true;
+                //cbSoundeffects.Checked = true;
             }
         }
 
@@ -203,7 +203,7 @@ namespace T_ReXcape
         /// <summary>
         /// Click on continue button -> continue Game
         /// </summary>
-        private void btnContinue_Click(object sender, EventArgs e)
+        private void continue_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
             continueGame();
         }
@@ -211,7 +211,7 @@ namespace T_ReXcape
         /// <summary>
         /// Show game rules
         /// </summary>
-        private void btnGameRules_Click(object sender, EventArgs e)
+        private void rules_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
             GameRules gr = new GameRules();
             gr.ShowDialog();
@@ -220,7 +220,7 @@ namespace T_ReXcape
         /// <summary>
         /// Enable / disable soundtrack
         /// </summary>
-        private void cbSoundtrack_CheckedChanged(object sender, EventArgs e)
+        private void soundtrack_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
             // set config
             Config.setPlayMusic(((CheckBox)sender).Checked);
@@ -242,7 +242,7 @@ namespace T_ReXcape
         /// <summary>
         /// Enable / disable soundeffects
         /// </summary>
-        private void cbSoundeffects_CheckedChanged(object sender, EventArgs e)
+        private void soundeffect_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
             // set config
             Config.setPlaySoundEffects(((CheckBox)sender).Checked);
@@ -254,7 +254,7 @@ namespace T_ReXcape
         /// <summary>
         /// End game
         /// </summary>
-        private void btnExitGame_Click(object sender, EventArgs e)
+        private void close_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
             this.Close();
         }
