@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Game));
             this.mapPanel = new System.Windows.Forms.Panel();
             this.pausePanel = new System.Windows.Forms.Panel();
             this.btnExitGame = new System.Windows.Forms.Button();
@@ -59,7 +60,7 @@
             this.pausePanel.Controls.Add(this.cbSoundtrack);
             this.pausePanel.Controls.Add(this.btnGameRules);
             this.pausePanel.Controls.Add(this.btnContinue);
-            this.pausePanel.Location = new System.Drawing.Point(216, 145);
+            this.pausePanel.Location = new System.Drawing.Point(210, 280);
             this.pausePanel.Name = "pausePanel";
             this.pausePanel.Size = new System.Drawing.Size(472, 252);
             this.pausePanel.TabIndex = 0;
@@ -150,12 +151,13 @@
             this.Controls.Add(this.pausePanel);
             this.Controls.Add(this.mapPanel);
             this.ForeColor = System.Drawing.Color.CadetBlue;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Game";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Game";
+            this.Text = "T-Re X cape";
             this.Shown += new System.EventHandler(this.Game_Shown);
             this.pausePanel.ResumeLayout(false);
             this.pausePanel.PerformLayout();

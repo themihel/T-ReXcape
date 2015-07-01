@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartUp));
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.cbFullscreen = new System.Windows.Forms.CheckBox();
             this.cbSoundtrack = new System.Windows.Forms.CheckBox();
@@ -138,6 +139,7 @@
             this.Controls.Add(this.cbFullscreen);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "StartUp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "StartUp";
