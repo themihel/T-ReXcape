@@ -41,6 +41,7 @@ namespace T_ReXcape
 
             // init Map and register events
             map = new Map(ref mapPanel);
+            map.setCreativeMode(true);
             map.redrawBackground();
             map.registerControlClickEventHandler(new System.EventHandler(dragDropMouseClick));
 

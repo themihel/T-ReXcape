@@ -57,7 +57,7 @@ namespace T_ReXcape
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Debug.WriteLine(ex.Message);
             }
             
         }

@@ -58,6 +58,7 @@ namespace T_ReXcape
             player1start.setDescription("Spieler 1");
             player1start.setHookPosition(Item.positionCenter, Item.positionBottom);
             player1start.setCollisionAction(Item.collisionActions["stop"]);
+            player1start.setEnableToWalk(true);
             ItemCollection.addItem(player1start);
 
             Item destination = new Item("destination", 3 * blockSize, 4 * blockSize);
@@ -78,6 +79,7 @@ namespace T_ReXcape
             player2start.setDescription("Spieler 2");
             player2start.setHookPosition(Item.positionCenter, Item.positionBottom);
             player2start.setCollisionAction(Item.collisionActions["stop"]);
+            player2start.setEnableToWalk(true);
             ItemCollection.addItem(player2start);
 
             Item wall = new Item("wall", 2 * blockSize, 4 * blockSize);

@@ -22,6 +22,7 @@ namespace T_ReXcape
 
         // is walking
         private Boolean walking = false;
+        private Boolean enableToWalk = false;
 
         // maximum number of items on panel
         private Int32 maxOnPanel;
@@ -107,6 +108,7 @@ namespace T_ReXcape
             cloneItem.setDirection(direction);
             cloneItem.setCollision(collision);
             cloneItem.setCollisionAction(collisionAction);
+            cloneItem.setEnableToWalk(enableToWalk);
             return cloneItem;
         }
 
@@ -529,9 +531,9 @@ namespace T_ReXcape
             }
         }
 
-        public Item collisionObject(Point position, Panel mapPanel)
+        public List<Item> collisionObject(Point position, Panel mapPanel)
         {
-            Item collisionItem = null;
+            List<Item> collisionItemList = new List<Item>();
             // check only if position is on map.
             // otherwise is position valid but garbage collector will delete it
             if (position.X >= 0 && position.X + Width <= mapPanel.Width &&
@@ -548,12 +550,35 @@ namespace T_ReXcape
 
                         if (distanceLeft < 0 && distanceRight < 0 && distanceTop < 0 && distanceBottom < 0)
                         {
-                            collisionItem = itemControl;
+                            collisionItemList.Add(itemControl);
                         }
                     }
                 }
             }
-            return collisionItem;
+            return collisionItemList;
+        }
+
+        public List<Item> coverObject(Point position, Panel mapPanel)
+        {
+            List<Item> coverItemList = new List<Item>();
+            foreach (Item itemControl in mapPanel.Controls)
+            {
+                if (itemControl != this)
+                {
+                    Boolean checkX1 = itemControl.Location.X <= (position.X + Width);
+                    Boolean checkX2 = itemControl.Location.X >= position.X;
+                    Boolean checkX3 = (itemControl.Location.X + itemControl.Width) <= (position.X + Width);
+
+                    Boolean checkY1 = itemControl.Location.Y <= (position.Y + Height);
+                    Boolean checkY2 = itemControl.Location.Y >= position.Y;
+                    Boolean checkY3 = (itemControl.Location.Y + itemControl.Height) <= (position.Y + Height);
+                    if (checkX1 && checkX2 && checkX3 && checkY1 && checkY2 && checkY3)
+                    {
+                        coverItemList.Add(itemControl);
+                    }
+                }
+            }
+            return coverItemList;
         }
 
         public void setCollision(Boolean val)
@@ -574,6 +599,16 @@ namespace T_ReXcape
         public Int16 getCollisionAction()
         {
             return collisionAction;
+        }
+
+        public Boolean canWalk()
+        {
+            return enableToWalk;
+        }
+
+        public void setEnableToWalk(Boolean val)
+        {
+            enableToWalk = val;
         }
     }
 }

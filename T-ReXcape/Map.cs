@@ -22,6 +22,8 @@ namespace T_ReXcape
         // drag object temp var
         Item dragDropObject;
 
+        private Boolean editorMode = false;
+
         // colors
         private Color activeColor;
         private Color gridColor;
@@ -530,16 +532,20 @@ namespace T_ReXcape
             if (controlClickEventHandler != null)
             {
                 item.Click += controlClickEventHandler;
-                item.MouseMove += new MouseEventHandler(itemMouseMove);
+                if(item.canWalk() || editorMode)
+                    item.MouseMove += new MouseEventHandler(itemMouseMove);
             }
 
             // if set: add remove event
             if (controlDoubleClickEventHandler != null)
                 item.DoubleClick += controlDoubleClickEventHandler;
 
-            item.MouseDown += new MouseEventHandler(Item.mouseDown);
-            item.MouseUp += new MouseEventHandler(mouseUpItem);
-            item.MouseMove += new MouseEventHandler(Item.mouseMove);
+            if (item.canWalk() || editorMode)
+            {
+                item.MouseDown += new MouseEventHandler(Item.mouseDown);
+                item.MouseUp += new MouseEventHandler(mouseUpItem);
+                item.MouseMove += new MouseEventHandler(Item.mouseMove);
+            }
         }
 
         private void mouseUpItem(object sender, MouseEventArgs e)
@@ -666,7 +672,6 @@ namespace T_ReXcape
         private void moveToDirection(int direction)
         {
             Boolean moveFarther = true;
-            Item collisionItem;
             Point newLocation = new Point(walkingItem.Location.X, walkingItem.Location.Y);
             switch (direction)
             {
@@ -684,38 +689,51 @@ namespace T_ReXcape
                     break;
             }
 
-            if ((collisionItem = walkingItem.collisionObject(newLocation, mapPanel)) != null)
+            foreach (Item item in walkingItem.collisionObject(newLocation, mapPanel))
             {
-                Debug.WriteLine("got collision: " + collisionItem.getCollisionAction());
-                if (collisionItem.getCollisionAction() == Item.collisionActions["stop"])
-                {
-                    moveFarther = false;
-                    stopWalking();
-                }
-                else if (collisionItem.getCollisionAction() == Item.collisionActions["move"])
-                {
-                    walkingItem.setDirection(collisionItem.getDirection());
-                }
-                else if (collisionItem.getCollisionAction() == Item.collisionActions["drop"])
-                {
-                    moveFarther = false;
-                    stopWalking();
-                    MessageBox.Show("TODO: move to start position & animate drop into hole");
-                }
-                else if (collisionItem.getCollisionAction() == Item.collisionActions["win"])
-                {
-                    moveFarther = false;
-                    stopWalking();
-                    MessageBox.Show("TODO: WIN");
-                }
-                else
-                {
-                    throw new Exception("got no valid collision Action");
-                }
+                checkForCollisionAction(item);
             }
 
-            if (moveFarther)
+            foreach (Item item in walkingItem.coverObject(newLocation, mapPanel))
+            {
+                checkForCoverAction(item);
+            }
+
+            if (walkingItem.isWalking())
                 walkingItem.Location = newLocation;
+        }
+
+        private void checkForCollisionAction(Item item)
+        {
+            if (item.getCollisionAction() == Item.collisionActions["stop"])
+            {
+                stopWalking();
+            }
+            
+            if (item.getCollisionAction() == Item.collisionActions["win"])
+            {
+                stopWalking();
+                MessageBox.Show("TODO: WIN");
+            }
+        }
+
+        private void checkForCoverAction(Item item)
+        {
+            if (item.getCollisionAction() == Item.collisionActions["move"])
+            {
+                walkingItem.setDirection(item.getDirection());
+            }
+
+            if (item.getCollisionAction() == Item.collisionActions["drop"])
+            {
+                stopWalking();
+                MessageBox.Show("TODO: move to start position & animate drop into hole");
+            }
+        }
+
+        public void setCreativeMode(Boolean val) 
+        {
+            editorMode = val;
         }
     }
 }
