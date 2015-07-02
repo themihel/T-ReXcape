@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartUp));
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.cbFullscreen = new System.Windows.Forms.CheckBox();
-            this.cbSoundtrack = new System.Windows.Forms.CheckBox();
             this.mapStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.durchsuchenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -40,32 +38,11 @@
             this.editor_panelbutton = new System.Windows.Forms.Panel();
             this.credits_panelbutton = new System.Windows.Forms.Panel();
             this.exit_panelbutton = new System.Windows.Forms.Panel();
+            this.soundeffect_panelbutton = new System.Windows.Forms.Panel();
+            this.soundtrack_panelbutton = new System.Windows.Forms.Panel();
+            this.fullscreen_panelbutton = new System.Windows.Forms.Panel();
             this.mapStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // cbFullscreen
-            // 
-            this.cbFullscreen.AutoSize = true;
-            this.cbFullscreen.BackColor = System.Drawing.Color.Transparent;
-            this.cbFullscreen.Location = new System.Drawing.Point(765, 571);
-            this.cbFullscreen.Name = "cbFullscreen";
-            this.cbFullscreen.Size = new System.Drawing.Size(74, 17);
-            this.cbFullscreen.TabIndex = 3;
-            this.cbFullscreen.Text = "Fullscreen";
-            this.cbFullscreen.UseVisualStyleBackColor = false;
-            this.cbFullscreen.CheckedChanged += new System.EventHandler(this.cbFullscreen_CheckedChanged);
-            // 
-            // cbSoundtrack
-            // 
-            this.cbSoundtrack.AutoSize = true;
-            this.cbSoundtrack.BackColor = System.Drawing.Color.Transparent;
-            this.cbSoundtrack.Location = new System.Drawing.Point(676, 571);
-            this.cbSoundtrack.Name = "cbSoundtrack";
-            this.cbSoundtrack.Size = new System.Drawing.Size(81, 17);
-            this.cbSoundtrack.TabIndex = 5;
-            this.cbSoundtrack.Text = "Soundtrack";
-            this.cbSoundtrack.UseVisualStyleBackColor = false;
-            this.cbSoundtrack.CheckedChanged += new System.EventHandler(this.cbSoundtrack_CheckedChanged);
             // 
             // mapStrip
             // 
@@ -124,6 +101,33 @@
             this.exit_panelbutton.TabIndex = 9;
             this.exit_panelbutton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.exit_panelbutton_MouseClick);
             // 
+            // soundeffect_panelbutton
+            // 
+            this.soundeffect_panelbutton.BackColor = System.Drawing.Color.Transparent;
+            this.soundeffect_panelbutton.Location = new System.Drawing.Point(30, 537);
+            this.soundeffect_panelbutton.Name = "soundeffect_panelbutton";
+            this.soundeffect_panelbutton.Size = new System.Drawing.Size(60, 50);
+            this.soundeffect_panelbutton.TabIndex = 10;
+            this.soundeffect_panelbutton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.soundeffect_panelbutton_MouseClick);
+            // 
+            // soundtrack_panelbutton
+            // 
+            this.soundtrack_panelbutton.BackColor = System.Drawing.Color.Transparent;
+            this.soundtrack_panelbutton.Location = new System.Drawing.Point(105, 537);
+            this.soundtrack_panelbutton.Name = "soundtrack_panelbutton";
+            this.soundtrack_panelbutton.Size = new System.Drawing.Size(66, 50);
+            this.soundtrack_panelbutton.TabIndex = 11;
+            this.soundtrack_panelbutton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.soundtrack_panelbutton_MouseClick);
+            // 
+            // fullscreen_panelbutton
+            // 
+            this.fullscreen_panelbutton.BackColor = System.Drawing.Color.Transparent;
+            this.fullscreen_panelbutton.Location = new System.Drawing.Point(177, 537);
+            this.fullscreen_panelbutton.Name = "fullscreen_panelbutton";
+            this.fullscreen_panelbutton.Size = new System.Drawing.Size(60, 50);
+            this.fullscreen_panelbutton.TabIndex = 12;
+            this.fullscreen_panelbutton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.fullscreen_panelbutton_MouseClick);
+            // 
             // StartUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -131,12 +135,13 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = global::T_ReXcape.Properties.Resources.start_screen;
             this.ClientSize = new System.Drawing.Size(851, 600);
+            this.Controls.Add(this.fullscreen_panelbutton);
+            this.Controls.Add(this.soundtrack_panelbutton);
+            this.Controls.Add(this.soundeffect_panelbutton);
             this.Controls.Add(this.exit_panelbutton);
             this.Controls.Add(this.credits_panelbutton);
             this.Controls.Add(this.editor_panelbutton);
             this.Controls.Add(this.load_panelbutton);
-            this.Controls.Add(this.cbSoundtrack);
-            this.Controls.Add(this.cbFullscreen);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -146,15 +151,12 @@
             this.Load += new System.EventHandler(this.StartUp_Load);
             this.mapStrip.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.CheckBox cbFullscreen;
-        private System.Windows.Forms.CheckBox cbSoundtrack;
         private System.Windows.Forms.ContextMenuStrip mapStrip;
         private System.Windows.Forms.ToolStripMenuItem durchsuchenToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -162,5 +164,8 @@
         private System.Windows.Forms.Panel editor_panelbutton;
         private System.Windows.Forms.Panel credits_panelbutton;
         private System.Windows.Forms.Panel exit_panelbutton;
+        private System.Windows.Forms.Panel soundeffect_panelbutton;
+        private System.Windows.Forms.Panel soundtrack_panelbutton;
+        private System.Windows.Forms.Panel fullscreen_panelbutton;
     }
 }

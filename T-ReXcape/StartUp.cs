@@ -26,18 +26,6 @@ namespace T_ReXcape
             {
                 Sound.playSoundtrack();
             }
-
-            // get fullscreen settings
-            if (Config.getFullscreen())
-            {
-                cbFullscreen.Checked = true;
-            }
-
-            // get Soundtrack setting
-            if (Config.getPlayMusic())
-            {
-                cbSoundtrack.Checked = true;
-            }
         }
 
         private void StartUp_Load(object sender, EventArgs e)
@@ -60,73 +48,6 @@ namespace T_ReXcape
                 Debug.WriteLine(ex.Message);
             }
             
-        }
-
-
-        /// <summary>
-        /// Opens game editor
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnMapEditor_Click(object sender, EventArgs e)
-        {
-        }
-
-        /// <summary>
-        /// Opens level loader
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnLoadLevel_Click(object sender, EventArgs e)
-        {
-        }
-
-
-        /// <summary>
-        /// Exit game
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-        }
-
-        /// <summary>
-        /// Toogle fullscreen mode
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cbFullscreen_CheckedChanged(object sender, EventArgs e)
-        {
-            // set config
-            Config.setFullscreen(((CheckBox)sender).Checked);
-
-            // save config
-            Config.saveSettings();
-        }
-
-        /// <summary>
-        /// Toggle music
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cbSoundtrack_CheckedChanged(object sender, EventArgs e)
-        {
-            // set config
-            Config.setPlayMusic(((CheckBox)sender).Checked);
-
-            // set music status
-            if (((CheckBox)sender).Checked)
-            {
-                Sound.playSoundtrack();
-            }
-            else
-            {
-                Sound.stopSoundtrack();
-            }
-
-            // save config
-            Config.saveSettings();
         }
         
         private void addNewMapPath(String path)
@@ -197,6 +118,62 @@ namespace T_ReXcape
         private void exit_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
             this.Close();
+        }
+
+        private void soundeffect_panelbutton_MouseClick(object sender, MouseEventArgs e)
+        {
+            // @TODO User feedback
+
+            // set config depending on state
+            if (Config.getPlaySoundEffects())
+            {
+                Config.setPlaySoundEffects(false);
+            }
+            else
+            {
+                Config.setPlaySoundEffects(true);
+            }
+
+            // save config
+            Config.saveSettings();
+        }
+
+        private void soundtrack_panelbutton_MouseClick(object sender, MouseEventArgs e)
+        {
+            // @TODO User feedback
+
+            // set config depending on current state
+            if (Config.getPlayMusic())
+            {
+                Config.setPlayMusic(false);
+                Sound.stopSoundtrack();
+            }
+            else
+            {
+                Config.setPlayMusic(true);
+                Sound.playSoundtrack();
+            }
+
+            // save config
+            Config.saveSettings();
+        }
+
+        private void fullscreen_panelbutton_MouseClick(object sender, MouseEventArgs e)
+        {
+            // @TODO User feedback
+
+            // set config depending on current state
+            if (Config.getFullscreen())
+            {
+                Config.setFullscreen(false);
+            }
+            else
+            {
+                Config.setFullscreen(true);
+            }
+
+            // save config
+            Config.saveSettings();
         }
     }
 }

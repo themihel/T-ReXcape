@@ -222,17 +222,18 @@ namespace T_ReXcape
         /// </summary>
         private void soundtrack_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
-            // set config
-            Config.setPlayMusic(((CheckBox)sender).Checked);
+            // @TODO User feedback
 
-            // set music status
-            if (((CheckBox)sender).Checked)
+            // set config depending on current state
+            if (Config.getPlayMusic())
             {
-                Sound.playSoundtrack();
+                Config.setPlayMusic(false);
+                Sound.stopSoundtrack();
             }
             else
             {
-                Sound.stopSoundtrack();
+                Config.setPlayMusic(true);
+                Sound.playSoundtrack();
             }
 
             // save config
@@ -244,8 +245,17 @@ namespace T_ReXcape
         /// </summary>
         private void soundeffect_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
-            // set config
-            Config.setPlaySoundEffects(((CheckBox)sender).Checked);
+            // @TODO User feedback
+
+            // set config depending on state
+            if (Config.getPlaySoundEffects())
+            {
+                Config.setPlaySoundEffects(false);
+            }
+            else
+            {
+                Config.setPlaySoundEffects(true);
+            }
 
             // save config
             Config.saveSettings();
