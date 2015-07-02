@@ -110,6 +110,14 @@ namespace T_ReXcape
             hole.setCollision(false);
             hole.setCollisionAction(Item.collisionActions["drop"]);
             ItemCollection.addItem(hole);
+
+            Item brick = new Item("brick", 2 * blockSize, 2 * blockSize);
+            brick.setImageAllDirections(Properties.Resources.brick);
+            brick.setMaxOnPanel(99);
+            brick.setDescription("Zeigelstein");
+            brick.setCollision(false);
+            brick.setCollisionAction(Item.collisionActions["addBrick"]);
+            ItemCollection.addItem(brick);
         }
 
         /// <summary>

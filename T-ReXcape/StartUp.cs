@@ -190,7 +190,7 @@ namespace T_ReXcape
             ItemCollection.disposeAllItems();
             GameEditor editor = new GameEditor();
             // when editor closed, close main (StartUp) form to close programm
-            editor.FormClosed += (s, args) => this.Close();
+            editor.FormClosed += (s, args) => this.Show();
             editor.Show();
         }
 

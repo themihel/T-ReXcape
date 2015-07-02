@@ -66,6 +66,7 @@ namespace T_ReXcape
             walkTimer = new Timer();
             walkTimer.Interval = 10;
             walkTimer.Tick += new EventHandler(walkTimer_Tick);
+            walkSpeed = (int)Math.Ceiling((double)Config.getBlockSize() / 10);
         }
 
         /// <summary>
@@ -729,6 +730,13 @@ namespace T_ReXcape
                 stopWalking();
                 walkingItem.resetToStartPosition();
             }
+
+            if (item.getCollisionAction() == Item.collisionActions["addBrick"])
+            {
+                item.Dispose();
+                MessageBox.Show("TODO add brick to inventar");
+            }
+
         }
 
         public void setCreativeMode(Boolean val) 
