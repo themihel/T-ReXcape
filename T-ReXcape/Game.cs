@@ -17,7 +17,6 @@ namespace T_ReXcape
         // Map
         Map map;
 
-
         public Game(Form form, bool fullscreen = false)
         {
             formToCloseAfterLoad = form;
@@ -137,6 +136,13 @@ namespace T_ReXcape
 
             // set map panel location on form
             mapPanel.Location = mapPosition;
+
+            initTopBarInfos();
+
+            Timer checkForTopBarChanges = new Timer();
+            checkForTopBarChanges.Interval = 100;
+            checkForTopBarChanges.Tick += (s, arg) => { refreshTopBar(); };
+            checkForTopBarChanges.Start();
         }
 
         /// <summary>
@@ -159,6 +165,7 @@ namespace T_ReXcape
         // @TODO testing only
         private void item_Click(object sender, EventArgs e)
         {
+            refreshTopBar();
             return;
 
             Animation anim = new Animation(mapPanel);
@@ -267,6 +274,61 @@ namespace T_ReXcape
         private void close_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
             this.Close();
+        }
+
+        private void initTopBarInfos()
+        {
+            // init players
+            foreach (String player in map.getPlayerKeys())
+            {
+                map.getCollectedItems().Add(player, new Dictionary<string, short>());
+            }
+
+            // add infos to each player
+            foreach (KeyValuePair<string, Int16> info in map.getPlayerCollectables())
+            {
+                foreach (String player in map.getPlayerKeys())
+                {
+                    map.getCollectedItems()[player].Add(info.Key, info.Value);
+                }
+            }
+        }
+
+        private void refreshTopBar()
+        {
+
+            if (menuBar.Controls.Count != map.getCollectedItemsCount())
+            {
+                // clear all controls
+                menuBar.Controls.Clear();
+
+                Point pos = new Point(0, 0);
+                int count = 1;
+                foreach (KeyValuePair<string, Dictionary<string, short>> player in map.getCollectedItems())
+                {
+                    foreach (KeyValuePair<string, short> topBarInfo in player.Value)
+                    {
+                        for (int i = 0; i < topBarInfo.Value; i++)
+                        {
+                            Item item = ItemCollection.getItemByKey(topBarInfo.Key).clone();
+                            item.setDirection(Item.directionBottom);
+                            if (count == 1)
+                            {
+                                item.Location = pos;
+                            }
+                            else
+                            {
+                                item.Location = new Point(menuBar.Width - item.Width - pos.X, pos.Y);
+                            }
+                            menuBar.Controls.Add(item);
+
+                            pos.X += item.Width;
+                        }
+                    }
+                    count++;
+                    pos = new Point(0, 0);
+                }
+            }
         }
     }
 }

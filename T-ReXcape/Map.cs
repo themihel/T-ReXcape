@@ -49,6 +49,16 @@ namespace T_ReXcape
         int walkSpeed = 2;
         bool prepareToWalk = false;
 
+        Dictionary<String, Dictionary<String, Int16>> collectedItems = new Dictionary<String, Dictionary<String, Int16>>();
+
+        // data
+        String[] playersKeys = { "player1", "player2" };
+        Dictionary<String, Int16> playerCollectables = new Dictionary<String, Int16>{
+                {"brick", 0},
+                {"eraser", 0},
+                {"wall", 0}
+            };
+
         /// <summary>
         /// initialise Map with panel / loads configs from config class
         /// </summary>
@@ -473,6 +483,12 @@ namespace T_ReXcape
             return ok;
         }
 
+        private bool isPositionOnMap(Point position, Int32 width, Int32 height)
+        {
+            return (position.X >= 0 && position.X <= mapPanel.Width &&
+                position.Y >= 0 && position.Y <= mapPanel.Height);
+        }
+
         /// <summary>
         /// updates map size depending on pixels
         /// </summary>
@@ -700,6 +716,9 @@ namespace T_ReXcape
                 checkForCoverAction(item);
             }
 
+            if (!isPositionOnMap(newLocation, walkingItem.Width, walkingItem.Height))
+                stopWalking();
+
             if (walkingItem.isWalking())
                 walkingItem.Location = newLocation;
         }
@@ -734,14 +753,62 @@ namespace T_ReXcape
             if (item.getCollisionAction() == Item.collisionActions["addBrick"])
             {
                 item.Dispose();
-                MessageBox.Show("TODO add brick to inventar");
+                increaseBrickCount(0);
             }
 
+            checkForTransformCollectionItems();
         }
 
         public void setCreativeMode(Boolean val) 
         {
             editorMode = val;
+        }
+
+        public Dictionary<String, Dictionary<String, Int16>> getCollectedItems()
+        {
+            return collectedItems;
+        }
+
+        public Int16 getCollectedItemsCount()
+        {
+            Int16 count = 0;
+
+            foreach (KeyValuePair<string, Dictionary<string, short>> player in collectedItems)
+            {
+                foreach (KeyValuePair<string, short> topBarInfo in player.Value)
+                {
+                    count += topBarInfo.Value;
+                }
+            }
+
+            return count;
+        }
+
+        public String[] getPlayerKeys()
+        {
+            return playersKeys;
+        }
+
+        public Dictionary<String, Int16> getPlayerCollectables()
+        {
+            return playerCollectables;
+        }
+
+        private void increaseBrickCount(Int16 playerId)
+        {
+            collectedItems[playersKeys[playerId]]["brick"]++;
+        }
+
+        private void checkForTransformCollectionItems()
+        {
+            foreach (KeyValuePair<string, Dictionary<string, short>> player in collectedItems)
+            {
+                if (player.Value["brick"] >= 3)
+                {
+                    player.Value["brick"] = 0;
+                    player.Value["wall"]++;
+                }
+            }
         }
     }
 }

@@ -64,7 +64,8 @@ namespace T_ReXcape
             {"move", 2},
             {"drop", 3},
             {"win", 4},
-            {"addBrick", 5}
+            {"addBrick", 5},
+            {"addEraser", 6}
         };
         
         /// <summary>

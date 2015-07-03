@@ -39,7 +39,6 @@
             this.btnMenuPause = new System.Windows.Forms.Button();
             this.menuBar = new System.Windows.Forms.Panel();
             this.pausePanel.SuspendLayout();
-            this.menuBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // mapPanel
@@ -119,22 +118,23 @@
             // btnMenuPause
             // 
             this.btnMenuPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMenuPause.BackColor = System.Drawing.Color.White;
+            this.btnMenuPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMenuPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMenuPause.Location = new System.Drawing.Point(216, 3);
+            this.btnMenuPause.Location = new System.Drawing.Point(327, 69);
             this.btnMenuPause.Name = "btnMenuPause";
             this.btnMenuPause.Size = new System.Drawing.Size(43, 36);
             this.btnMenuPause.TabIndex = 4;
             this.btnMenuPause.Text = "| |";
-            this.btnMenuPause.UseVisualStyleBackColor = true;
+            this.btnMenuPause.UseVisualStyleBackColor = false;
             this.btnMenuPause.Click += new System.EventHandler(this.btnMenuPause_Click);
             // 
             // menuBar
             // 
             this.menuBar.BackColor = System.Drawing.Color.DarkGray;
-            this.menuBar.Controls.Add(this.btnMenuPause);
             this.menuBar.Location = new System.Drawing.Point(12, 12);
             this.menuBar.Name = "menuBar";
-            this.menuBar.Size = new System.Drawing.Size(480, 76);
+            this.menuBar.Size = new System.Drawing.Size(692, 51);
             this.menuBar.TabIndex = 6;
             // 
             // Game
@@ -143,6 +143,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(716, 565);
+            this.Controls.Add(this.btnMenuPause);
             this.Controls.Add(this.menuBar);
             this.Controls.Add(this.pausePanel);
             this.Controls.Add(this.mapPanel);
@@ -156,7 +157,6 @@
             this.Text = "T-Re X cape";
             this.Shown += new System.EventHandler(this.Game_Shown);
             this.pausePanel.ResumeLayout(false);
-            this.menuBar.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
