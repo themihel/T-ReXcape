@@ -165,14 +165,11 @@ namespace T_ReXcape
         // @TODO testing only
         private void item_Click(object sender, EventArgs e)
         {
-            refreshTopBar();
-            return;
-
-            Animation anim = new Animation(mapPanel);
-            PictureBox obj = sender as PictureBox;
-            anim.eraseObject(obj);
-            obj.Image = null;
-            obj.BackColor = Color.Transparent;
+            if (map.getDragObject() != null)
+            {
+                map.getDragObject().BackColor = Color.Transparent;
+                map.setDragObject(null);
+            }
         }
 
         /// <summary>
@@ -320,6 +317,11 @@ namespace T_ReXcape
                             {
                                 item.Location = new Point(menuBar.Width - item.Width - pos.X, pos.Y);
                             }
+                            if (item.getKey().Equals("wall"))
+                            {
+                                item.Click += new EventHandler(itemHolderClick);
+                            }
+
                             menuBar.Controls.Add(item);
 
                             pos.X += item.Width;
@@ -327,6 +329,44 @@ namespace T_ReXcape
                     }
                     count++;
                     pos = new Point(0, 0);
+                }
+            }
+        }
+
+        private void itemHolderClick(object sender, EventArgs e)
+        {
+            if (map.getLastAddedItem() != null)
+            {
+                Item lastItem = map.getLastAddedItem();
+                if (
+                    lastItem.Location.X < 0 ||
+                    lastItem.Location.Y < 0 ||
+                    lastItem.Location.X > mapPanel.Width ||
+                    lastItem.Location.Y > mapPanel.Height
+                    )
+                {
+                    mapPanel.Controls.Remove(lastItem);
+                }
+            }
+
+            Item item = sender as Item;
+            if (map.setObjectOnMap(item.getKey(), new Point(0 - item.Width, 0 - item.Height)) != null)
+            {
+                map.getLastAddedItem().MouseDown += new MouseEventHandler(Item.mouseDown);
+                map.getLastAddedItem().MouseUp += new MouseEventHandler(Item.mouseUp);
+                map.getLastAddedItem().MouseMove += new MouseEventHandler(Item.mouseMove);
+                map.setDragObject(map.getLastAddedItem());
+                map.getDragObject().BackColor = Color.Green;//Config.getActiveColor();
+            }
+        }
+
+        private void mapPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (map.getDragObject() != null)
+            {
+                if (!map.dragObjectToPoint(e.Location))
+                {
+                    Debug.Print("Sie können dies nicht hier hin pazieren");
                 }
             }
         }

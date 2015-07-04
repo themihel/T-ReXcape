@@ -61,6 +61,22 @@ namespace T_ReXcape
             player1start.setEnableToWalk(true);
             ItemCollection.addItem(player1start);
 
+            Item player2start = new Item("player2start", 4 * blockSize, 4 * blockSize);
+            player2start.setImageLeft(Properties.Resources.dino_left);
+            player2start.setImageRight(Properties.Resources.dino_right);
+            player2start.setImageTop(Properties.Resources.dino_up);
+            player2start.setImageBottom(Properties.Resources.dino_down);
+            player2start.setImageWalkingLeft(Properties.Resources.dino_walking_left);
+            player2start.setImageWalkingRight(Properties.Resources.dino_walking_right);
+            player2start.setImageWalkingTop(Properties.Resources.dino_walking_up);
+            player2start.setImageWalkingBottom(Properties.Resources.dino_walking_down);
+            player2start.setMaxOnPanel(1);
+            player2start.setDescription("Spieler 2");
+            player2start.setHookPosition(Item.positionCenter, Item.positionBottom);
+            player2start.setCollisionAction(Item.collisionActions["stop"]);
+            player2start.setEnableToWalk(true);
+            ItemCollection.addItem(player2start);
+
             Item destination = new Item("destination", 3 * blockSize, 4 * blockSize);
             destination.setImageAllDirections(Properties.Resources.rocket1);
             destination.setMaxOnPanel(1);
@@ -69,18 +85,6 @@ namespace T_ReXcape
             destination.setCollision(false);
             destination.setCollisionAction(Item.collisionActions["win"]);
             ItemCollection.addItem(destination);
-
-            Item player2start = new Item("player2start", 4 * blockSize, 4 * blockSize);
-            player2start.setImageLeft(Properties.Resources.dino_left);
-            player2start.setImageRight(Properties.Resources.dino_right);
-            player2start.setImageTop(Properties.Resources.dino_up);
-            player2start.setImageBottom(Properties.Resources.dino_down);
-            player2start.setMaxOnPanel(1);
-            player2start.setDescription("Spieler 2");
-            player2start.setHookPosition(Item.positionCenter, Item.positionBottom);
-            player2start.setCollisionAction(Item.collisionActions["stop"]);
-            player2start.setEnableToWalk(true);
-            ItemCollection.addItem(player2start);
 
             Item wall = new Item("wall", 2 * blockSize, 4 * blockSize);
             wall.setImageLeft(Properties.Resources.wallv);

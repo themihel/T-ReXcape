@@ -478,6 +478,11 @@ namespace T_ReXcape
             updateImage();
         }
 
+        public Boolean getWalking()
+        {
+            return walking;
+        }
+
         /// <summary>
         /// Returns if item is currently walking
         /// </summary>

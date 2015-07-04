@@ -49,6 +49,7 @@
             this.mapPanel.Name = "mapPanel";
             this.mapPanel.Size = new System.Drawing.Size(78, 77);
             this.mapPanel.TabIndex = 3;
+            this.mapPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mapPanel_MouseMove);
             // 
             // pausePanel
             // 

@@ -52,7 +52,7 @@ namespace T_ReXcape
         Dictionary<String, Dictionary<String, Int16>> collectedItems = new Dictionary<String, Dictionary<String, Int16>>();
 
         // data
-        String[] playersKeys = { "player1", "player2" };
+        String[] playersKeys = { "player1start", "player2start" };
         Dictionary<String, Int16> playerCollectables = new Dictionary<String, Int16>{
                 {"brick", 0},
                 {"eraser", 0},
@@ -568,7 +568,7 @@ namespace T_ReXcape
         private void mouseUpItem(object sender, MouseEventArgs e)
         {
             Item.mouseUp(sender, e);
-            if (prepareToWalk)
+            if (prepareToWalk && !isWalkingItemRunning())
             {
                 walkingItem = sender as Item;
                 pleaseGo();
@@ -675,6 +675,14 @@ namespace T_ReXcape
             walkTimer.Stop();
         }
 
+        public Boolean isWalkingItemRunning()
+        {
+            if (walkingItem != null)
+                return walkingItem.getWalking();
+            else
+                return false;
+        }
+
         private void walkTimer_Tick(object sender, EventArgs e)
         {
             if (mapPanel.Enabled != true)
@@ -753,7 +761,7 @@ namespace T_ReXcape
             if (item.getCollisionAction() == Item.collisionActions["addBrick"])
             {
                 item.Dispose();
-                increaseBrickCount(0);
+                increaseBrickCount(walkingItem.getKey());
             }
 
             checkForTransformCollectionItems();
@@ -794,9 +802,9 @@ namespace T_ReXcape
             return playerCollectables;
         }
 
-        private void increaseBrickCount(Int16 playerId)
+        private void increaseBrickCount(String playerKey)
         {
-            collectedItems[playersKeys[playerId]]["brick"]++;
+            collectedItems[playerKey]["brick"]++;
         }
 
         private void checkForTransformCollectionItems()

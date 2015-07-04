@@ -404,12 +404,5 @@ namespace T_ReXcape
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
-        
-
-
-
-        
-
     }
 }
