@@ -10,6 +10,7 @@ namespace T_ReXcape
 {
     class Animation
     {
+        // variables
         public int offset = 10;
         public Panel mapPanel;
 

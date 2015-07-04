@@ -22,6 +22,7 @@ namespace T_ReXcape
         // drag object temp var
         Item dragDropObject;
 
+        // editor mode
         private Boolean editorMode = false;
 
         // colors
@@ -44,11 +45,13 @@ namespace T_ReXcape
         // last added item
         private Item lastAddedItem;
 
+        // variables for walking
         Item walkingItem;
         Timer walkTimer;
         int walkSpeed = 2;
         bool prepareToWalk = false;
 
+        // init collected items
         Dictionary<String, Dictionary<String, Int16>> collectedItems = new Dictionary<String, Dictionary<String, Int16>>();
 
         // data
@@ -73,6 +76,7 @@ namespace T_ReXcape
             activeColor = Config.getActiveColor();
             gridColor = Config.getGridColor();
 
+            // walking configs
             walkTimer = new Timer();
             walkTimer.Interval = 10;
             walkTimer.Tick += new EventHandler(walkTimer_Tick);
@@ -483,6 +487,13 @@ namespace T_ReXcape
             return ok;
         }
 
+        /// <summary>
+        /// check if position is on map
+        /// </summary>
+        /// <param name="position">Position of item</param>
+        /// <param name="width">Width of item</param>
+        /// <param name="height">Height of items</param>
+        /// <returns>Boolean if item is on map</returns>
         private bool isPositionOnMap(Point position, Int32 width, Int32 height)
         {
             return (position.X >= 0 && position.X <= mapPanel.Width &&
@@ -565,6 +576,9 @@ namespace T_ReXcape
             }
         }
 
+        /// <summary>
+        /// Mouse up event
+        /// </summary>
         private void mouseUpItem(object sender, MouseEventArgs e)
         {
             Item.mouseUp(sender, e);
@@ -652,20 +666,32 @@ namespace T_ReXcape
             mapPanel.Enabled = true;
         }
 
+        /// <summary>
+        /// Sets boolean to prepare to walk
+        /// </summary>
+        /// <param name="val">Boolean prepare to walk</param>
         public void setPrepareToWalk(bool val)
         {
             prepareToWalk = val;
         }
 
+        /// <summary>
+        /// Starts walking
+        /// </summary>
         private void pleaseGo()
         {
+            // check if there isnt currently a walking item
             if (walkingItem != null)
             {
+                // start walking item
                 walkingItem.setWalking(true);
                 walkTimer.Start();
             }
         }
 
+        /// <summary>
+        /// stops walking
+        /// </summary>
         private void stopWalking()
         {
             if (walkingItem != null)
@@ -675,14 +701,21 @@ namespace T_ReXcape
             walkTimer.Stop();
         }
 
+        /// <summary>
+        /// Returns if current walking item is running/walking
+        /// </summary>
+        /// <returns>Boolean state of walking item</returns>
         public Boolean isWalkingItemRunning()
         {
             if (walkingItem != null)
-                return walkingItem.getWalking();
+                return walkingItem.isWalking();
             else
                 return false;
         }
 
+        /// <summary>
+        /// Walktimer event
+        /// </summary>
         private void walkTimer_Tick(object sender, EventArgs e)
         {
             if (mapPanel.Enabled != true)
@@ -694,9 +727,12 @@ namespace T_ReXcape
             }
         }
 
+        /// <summary>
+        /// move item to direction
+        /// </summary>
+        /// <param name="direction">Value of direction</param>
         private void moveToDirection(int direction)
         {
-            Boolean moveFarther = true;
             Point newLocation = new Point(walkingItem.Location.X, walkingItem.Location.Y);
             switch (direction)
             {
@@ -731,6 +767,10 @@ namespace T_ReXcape
                 walkingItem.Location = newLocation;
         }
 
+        /// <summary>
+        /// check item for collision actions
+        /// </summary>
+        /// <param name="item">Item</param>
         private void checkForCollisionAction(Item item)
         {
             if (item.getCollisionAction() == Item.collisionActions["stop"])
@@ -745,6 +785,10 @@ namespace T_ReXcape
             }
         }
 
+        /// <summary>
+        /// check item for cover actions
+        /// </summary>
+        /// <param name="item">Item</param>
         private void checkForCoverAction(Item item)
         {
             if (item.getCollisionAction() == Item.collisionActions["move"])
@@ -767,16 +811,28 @@ namespace T_ReXcape
             checkForTransformCollectionItems();
         }
 
+        /// <summary>
+        /// creative mode of editor
+        /// </summary>
+        /// <param name="val">Boolean value of creative mode</param>
         public void setCreativeMode(Boolean val) 
         {
             editorMode = val;
         }
 
+        /// <summary>
+        /// Returns dictionary of collected items
+        /// </summary>
+        /// <returns>Returns dictionary of collected items</returns>
         public Dictionary<String, Dictionary<String, Int16>> getCollectedItems()
         {
             return collectedItems;
         }
 
+        /// <summary>
+        /// counts collected items
+        /// </summary>
+        /// <returns>Returns number of collected items</returns>
         public Int16 getCollectedItemsCount()
         {
             Int16 count = 0;
@@ -792,21 +848,36 @@ namespace T_ReXcape
             return count;
         }
 
+        /// <summary>
+        /// Returns player keys
+        /// </summary>
+        /// <returns>Returns player keys</returns>
         public String[] getPlayerKeys()
         {
             return playersKeys;
         }
 
+        /// <summary>
+        /// Returns dictionary of player collected items
+        /// </summary>
+        /// <returns>Returns dictionary of player collected items</returns>
         public Dictionary<String, Int16> getPlayerCollectables()
         {
             return playerCollectables;
         }
 
+        /// <summary>
+        /// Increase brick count of player
+        /// </summary>
+        /// <param name="playerKey">Key of player</param>
         private void increaseBrickCount(String playerKey)
         {
             collectedItems[playerKey]["brick"]++;
         }
 
+        /// <summary>
+        /// check if there are collected items which should transform into one complete item
+        /// </summary>
         private void checkForTransformCollectionItems()
         {
             foreach (KeyValuePair<string, Dictionary<string, short>> player in collectedItems)

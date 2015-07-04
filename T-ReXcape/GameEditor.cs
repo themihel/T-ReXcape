@@ -28,7 +28,7 @@ namespace T_ReXcape
         Item copyItem;
 
         /// <summary>
-        /// Constructor
+        /// Load components / set mapfile filters / init map / init garbagecollector
         /// </summary>
         public GameEditor()
         {
@@ -153,8 +153,10 @@ namespace T_ReXcape
         /// </summary>
         private void mapPanel_MouseMove(object sender, MouseEventArgs e)
         {
+            // check if item
             if (map.getDragObject() != null)
             {
+                // check if item is in place - user feedback
                 if (!map.dragObjectToPoint(e.Location))
                 {
                     setStatusLabelWithTimeout("Sie können dies nicht hier hin pazieren");

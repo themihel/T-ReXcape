@@ -17,6 +17,11 @@ namespace T_ReXcape
         // Map
         Map map;
 
+        /// <summary>
+        /// Initialise form, set needed configs, calculate form areas
+        /// </summary>
+        /// <param name="form">Previous form</param>
+        /// <param name="fullscreen">Fullscreen setting</param>
         public Game(Form form, bool fullscreen = false)
         {
             formToCloseAfterLoad = form;
@@ -273,6 +278,9 @@ namespace T_ReXcape
             this.Close();
         }
 
+        /// <summary>
+        /// Initialise infos of topbar
+        /// </summary>
         private void initTopBarInfos()
         {
             // init players
@@ -291,6 +299,9 @@ namespace T_ReXcape
             }
         }
 
+        /// <summary>
+        /// Refreshs topbar with current information
+        /// </summary>
         private void refreshTopBar()
         {
 
@@ -333,11 +344,17 @@ namespace T_ReXcape
             }
         }
 
+        /// <summary>
+        /// Place selected item on map
+        /// </summary>
         private void itemHolderClick(object sender, EventArgs e)
         {
+            // if item exists
             if (map.getLastAddedItem() != null)
             {
+                // get item
                 Item lastItem = map.getLastAddedItem();
+                // check if item is out of mappanel
                 if (
                     lastItem.Location.X < 0 ||
                     lastItem.Location.Y < 0 ||
@@ -360,6 +377,9 @@ namespace T_ReXcape
             }
         }
 
+        /// <summary>
+        /// Drag selected item on map
+        /// </summary>
         private void mapPanel_MouseMove(object sender, MouseEventArgs e)
         {
             if (map.getDragObject() != null)

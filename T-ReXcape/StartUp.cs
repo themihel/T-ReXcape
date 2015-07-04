@@ -13,6 +13,9 @@ namespace T_ReXcape
 {
     public partial class StartUp : Form
     {
+        /// <summary>
+        /// Initialize form and configs
+        /// </summary>
         public StartUp()
         {
             // inti components
@@ -28,6 +31,9 @@ namespace T_ReXcape
             }
         }
 
+        /// <summary>
+        /// Load event
+        /// </summary>
         private void StartUp_Load(object sender, EventArgs e)
         {
             try
@@ -50,6 +56,10 @@ namespace T_ReXcape
             
         }
         
+        /// <summary>
+        /// Add new path to map file properties
+        /// </summary>
+        /// <param name="path">Filepath to map</param>
         private void addNewMapPath(String path)
         {
             if (!Properties.Settings.Default.files.Contains(path))
@@ -60,6 +70,9 @@ namespace T_ReXcape
             }
         }
 
+        /// <summary>
+        /// Load selected map if possible
+        /// </summary>
         private void mapStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             mapStrip.Close();
@@ -96,6 +109,9 @@ namespace T_ReXcape
             }
         }
 
+        /// <summary>
+        /// Open map loader menu strip
+        /// </summary>
         private void load_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
             Panel btn = sender as Panel;
@@ -104,6 +120,9 @@ namespace T_ReXcape
             mapStrip.Show(pnt);
         }
 
+        /// <summary>
+        /// open editor
+        /// </summary>
         private void editor_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
             this.Hide();
@@ -115,11 +134,17 @@ namespace T_ReXcape
             editor.Show();
         }
 
+        /// <summary>
+        /// Exit game
+        /// </summary>
         private void exit_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Toggle soundeffects
+        /// </summary>
         private void soundeffect_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
             // @TODO User feedback
@@ -138,6 +163,9 @@ namespace T_ReXcape
             Config.saveSettings();
         }
 
+        /// <summary>
+        /// toggle soundtrack
+        /// </summary>
         private void soundtrack_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
             // @TODO User feedback
@@ -158,6 +186,9 @@ namespace T_ReXcape
             Config.saveSettings();
         }
 
+        /// <summary>
+        /// toggle fullscreen
+        /// </summary>
         private void fullscreen_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
             // @TODO User feedback

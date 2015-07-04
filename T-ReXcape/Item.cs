@@ -55,6 +55,7 @@ namespace T_ReXcape
         // mouse postion
         static Point mousePosition;
 
+        // collision variables
         private Boolean collision = true;
         private Int16 collisionAction;
 
@@ -478,11 +479,6 @@ namespace T_ReXcape
             updateImage();
         }
 
-        public Boolean getWalking()
-        {
-            return walking;
-        }
-
         /// <summary>
         /// Returns if item is currently walking
         /// </summary>
@@ -542,23 +538,33 @@ namespace T_ReXcape
             }
         }
 
+        /// <summary>
+        /// Return list with all items with collision in range
+        /// </summary>
+        /// <param name="position">Position on map</param>
+        /// <param name="mapPanel">Map panel</param>
+        /// <returns>List of all items with collision in range</returns>
         public List<Item> collisionObject(Point position, Panel mapPanel)
         {
+            // init list
             List<Item> collisionItemList = new List<Item>();
             // check only if position is on map.
             // otherwise is position valid but garbage collector will delete it
             if (position.X >= 0 && position.X + Width <= mapPanel.Width &&
                 position.Y >= 0 && position.Y + Height <= mapPanel.Height)
             {
+                // loop all items on map
                 foreach (Item itemControl in mapPanel.Controls)
                 {
+                    // if current item is not itself
                     if (itemControl != this)
                     {
+                        // get relative distance
                         int distanceLeft = position.X - (itemControl.Location.X + itemControl.Width);
                         int distanceRight = itemControl.Location.X - (position.X + Width);
                         int distanceTop = itemControl.Location.Y - (position.Y + Height);
                         int distanceBottom = position.Y - (itemControl.Location.Y + itemControl.Height);
-
+                        // check if is in range -> add to list
                         if (distanceLeft < 0 && distanceRight < 0 && distanceTop < 0 && distanceBottom < 0)
                         {
                             collisionItemList.Add(itemControl);
@@ -566,62 +572,102 @@ namespace T_ReXcape
                     }
                 }
             }
+            // return list
             return collisionItemList;
         }
 
+        /// <summary>
+        /// Returns list with all items to cover in range
+        /// </summary>
+        /// <param name="position">Position of item</param>
+        /// <param name="mapPanel">Mappanel</param>
+        /// <returns>List of all items to cover in range</returns>
         public List<Item> coverObject(Point position, Panel mapPanel)
         {
+            // init list
             List<Item> coverItemList = new List<Item>();
+            // loop all items on map
             foreach (Item itemControl in mapPanel.Controls)
             {
+                // if current item is not itself
                 if (itemControl != this)
                 {
+                    // checks postions X
                     Boolean checkX1 = itemControl.Location.X <= (position.X + Width);
                     Boolean checkX2 = itemControl.Location.X >= position.X;
                     Boolean checkX3 = (itemControl.Location.X + itemControl.Width) <= (position.X + Width);
-
+                    // checks position Y
                     Boolean checkY1 = itemControl.Location.Y <= (position.Y + Height);
                     Boolean checkY2 = itemControl.Location.Y >= position.Y;
                     Boolean checkY3 = (itemControl.Location.Y + itemControl.Height) <= (position.Y + Height);
+                    // if is in range -> add to list
                     if (checkX1 && checkX2 && checkX3 && checkY1 && checkY2 && checkY3)
                     {
                         coverItemList.Add(itemControl);
                     }
                 }
             }
+            // return list
             return coverItemList;
         }
 
+        /// <summary>
+        /// set if item has collision
+        /// </summary>
+        /// <param name="val">Boolean of collision state</param>
         public void setCollision(Boolean val)
         {
             collision = val;
         }
 
+        /// <summary>
+        /// get if item has collision
+        /// </summary>
+        /// <returns>Boolean of item collision</returns>
         public Boolean getCollosion()
         {
             return collision;
         }
 
+        /// <summary>
+        /// set collisioon action
+        /// </summary>
+        /// <param name="val">Set number of collision action</param>
         public void setCollisionAction(Int16 val)
         {
             collisionAction = val;
         }
 
+        /// <summary>
+        /// Returns numver of collision action
+        /// </summary>
+        /// <returns>INt16 if item collision action</returns>
         public Int16 getCollisionAction()
         {
             return collisionAction;
         }
 
+        /// <summary>
+        /// returns if item has ability to walk
+        /// </summary>
+        /// <returns>Boolean if item can walk</returns>
         public Boolean canWalk()
         {
             return enableToWalk;
         }
 
+        /// <summary>
+        /// sets if item can walk
+        /// </summary>
+        /// <param name="val">Boolean of walk state</param>
         public void setEnableToWalk(Boolean val)
         {
             enableToWalk = val;
         }
 
+        /// <summary>
+        /// sets position item to its previous position
+        /// </summary>
         public void resetToStartPosition()
         {
             Location = startWalkingPos;

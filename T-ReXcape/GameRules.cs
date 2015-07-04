@@ -11,6 +11,9 @@ namespace T_ReXcape
 {
     public partial class GameRules : Form
     {
+        /// <summary>
+        /// Initialize components
+        /// </summary>
         public GameRules()
         {
             InitializeComponent();
