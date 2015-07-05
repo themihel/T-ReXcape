@@ -33,15 +33,15 @@ namespace T_ReXcape
             GarbageCollector.init(mapPanel, 500);
 
             // get Soundtrack setting
-            if (Config.getPlayMusic())
+            if (!Config.getPlayMusic())
             {
-                //cbSoundtrack.Checked = true;
+                soundtrack_panelbutton.BackgroundImage = Util.getToggleBackground(soundtrack_panelbutton.Width, soundtrack_panelbutton.Height); ;
             }
 
             // get soundeffect setting
-            if (Config.getPlaySoundEffects())
+            if (!Config.getPlaySoundEffects())
             {
-                //cbSoundeffects.Checked = true;
+                soundeffect_panelbutton.BackgroundImage = Util.getToggleBackground(soundeffect_panelbutton.Width, soundeffect_panelbutton.Height); ;
             }
         }
 
@@ -231,18 +231,24 @@ namespace T_ReXcape
         /// </summary>
         private void soundtrack_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
-            // @TODO User feedback
-
             // set config depending on current state
             if (Config.getPlayMusic())
             {
+                // set config
                 Config.setPlayMusic(false);
+                // stop music
                 Sound.stopSoundtrack();
+                // user feedback
+                soundtrack_panelbutton.BackgroundImage = Util.getToggleBackground(soundtrack_panelbutton.Width, soundtrack_panelbutton.Height); ;
             }
             else
             {
+                // set config
                 Config.setPlayMusic(true);
+                // start music
                 Sound.playSoundtrack();
+                // user feedback
+                soundtrack_panelbutton.BackgroundImage = null;
             }
 
             // save config
@@ -254,16 +260,20 @@ namespace T_ReXcape
         /// </summary>
         private void soundeffect_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
-            // @TODO User feedback
-
             // set config depending on state
             if (Config.getPlaySoundEffects())
             {
+                // set config
                 Config.setPlaySoundEffects(false);
+                // user feedback
+                soundeffect_panelbutton.BackgroundImage = Util.getToggleBackground(soundeffect_panelbutton.Width, soundeffect_panelbutton.Height);
             }
             else
             {
+                // set config
                 Config.setPlaySoundEffects(true);
+                // user feedback
+                soundeffect_panelbutton.BackgroundImage = null;
             }
 
             // save config

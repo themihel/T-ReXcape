@@ -33,5 +33,17 @@ namespace T_ReXcape
         {
             return (File.Exists(file) && Path.GetExtension(file).Equals(".xmap"));
         }
+
+        /// <summary>
+        /// Resize toggle image to panel
+        /// </summary>
+        /// <param name="width">Panel width</param>
+        /// <param name="height">Panel height</param>
+        /// <returns>Bitmap of toggle image</returns>
+        static public Bitmap getToggleBackground(Int32 width, Int32 height)
+        {
+            Bitmap bmp = new Bitmap(Properties.Resources.toggle_ufb, width, height);
+            return bmp;
+        }
     }
 }

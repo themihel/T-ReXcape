@@ -24,10 +24,28 @@ namespace T_ReXcape
             // set map filter
             openFileDialog1.Filter = Config.getMapFileFilter();
 
-            // play soundtrack
+            // music config
             if (Config.getPlayMusic())
             {
+                // play soundtrack
                 Sound.playSoundtrack();
+            }
+            else
+            {
+                // user feedback
+                soundtrack_panelbutton.BackgroundImage = Util.getToggleBackground(soundtrack_panelbutton.Width, soundtrack_panelbutton.Height); ;
+            }
+
+            // fullscreen config
+            if (!Config.getFullscreen())
+            {
+                fullscreen_panelbutton.BackgroundImage = Util.getToggleBackground(fullscreen_panelbutton.Width, fullscreen_panelbutton.Height); ;
+            }
+
+            // soundeffect config
+            if (!Config.getPlaySoundEffects())
+            {
+                soundeffect_panelbutton.BackgroundImage = Util.getToggleBackground(soundeffect_panelbutton.Width, soundeffect_panelbutton.Height); ;
             }
         }
 
@@ -147,16 +165,20 @@ namespace T_ReXcape
         /// </summary>
         private void soundeffect_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
-            // @TODO User feedback
-
             // set config depending on state
             if (Config.getPlaySoundEffects())
             {
+                // set config
                 Config.setPlaySoundEffects(false);
+                // user feedback
+                soundeffect_panelbutton.BackgroundImage = Util.getToggleBackground(soundeffect_panelbutton.Width, soundeffect_panelbutton.Height); ;
             }
             else
             {
+                // set config
                 Config.setPlaySoundEffects(true);
+                // user feedback
+                soundeffect_panelbutton.BackgroundImage = null;
             }
 
             // save config
@@ -168,18 +190,24 @@ namespace T_ReXcape
         /// </summary>
         private void soundtrack_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
-            // @TODO User feedback
-
             // set config depending on current state
             if (Config.getPlayMusic())
             {
+                // set config
                 Config.setPlayMusic(false);
+                // stop music
                 Sound.stopSoundtrack();
+                // user feedback
+                soundtrack_panelbutton.BackgroundImage = Util.getToggleBackground(soundtrack_panelbutton.Width, soundtrack_panelbutton.Height); ;
             }
             else
             {
+                // set config
                 Config.setPlayMusic(true);
+                // start music
                 Sound.playSoundtrack();
+                // user feedback
+                soundtrack_panelbutton.BackgroundImage = null;
             }
 
             // save config
@@ -191,20 +219,49 @@ namespace T_ReXcape
         /// </summary>
         private void fullscreen_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
-            // @TODO User feedback
-
             // set config depending on current state
             if (Config.getFullscreen())
             {
+                // set config
                 Config.setFullscreen(false);
+                // user feedback
+                fullscreen_panelbutton.BackgroundImage = Util.getToggleBackground(fullscreen_panelbutton.Width, fullscreen_panelbutton.Height); ;
             }
             else
             {
+                // set config
                 Config.setFullscreen(true);
+                // user feedback
+                fullscreen_panelbutton.BackgroundImage = null;
             }
 
             // save config
             Config.saveSettings();
+        }
+
+        /// <summary>
+        /// Form activated / renew setting toggles (catch ingame changes)
+        /// </summary>
+        private void StartUp_Activated(object sender, EventArgs e)
+        {
+            // music config
+            if (!Config.getPlayMusic())
+            {
+                // user feedback
+                soundtrack_panelbutton.BackgroundImage = Util.getToggleBackground(soundtrack_panelbutton.Width, soundtrack_panelbutton.Height); ;
+            }
+
+            // fullscreen config
+            if (!Config.getFullscreen())
+            {
+                fullscreen_panelbutton.BackgroundImage = Util.getToggleBackground(fullscreen_panelbutton.Width, fullscreen_panelbutton.Height); ;
+            }
+
+            // soundeffect config
+            if (!Config.getPlaySoundEffects())
+            {
+                soundeffect_panelbutton.BackgroundImage = Util.getToggleBackground(soundeffect_panelbutton.Width, soundeffect_panelbutton.Height); ;
+            }
         }
     }
 }
