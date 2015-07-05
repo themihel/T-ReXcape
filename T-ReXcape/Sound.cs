@@ -44,7 +44,7 @@ namespace T_ReXcape
         {
             // generate filename
             Random rand = new Random();
-            String soundtrackName = "tmp" + rand.Next() + ".wav";
+            soundtrackName = "tmp" + rand.Next() + ".wav";
 
             // filepath
             String tempFilePath = System.IO.Path.GetTempPath() + soundtrackName;

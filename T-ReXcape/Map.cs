@@ -32,9 +32,6 @@ namespace T_ReXcape
         // bitmaps
         private Bitmap bgWithGrid;
 
-        // status grid
-        private Boolean isGridShown = false;
-
         // EventHandler
         private System.EventHandler controlClickEventHandler = null;
         private System.EventHandler controlDoubleClickEventHandler = null;

@@ -150,7 +150,6 @@
             this.Text = "StartUp";
             this.Activated += new System.EventHandler(this.StartUp_Activated);
             this.Load += new System.EventHandler(this.StartUp_Load);
-            this.VisibleChanged += new System.EventHandler(this.StartUp_VisibleChanged);
             this.mapStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
