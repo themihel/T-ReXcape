@@ -151,7 +151,7 @@ namespace T_ReXcape
         private void itemMouseMove(object sender, MouseEventArgs e)
         {
             Item item = sender as Item;
-            if (getDragObject() != null && item.getBelongsToPlayerId() == getPlayerTurn())
+            if (getDragObject() != null && checkPlayerTurn(item.getBelongsToPlayerId()))
             {
                 Point newPos = new Point(item.Location.X + e.X, item.Location.Y + e.Y);
                 dragObjectToPoint(newPos);
@@ -581,7 +581,7 @@ namespace T_ReXcape
         private void mouseUpItem(object sender, MouseEventArgs e)
         {
             Item item = sender as Item;
-            if (item.getBelongsToPlayerId() == getPlayerTurn())
+            if (checkPlayerTurn(item.getBelongsToPlayerId()))
             {
                 Item.mouseUp(sender, e);
                 if (prepareToWalk && !isWalkingItemRunning())
@@ -601,7 +601,7 @@ namespace T_ReXcape
         private void mouseMoveItem(object sender, MouseEventArgs e)
         {
             Item item = sender as Item;
-            if (item.getBelongsToPlayerId() == getPlayerTurn())
+            if (checkPlayerTurn(item.getBelongsToPlayerId()))
             {
                 Item.mouseMove(sender, e);
             }
@@ -922,6 +922,11 @@ namespace T_ReXcape
         public void setPlayerTurn(Int16 val)
         {
             playerTurn = val;
+        }
+
+        public Boolean checkPlayerTurn(Int16 playerId)
+        {
+            return (playerId == getPlayerTurn() || getPlayerTurn().Equals(0) || editorMode);
         }
     }
 }
