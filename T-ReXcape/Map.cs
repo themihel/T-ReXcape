@@ -493,8 +493,8 @@ namespace T_ReXcape
         /// <returns>Boolean if item is on map</returns>
         private bool isPositionOnMap(Point position, Int32 width, Int32 height)
         {
-            return (position.X >= 0 && position.X <= mapPanel.Width &&
-                position.Y >= 0 && position.Y <= mapPanel.Height);
+            return (position.X >= 0 && position.X + width <= mapPanel.Width &&
+                position.Y >= 0 && position.Y + height <= mapPanel.Height);
         }
 
         /// <summary>
