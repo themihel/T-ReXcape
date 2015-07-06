@@ -17,6 +17,8 @@ namespace T_ReXcape
         // Map
         Map map;
 
+        String[] playerIndicator = {"<<  | |     ", "     | |  >>" };
+
         /// <summary>
         /// Initialise form, set needed configs, calculate form areas
         /// </summary>
@@ -67,7 +69,6 @@ namespace T_ReXcape
             Int32 maxWidth = Screen.PrimaryScreen.WorkingArea.Width;
 
             // set pause button size relativ to menuBar
-            btnMenuPause.Width = Config.getMenuBarHeight() - 5;
             btnMenuPause.Height = Config.getMenuBarHeight() - 5;
 
             if (Config.getFullscreen())
@@ -314,6 +315,7 @@ namespace T_ReXcape
         /// </summary>
         private void refreshTopBar()
         {
+            btnMenuPause.Text = playerIndicator[map.getPlayerTurn() - 1];
 
             if (menuBar.Controls.Count != map.getCollectedItemsCount())
             {
@@ -343,6 +345,11 @@ namespace T_ReXcape
                                 item.Click += new EventHandler(itemHolderClick);
                             }
 
+                            if (player.Key == map.getPlayerKeys()[0])
+                                item.setBelongsToPlayerId(1);
+                            else
+                                item.setBelongsToPlayerId(2);
+
                             menuBar.Controls.Add(item);
 
                             pos.X += item.Width;
@@ -359,6 +366,10 @@ namespace T_ReXcape
         /// </summary>
         private void itemHolderClick(object sender, EventArgs e)
         {
+            Item item = sender as Item;
+            if (item.getBelongsToPlayerId() != map.getPlayerTurn())
+                return;
+
             // if item exists
             if (map.getLastAddedItem() != null)
             {
@@ -376,14 +387,15 @@ namespace T_ReXcape
                 }
             }
 
-            Item item = sender as Item;
+            map.decreaseCollectedItem(map.getPlayerKeys()[map.getPlayerTurn() - 1], item.getKey());
+
             if (map.setObjectOnMap(item.getKey(), new Point(0 - item.Width, 0 - item.Height)) != null)
             {
                 map.getLastAddedItem().MouseDown += new MouseEventHandler(Item.mouseDown);
                 map.getLastAddedItem().MouseUp += new MouseEventHandler(Item.mouseUp);
                 map.getLastAddedItem().MouseMove += new MouseEventHandler(Item.mouseMove);
                 map.setDragObject(map.getLastAddedItem());
-                map.getDragObject().BackColor = Color.Green;//Config.getActiveColor();
+                map.getDragObject().BackColor = Config.getActiveColor();
             }
         }
 

@@ -48,12 +48,14 @@ namespace T_ReXcape
         int walkSpeed = 2;
         bool prepareToWalk = false;
 
+        private Int16 playerTurn = 1;
+
         // init collected items
-        Dictionary<String, Dictionary<String, Int16>> collectedItems = new Dictionary<String, Dictionary<String, Int16>>();
+        private Dictionary<String, Dictionary<String, Int16>> collectedItems = new Dictionary<String, Dictionary<String, Int16>>();
 
         // data
-        String[] playersKeys = { "player1start", "player2start" };
-        Dictionary<String, Int16> playerCollectables = new Dictionary<String, Int16>{
+        private String[] playersKeys = { "player1start", "player2start" };
+        private Dictionary<String, Int16> playerCollectables = new Dictionary<String, Int16>{
                 {"brick", 0},
                 {"eraser", 0},
                 {"wall", 0}
@@ -148,9 +150,9 @@ namespace T_ReXcape
         /// </summary>
         private void itemMouseMove(object sender, MouseEventArgs e)
         {
-            if (getDragObject() != null)
+            Item item = sender as Item;
+            if (getDragObject() != null && item.getBelongsToPlayerId() == getPlayerTurn())
             {
-                Item item = sender as Item;
                 Point newPos = new Point(item.Location.X + e.X, item.Location.Y + e.Y);
                 dragObjectToPoint(newPos);
             }
@@ -569,7 +571,7 @@ namespace T_ReXcape
             {
                 item.MouseDown += new MouseEventHandler(Item.mouseDown);
                 item.MouseUp += new MouseEventHandler(mouseUpItem);
-                item.MouseMove += new MouseEventHandler(Item.mouseMove);
+                item.MouseMove += new MouseEventHandler(mouseMoveItem);
             }
         }
 
@@ -578,11 +580,30 @@ namespace T_ReXcape
         /// </summary>
         private void mouseUpItem(object sender, MouseEventArgs e)
         {
-            Item.mouseUp(sender, e);
-            if (prepareToWalk && !isWalkingItemRunning())
+            Item item = sender as Item;
+            if (item.getBelongsToPlayerId() == getPlayerTurn())
             {
-                walkingItem = sender as Item;
-                pleaseGo();
+                Item.mouseUp(sender, e);
+                if (prepareToWalk && !isWalkingItemRunning())
+                {
+                    walkingItem = sender as Item;
+
+                    if (walkingItem.getKey() == getPlayerKeys()[0])
+                        setPlayerTurn(2);
+                    else
+                        setPlayerTurn(1);
+
+                    pleaseGo();
+                }
+            }
+        }
+
+        private void mouseMoveItem(object sender, MouseEventArgs e)
+        {
+            Item item = sender as Item;
+            if (item.getBelongsToPlayerId() == getPlayerTurn())
+            {
+                Item.mouseMove(sender, e);
             }
         }
 
@@ -885,6 +906,22 @@ namespace T_ReXcape
                     player.Value["wall"]++;
                 }
             }
+        }
+
+        public void decreaseCollectedItem(String playerKey, String item)
+        {
+            if (collectedItems[playerKey][item] > 0)
+                collectedItems[playerKey][item]--;
+        }
+
+        public Int16 getPlayerTurn()
+        {
+            return playerTurn;
+        }
+
+        public void setPlayerTurn(Int16 val)
+        {
+            playerTurn = val;
         }
     }
 }

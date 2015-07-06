@@ -59,6 +59,8 @@ namespace T_ReXcape
         private Boolean collision = true;
         private Int16 collisionAction;
 
+        private Int16 belongsToPlayerId = 0;
+
         public static Dictionary<string, Int16> collisionActions = new Dictionary<string, Int16>
         {
             {"stop", 1},
@@ -113,6 +115,7 @@ namespace T_ReXcape
             cloneItem.setCollision(collision);
             cloneItem.setCollisionAction(collisionAction);
             cloneItem.setEnableToWalk(enableToWalk);
+            cloneItem.setBelongsToPlayerId(belongsToPlayerId);
             return cloneItem;
         }
 
@@ -671,6 +674,16 @@ namespace T_ReXcape
         public void resetToStartPosition()
         {
             Location = startWalkingPos;
+        }
+
+        public void setBelongsToPlayerId(Int16 id)
+        {
+            belongsToPlayerId = id;
+        }
+
+        public Int16 getBelongsToPlayerId()
+        {
+            return belongsToPlayerId;
         }
     }
 }

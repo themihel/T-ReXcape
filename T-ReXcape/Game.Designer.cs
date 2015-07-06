@@ -122,9 +122,9 @@
             this.btnMenuPause.BackColor = System.Drawing.Color.White;
             this.btnMenuPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMenuPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMenuPause.Location = new System.Drawing.Point(327, 69);
+            this.btnMenuPause.Location = new System.Drawing.Point(310, 69);
             this.btnMenuPause.Name = "btnMenuPause";
-            this.btnMenuPause.Size = new System.Drawing.Size(43, 36);
+            this.btnMenuPause.Size = new System.Drawing.Size(136, 36);
             this.btnMenuPause.TabIndex = 4;
             this.btnMenuPause.Text = "| |";
             this.btnMenuPause.UseVisualStyleBackColor = false;
