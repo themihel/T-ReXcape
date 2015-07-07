@@ -341,7 +341,7 @@ namespace T_ReXcape
                             {
                                 item.Location = new Point(menuBar.Width - item.Width - pos.X, pos.Y);
                             }
-                            if (item.getKey().Equals("wall"))
+                            if (item.getKey().Equals("wall") || item.getKey().Equals("goto"))
                             {
                                 item.Click += new EventHandler(itemHolderClick);
                             }
@@ -395,6 +395,10 @@ namespace T_ReXcape
                 map.getLastAddedItem().MouseDown += new MouseEventHandler(Item.mouseDown);
                 map.getLastAddedItem().MouseUp += new MouseEventHandler(Item.mouseUp);
                 map.getLastAddedItem().MouseMove += new MouseEventHandler(Item.mouseMove);
+                
+                if (item.getKey().Equals("goto"))
+                    map.addedItemToBeRemovedAfterTurn(map.getLastAddedItem());
+
                 map.setDragObject(map.getLastAddedItem());
                 map.getDragObject().BackColor = Config.getActiveColor();
             }

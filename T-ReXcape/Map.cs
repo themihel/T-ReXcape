@@ -58,8 +58,11 @@ namespace T_ReXcape
         private Dictionary<String, Int16> playerCollectables = new Dictionary<String, Int16>{
                 {"brick", 0},
                 {"eraser", 0},
-                {"wall", 0}
+                {"wall", 0},
+                {"goto", 3}
             };
+
+        private List<Item> removeAfterTurn = new List<Item>();
 
         /// <summary>
         /// initialise Map with panel / loads configs from config class
@@ -589,9 +592,9 @@ namespace T_ReXcape
                     walkingItem = sender as Item;
 
                     if (walkingItem.getKey() == getPlayerKeys()[0])
-                        setPlayerTurn(2);
+                        nextTurn(2);
                     else
-                        setPlayerTurn(1);
+                        nextTurn(1);
 
                     pleaseGo();
                 }
@@ -654,14 +657,21 @@ namespace T_ReXcape
             // new list
             List<Item> foundItems = new List<Item>();
 
-            // check all items on control
-            foreach (Item item in mapPanel.Controls)
+            try
             {
-                // same name / key
-                if (item.getKey() == itemName)
+                // check all items on control
+                foreach (Item item in mapPanel.Controls)
                 {
-                    foundItems.Add(item);
+                    // same name / key
+                    if (item.getKey() == itemName)
+                    {
+                        foundItems.Add(item);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
             }
 
             // return
@@ -717,6 +727,8 @@ namespace T_ReXcape
                 walkingItem.setWalking(false);
             }
             walkTimer.Stop();
+            
+            turnOver();
         }
 
         /// <summary>
@@ -929,5 +941,27 @@ namespace T_ReXcape
         {
             return (playerId == getPlayerTurn() || getPlayerTurn().Equals(0) || editorMode);
         }
+
+        public void nextTurn(Int16 playerId)
+        {
+            setPlayerTurn(playerId);
+
+            foreach (KeyValuePair<string, Dictionary<string, short>> player in collectedItems)
+            {
+                player.Value["goto"] = 3;
+            }
+        }
+
+        public void turnOver()
+        {
+            foreach (Item item in removeAfterTurn)
+                mapPanel.Controls.Remove(item);
+        }
+
+        public void addedItemToBeRemovedAfterTurn(Item item)
+        {
+            removeAfterTurn.Add(item);
+        }
+
     }
 }
