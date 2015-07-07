@@ -29,27 +29,39 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Game));
-            this.mapPanel = new System.Windows.Forms.Panel();
+            this.btnMenuPause = new System.Windows.Forms.Button();
+            this.menuBar = new System.Windows.Forms.Panel();
             this.pausePanel = new System.Windows.Forms.Panel();
             this.soundeffect_panelbutton = new System.Windows.Forms.Panel();
             this.soundtrack_panelbutton = new System.Windows.Forms.Panel();
             this.rules_panelbutton = new System.Windows.Forms.Panel();
             this.continue_panelbutton = new System.Windows.Forms.Panel();
             this.close_panelbutton = new System.Windows.Forms.Panel();
-            this.btnMenuPause = new System.Windows.Forms.Button();
-            this.menuBar = new System.Windows.Forms.Panel();
+            this.mapPanel = new System.Windows.Forms.Panel();
             this.pausePanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // mapPanel
+            // btnMenuPause
             // 
-            this.mapPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.mapPanel.BackgroundImage = global::T_ReXcape.Properties.Resources.grass;
-            this.mapPanel.Location = new System.Drawing.Point(40, 109);
-            this.mapPanel.Name = "mapPanel";
-            this.mapPanel.Size = new System.Drawing.Size(78, 77);
-            this.mapPanel.TabIndex = 3;
-            this.mapPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mapPanel_MouseMove);
+            this.btnMenuPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMenuPause.BackColor = System.Drawing.Color.White;
+            this.btnMenuPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMenuPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMenuPause.Location = new System.Drawing.Point(310, 69);
+            this.btnMenuPause.Name = "btnMenuPause";
+            this.btnMenuPause.Size = new System.Drawing.Size(136, 36);
+            this.btnMenuPause.TabIndex = 4;
+            this.btnMenuPause.Text = "| |";
+            this.btnMenuPause.UseVisualStyleBackColor = false;
+            this.btnMenuPause.Click += new System.EventHandler(this.btnMenuPause_Click);
+            // 
+            // menuBar
+            // 
+            this.menuBar.BackColor = System.Drawing.Color.DarkGray;
+            this.menuBar.Location = new System.Drawing.Point(12, 12);
+            this.menuBar.Name = "menuBar";
+            this.menuBar.Size = new System.Drawing.Size(692, 51);
+            this.menuBar.TabIndex = 6;
             // 
             // pausePanel
             // 
@@ -70,9 +82,9 @@
             // 
             this.soundeffect_panelbutton.BackColor = System.Drawing.Color.Transparent;
             this.soundeffect_panelbutton.Cursor = System.Windows.Forms.Cursors.Default;
-            this.soundeffect_panelbutton.Location = new System.Drawing.Point(11, 139);
+            this.soundeffect_panelbutton.Location = new System.Drawing.Point(11, 136);
             this.soundeffect_panelbutton.Name = "soundeffect_panelbutton";
-            this.soundeffect_panelbutton.Size = new System.Drawing.Size(42, 41);
+            this.soundeffect_panelbutton.Size = new System.Drawing.Size(42, 43);
             this.soundeffect_panelbutton.TabIndex = 12;
             this.soundeffect_panelbutton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.soundeffect_panelbutton_MouseClick);
             // 
@@ -116,27 +128,14 @@
             this.close_panelbutton.TabIndex = 8;
             this.close_panelbutton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.close_panelbutton_MouseClick);
             // 
-            // btnMenuPause
+            // mapPanel
             // 
-            this.btnMenuPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMenuPause.BackColor = System.Drawing.Color.White;
-            this.btnMenuPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMenuPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMenuPause.Location = new System.Drawing.Point(310, 69);
-            this.btnMenuPause.Name = "btnMenuPause";
-            this.btnMenuPause.Size = new System.Drawing.Size(136, 36);
-            this.btnMenuPause.TabIndex = 4;
-            this.btnMenuPause.Text = "| |";
-            this.btnMenuPause.UseVisualStyleBackColor = false;
-            this.btnMenuPause.Click += new System.EventHandler(this.btnMenuPause_Click);
-            // 
-            // menuBar
-            // 
-            this.menuBar.BackColor = System.Drawing.Color.DarkGray;
-            this.menuBar.Location = new System.Drawing.Point(12, 12);
-            this.menuBar.Name = "menuBar";
-            this.menuBar.Size = new System.Drawing.Size(692, 51);
-            this.menuBar.TabIndex = 6;
+            this.mapPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.mapPanel.Location = new System.Drawing.Point(40, 109);
+            this.mapPanel.Name = "mapPanel";
+            this.mapPanel.Size = new System.Drawing.Size(78, 77);
+            this.mapPanel.TabIndex = 3;
+            this.mapPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mapPanel_MouseMove);
             // 
             // Game
             // 

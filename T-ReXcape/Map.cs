@@ -799,7 +799,8 @@ namespace T_ReXcape
             if (item.getCollisionAction() == Item.collisionActions["win"])
             {
                 stopWalking();
-                MessageBox.Show("TODO: WIN");
+                Win win = new Win(Color.Red);
+                win.Show();
             }
         }
 

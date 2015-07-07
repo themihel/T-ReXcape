@@ -286,7 +286,8 @@ namespace T_ReXcape
         /// </summary>
         private void close_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
-            this.Close();
+            if(MessageBox.Show("Wollen Sie wirklich beenden?", "Beenden", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                this.Close();
         }
 
         /// <summary>

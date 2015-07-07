@@ -263,5 +263,11 @@ namespace T_ReXcape
                 soundeffect_panelbutton.BackgroundImage = Util.getToggleBackground(soundeffect_panelbutton.Width, soundeffect_panelbutton.Height); ;
             }
         }
+
+        private void credits_panelbutton_MouseClick(object sender, MouseEventArgs e)
+        {
+            Credits credits = new Credits();
+            credits.ShowDialog();
+        }
     }
 }

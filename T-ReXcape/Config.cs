@@ -63,14 +63,14 @@ namespace T_ReXcape
             ItemCollection.addItem(player1start);
 
             Item player2start = new Item("player2start", 4 * blockSize, 4 * blockSize);
-            player2start.setImageLeft(Properties.Resources.dino_left);
-            player2start.setImageRight(Properties.Resources.dino_right);
-            player2start.setImageTop(Properties.Resources.dino_up);
-            player2start.setImageBottom(Properties.Resources.dino_down);
-            player2start.setImageWalkingLeft(Properties.Resources.dino_walking_left);
-            player2start.setImageWalkingRight(Properties.Resources.dino_walking_right);
-            player2start.setImageWalkingTop(Properties.Resources.dino_walking_up);
-            player2start.setImageWalkingBottom(Properties.Resources.dino_walking_down);
+            player2start.setImageLeft(Properties.Resources.dino_left2);
+            player2start.setImageRight(Properties.Resources.dino_right2);
+            player2start.setImageTop(Properties.Resources.dino_up2);
+            player2start.setImageBottom(Properties.Resources.dino_down2);
+            player2start.setImageWalkingLeft(Properties.Resources.dino_walking_left2);
+            player2start.setImageWalkingRight(Properties.Resources.dino_walking_right2);
+            player2start.setImageWalkingTop(Properties.Resources.dino_walking_up2);
+            player2start.setImageWalkingBottom(Properties.Resources.dino_walking_down2);
             player2start.setMaxOnPanel(1);
             player2start.setDescription("Spieler 2");
             player2start.setHookPosition(Item.positionCenter, Item.positionBottom);

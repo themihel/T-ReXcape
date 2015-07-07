@@ -91,6 +91,7 @@
             this.credits_panelbutton.Name = "credits_panelbutton";
             this.credits_panelbutton.Size = new System.Drawing.Size(248, 64);
             this.credits_panelbutton.TabIndex = 8;
+            this.credits_panelbutton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.credits_panelbutton_MouseClick);
             // 
             // exit_panelbutton
             // 
