@@ -20,7 +20,7 @@ namespace T_ReXcape
         static private Color gridColor = Color.Gray;
 
         // size menu bar
-        static private Int32 menuBarHeight = 50;
+        static private Int32 menuBarHeight = 2;
 
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace T_ReXcape
         /// <returns></returns>
         static public Int32 getMenuBarHeight()
         {
-            return menuBarHeight;
+            return menuBarHeight * getBlockSize();
         }
 
         /// <summary>

@@ -98,12 +98,6 @@
     </Compile>
     <Compile Include="Util.cs" />
     <Compile Include="Validate.cs" />
-    <Compile Include="Win.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Win.Designer.cs">
-      <DependentUpon>Win.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Credits.resx">
       <DependentUpon>Credits.cs</DependentUpon>
     </EmbeddedResource>
@@ -123,9 +117,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StartUp.resx">
       <DependentUpon>StartUp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Win.resx">
-      <DependentUpon>Win.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
@@ -266,6 +257,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\dino_walking_up2.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\winner_pane.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

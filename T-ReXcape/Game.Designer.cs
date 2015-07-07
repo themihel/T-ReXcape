@@ -47,7 +47,7 @@
             this.btnMenuPause.BackColor = System.Drawing.Color.White;
             this.btnMenuPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMenuPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMenuPause.Location = new System.Drawing.Point(310, 69);
+            this.btnMenuPause.Location = new System.Drawing.Point(320, 69);
             this.btnMenuPause.Name = "btnMenuPause";
             this.btnMenuPause.Size = new System.Drawing.Size(136, 36);
             this.btnMenuPause.TabIndex = 4;
@@ -72,7 +72,7 @@
             this.pausePanel.Controls.Add(this.rules_panelbutton);
             this.pausePanel.Controls.Add(this.continue_panelbutton);
             this.pausePanel.Controls.Add(this.close_panelbutton);
-            this.pausePanel.Location = new System.Drawing.Point(210, 280);
+            this.pausePanel.Location = new System.Drawing.Point(232, 111);
             this.pausePanel.Name = "pausePanel";
             this.pausePanel.Size = new System.Drawing.Size(472, 252);
             this.pausePanel.TabIndex = 0;
@@ -142,7 +142,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(716, 565);
+            this.ClientSize = new System.Drawing.Size(726, 494);
             this.Controls.Add(this.btnMenuPause);
             this.Controls.Add(this.menuBar);
             this.Controls.Add(this.pausePanel);

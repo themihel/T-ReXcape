@@ -811,8 +811,8 @@ namespace T_ReXcape
             if (item.getCollisionAction() == Item.collisionActions["win"])
             {
                 stopWalking();
-                Win win = new Win(Color.Red);
-                win.Show();
+
+                Game.showWinPanel(getPlayerTurn());
             }
         }
 

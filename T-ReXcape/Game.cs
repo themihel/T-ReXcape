@@ -19,6 +19,9 @@ namespace T_ReXcape
 
         String[] playerIndicator = {"<<  | |     ", "     | |  >>" };
 
+        static Panel winPanel;
+        static PictureBox winPanelPic;
+
         /// <summary>
         /// Initialise form, set needed configs, calculate form areas
         /// </summary>
@@ -69,7 +72,7 @@ namespace T_ReXcape
             Int32 maxWidth = Screen.PrimaryScreen.WorkingArea.Width;
 
             // set pause button size relativ to menuBar
-            btnMenuPause.Height = Config.getMenuBarHeight() - 5;
+            btnMenuPause.Height = 45;
 
             if (Config.getFullscreen())
             {   
@@ -145,6 +148,8 @@ namespace T_ReXcape
 
             initTopBarInfos();
 
+            initWinPanel();
+
             Timer checkForTopBarChanges = new Timer();
             checkForTopBarChanges.Interval = 100;
             checkForTopBarChanges.Tick += (s, arg) => { refreshTopBar(); };
@@ -185,6 +190,7 @@ namespace T_ReXcape
         {
             // show pause menu
             pausePanel.Visible = true;
+            pausePanel.BringToFront();
             // disable map
             map.disable();
             // @TODO disable timer
@@ -416,6 +422,36 @@ namespace T_ReXcape
                     Debug.Print("Sie können dies nicht hier hin pazieren");
                 }
             }
+        }
+
+        private void initWinPanel()
+        {
+            winPanel = new Panel();
+            winPanel.Location = new Point(0, Config.getMenuBarHeight());
+            winPanel.Width = this.Width;
+            winPanel.Height = this.Height - Config.getMenuBarHeight();
+            winPanel.BackColor = Color.Black;
+            winPanel.Visible = false;
+            this.Controls.Add(winPanel);
+            winPanel.BringToFront();
+
+            winPanelPic = new PictureBox();
+            winPanelPic.Image = Properties.Resources.winner_pane;
+            winPanelPic.Width = 500;
+            winPanelPic.Height = 300;
+            winPanelPic.Location = new Point((winPanel.Width - winPanelPic.Width) / 2, (winPanel.Height - winPanelPic.Height) / 2);
+
+            winPanel.Controls.Add(winPanelPic);
+        }
+
+        public static void showWinPanel(Int16 playerId)
+        {
+            Color c = Color.Red;
+            if (playerId == 1)
+                c = Color.DodgerBlue;
+
+            winPanel.Visible = true;
+            winPanelPic.BackColor = c;
         }
     }
 }
