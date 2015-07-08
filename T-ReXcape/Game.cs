@@ -508,15 +508,26 @@ namespace T_ReXcape
         public static void showWinPanel(Int16 playerId)
         {
             // select color depending on winning player
-            Color c = Color.Red;
+            Color colorA = Color.Red;
+            Color colorB = Color.DodgerBlue;
+
             if (playerId == 1)
-                c = Color.DodgerBlue;
+            {
+                colorA = Color.DodgerBlue;
+                colorB = Color.Red;
+            }
 
             // set panel visiable
             winPanel.Visible = true;
 
+            // create back image
+            Bitmap b = new Bitmap(winPanelPic.Width, winPanelPic.Height);
+            Graphics g = Graphics.FromImage(b);
+            g.FillRectangle(new SolidBrush(colorA), 0, 0, winPanelPic.Width / 2, winPanelPic.Height);
+            g.FillRectangle(new SolidBrush(colorB), winPanelPic.Width / 2, 0, winPanelPic.Width / 2, winPanelPic.Height);
+
             // set color
-            winPanelPic.BackColor = c;
+            winPanelPic.BackgroundImage = b;
         }
     }
 }

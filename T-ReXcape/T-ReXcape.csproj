@@ -130,22 +130,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\dino1.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\rocket1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\grass.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\wallv.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\wallh.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\giphy.gif" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\goright.gif" />
@@ -158,9 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\gobottom.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\hole.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\spideyblast.gif" />
@@ -187,9 +175,6 @@
     <None Include="Resources\dino_right.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bgtest.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\erase.gif" />
   </ItemGroup>
   <ItemGroup>
@@ -197,9 +182,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bomb.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\dino_walking_up.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\dino_walking_up.gif" />

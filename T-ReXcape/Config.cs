@@ -131,15 +131,6 @@ namespace T_ReXcape
             brick.setCollision(false);
             brick.setCollisionAction(Item.collisionActions["addBrick"]);
             ItemCollection.addItem(brick);
-
-            // initialize eraser
-            Item eraser = new Item("eraser", 2 * blockSize, 2 * blockSize);
-            eraser.setImageAllDirections(Properties.Resources.eraser);
-            eraser.setMaxOnPanel(99);
-            eraser.setDescription("Radiergummi");
-            eraser.setCollision(false);
-            eraser.setCollisionAction(Item.collisionActions["addEraser"]);
-            ItemCollection.addItem(eraser);
         }
 
         /// <summary>
