@@ -568,12 +568,13 @@ namespace T_ReXcape
                         int distanceTop = itemControl.Location.Y - (position.Y + Height);
                         int distanceBottom = position.Y - (itemControl.Location.Y + itemControl.Height);
                         // check if is in range -> add to list
-                        if (distanceLeft < 0 && distanceRight < 0 && distanceTop < 0 && distanceBottom < 0)
+                        if (distanceLeft <= 0 && distanceRight <= 0 && distanceTop <= 0 && distanceBottom <= 0)
                         {
                             collisionItemList.Add(itemControl);
                         }
                     }
                 }
+
             }
             // return list
             return collisionItemList;
@@ -595,14 +596,18 @@ namespace T_ReXcape
                 // if current item is not itself
                 if (itemControl != this)
                 {
+                    // reduce size to avoid bugs
+                    // item must be covered by set percent to be declared as covered
+                    int controlWidth = (int)((double)itemControl.Width * 0.7);
+                    int controlHeight = (int)((double)itemControl.Height * 0.7);
                     // checks postions X
                     Boolean checkX1 = itemControl.Location.X <= (position.X + Width);
                     Boolean checkX2 = itemControl.Location.X >= position.X;
-                    Boolean checkX3 = (itemControl.Location.X + itemControl.Width) <= (position.X + Width);
+                    Boolean checkX3 = (itemControl.Location.X + controlWidth) <= (position.X + Width);
                     // checks position Y
                     Boolean checkY1 = itemControl.Location.Y <= (position.Y + Height);
                     Boolean checkY2 = itemControl.Location.Y >= position.Y;
-                    Boolean checkY3 = (itemControl.Location.Y + itemControl.Height) <= (position.Y + Height);
+                    Boolean checkY3 = (itemControl.Location.Y + controlHeight) <= (position.Y + Height);
                     // if is in range -> add to list
                     if (checkX1 && checkX2 && checkX3 && checkY1 && checkY2 && checkY3)
                     {

@@ -45,7 +45,7 @@ namespace T_ReXcape
         // variables for walking
         Item walkingItem;
         Timer walkTimer;
-        int walkSpeed = 2;
+        int walkSpeed = 1;
         bool prepareToWalk = false;
 
         private Int16 playerTurn = 1;
@@ -80,9 +80,8 @@ namespace T_ReXcape
 
             // walking configs
             walkTimer = new Timer();
-            walkTimer.Interval = 10;
+            walkTimer.Interval = 1;
             walkTimer.Tick += new EventHandler(walkTimer_Tick);
-            walkSpeed = (int)Math.Ceiling((double)Config.getBlockSize() / 10);
         }
 
         /// <summary>
