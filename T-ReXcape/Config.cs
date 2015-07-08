@@ -45,6 +45,7 @@ namespace T_ReXcape
         /// </summary>
         static public void initItems()
         {
+            // initialize player 1
             Item player1start = new Item("player1start", 4 * blockSize, 4 * blockSize);
             player1start.setImageLeft(Properties.Resources.dino_left);
             player1start.setImageRight(Properties.Resources.dino_right);
@@ -62,6 +63,7 @@ namespace T_ReXcape
             player1start.setBelongsToPlayerId(1);
             ItemCollection.addItem(player1start);
 
+            // initialize player 2
             Item player2start = new Item("player2start", 4 * blockSize, 4 * blockSize);
             player2start.setImageLeft(Properties.Resources.dino_left2);
             player2start.setImageRight(Properties.Resources.dino_right2);
@@ -79,6 +81,7 @@ namespace T_ReXcape
             player2start.setBelongsToPlayerId(2);
             ItemCollection.addItem(player2start);
 
+            // initialize destination
             Item destination = new Item("destination", 3 * blockSize, 4 * blockSize);
             destination.setImageAllDirections(Properties.Resources.rocket1);
             destination.setMaxOnPanel(1);
@@ -88,6 +91,7 @@ namespace T_ReXcape
             destination.setCollisionAction(Item.collisionActions["win"]);
             ItemCollection.addItem(destination);
 
+            // initialize walls
             Item wall = new Item("wall", 2 * blockSize, 4 * blockSize);
             wall.setImageLeft(Properties.Resources.wallv);
             wall.setImageRight(Properties.Resources.wallv);
@@ -98,6 +102,7 @@ namespace T_ReXcape
             wall.setCollisionAction(Item.collisionActions["stop"]);
             ItemCollection.addItem(wall);
 
+            // initialize gotos
             Item goTo = new Item("goto", 2 * blockSize, 2 * blockSize);
             goTo.setImageLeft(Properties.Resources.goleft);
             goTo.setImageRight(Properties.Resources.goright);
@@ -109,6 +114,7 @@ namespace T_ReXcape
             goTo.setCollisionAction(Item.collisionActions["move"]);
             ItemCollection.addItem(goTo);
 
+            // initialize holes
             Item hole = new Item("hole", 2 * blockSize, 2 * blockSize);
             hole.setImageAllDirections(Properties.Resources.moat);
             hole.setMaxOnPanel(99);
@@ -117,6 +123,7 @@ namespace T_ReXcape
             hole.setCollisionAction(Item.collisionActions["drop"]);
             ItemCollection.addItem(hole);
 
+            // initialize bricks
             Item brick = new Item("brick", 2 * blockSize, 2 * blockSize);
             brick.setImageAllDirections(Properties.Resources.brick);
             brick.setMaxOnPanel(99);
@@ -125,6 +132,7 @@ namespace T_ReXcape
             brick.setCollisionAction(Item.collisionActions["addBrick"]);
             ItemCollection.addItem(brick);
 
+            // initialize eraser
             Item eraser = new Item("eraser", 2 * blockSize, 2 * blockSize);
             eraser.setImageAllDirections(Properties.Resources.eraser);
             eraser.setMaxOnPanel(99);

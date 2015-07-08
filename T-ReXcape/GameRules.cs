@@ -19,6 +19,9 @@ namespace T_ReXcape
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Close panel
+        /// </summary>
         private void panel1_MouseClick(object sender, MouseEventArgs e)
         {
             Close();

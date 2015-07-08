@@ -106,6 +106,7 @@ namespace T_ReXcape
             map.setPrepareToWalk(true);
             map.registerControlClickEventHandler(item_Click);
             map.loadMap(file);
+            // catch errors
             try
             {
                 map.setAllObjectsOnMap();
@@ -146,10 +147,13 @@ namespace T_ReXcape
             // set map panel location on form
             mapPanel.Location = mapPosition;
 
+            // init topbar infos
             initTopBarInfos();
 
+            // init win panel
             initWinPanel();
 
+            // eventlistener for topbar changes
             Timer checkForTopBarChanges = new Timer();
             checkForTopBarChanges.Interval = 100;
             checkForTopBarChanges.Tick += (s, arg) => { refreshTopBar(); };
@@ -173,9 +177,12 @@ namespace T_ReXcape
             }
         }
 
-        // @TODO testing only
+        /// <summary>
+        /// Place item
+        /// </summary>
         private void item_Click(object sender, EventArgs e)
         {
+            // if drag object exists
             if (map.getDragObject() != null)
             {
                 map.getDragObject().BackColor = Color.Transparent;
@@ -193,7 +200,6 @@ namespace T_ReXcape
             pausePanel.BringToFront();
             // disable map
             map.disable();
-            // @TODO disable timer
         }
 
         /// <summary>
@@ -205,7 +211,6 @@ namespace T_ReXcape
             pausePanel.Visible = false;
             // enable map
             map.enable();
-            // @TODO enable timer
         }
 
         /// <summary>
@@ -322,6 +327,7 @@ namespace T_ReXcape
         /// </summary>
         private void refreshTopBar()
         {
+            // set label for player indication
             btnMenuPause.Text = playerIndicator[map.getPlayerTurn() - 1];
 
             if (menuBar.Controls.Count != map.getCollectedItemsCount())
@@ -329,40 +335,56 @@ namespace T_ReXcape
                 // clear all controls
                 menuBar.Controls.Clear();
 
+                // init temp variables
                 Point pos = new Point(0, 0);
                 int count = 1;
+                // loop all players
                 foreach (KeyValuePair<string, Dictionary<string, short>> player in map.getCollectedItems())
                 {
+                    // loop collected items of current player
                     foreach (KeyValuePair<string, short> topBarInfo in player.Value)
                     {
                         for (int i = 0; i < topBarInfo.Value; i++)
                         {
+                            // create item
                             Item item = ItemCollection.getItemByKey(topBarInfo.Key).clone();
+
+                            // set direction
                             item.setDirection(Item.directionBottom);
+
+                            // if first item set on first position
                             if (count == 1)
                             {
                                 item.Location = pos;
                             }
-                            else
+                            else // create new Point for placement
                             {
                                 item.Location = new Point(menuBar.Width - item.Width - pos.X, pos.Y);
                             }
+
+                            // check if valid item and register eventhandler
                             if (item.getKey().Equals("wall") || item.getKey().Equals("goto"))
                             {
                                 item.Click += new EventHandler(itemHolderClick);
                             }
 
+                            // check which player owns this item
                             if (player.Key == map.getPlayerKeys()[0])
                                 item.setBelongsToPlayerId(1);
                             else
                                 item.setBelongsToPlayerId(2);
 
+                            // add item to panel
                             menuBar.Controls.Add(item);
 
+                            // placement
                             pos.X += item.Width;
                         }
                     }
+                    // inc counter
                     count++;
+
+                    // reset position
                     pos = new Point(0, 0);
                 }
             }
@@ -373,7 +395,10 @@ namespace T_ReXcape
         /// </summary>
         private void itemHolderClick(object sender, EventArgs e)
         {
+            // get current item
             Item item = sender as Item;
+
+            // check if item belongs to current player (player turn)
             if (item.getBelongsToPlayerId() != map.getPlayerTurn())
                 return;
 
@@ -394,27 +419,35 @@ namespace T_ReXcape
                 }
             }
 
+            // remove item from player collected items
             map.decreaseCollectedItem(map.getPlayerKeys()[map.getPlayerTurn() - 1], item.getKey());
 
+            // placement of item
             if (map.setObjectOnMap(item.getKey(), new Point(0 - item.Width, 0 - item.Height)) != null)
             {
+                // register events for needed functions
                 map.getLastAddedItem().MouseDown += new MouseEventHandler(Item.mouseDown);
                 map.getLastAddedItem().MouseUp += new MouseEventHandler(Item.mouseUp);
                 map.getLastAddedItem().MouseMove += new MouseEventHandler(Item.mouseMove);
                 
+                // add goto (playerside) to remove after turn to avoid too much gotos
                 if (item.getKey().Equals("goto"))
                     map.addedItemToBeRemovedAfterTurn(map.getLastAddedItem());
 
+                // sets object on map
                 map.setDragObject(map.getLastAddedItem());
+
+                // indicator for active item
                 map.getDragObject().BackColor = Config.getActiveColor();
             }
         }
 
         /// <summary>
-        /// Drag selected item on map
+        /// Drag selected item on map / inidcator if placeable
         /// </summary>
         private void mapPanel_MouseMove(object sender, MouseEventArgs e)
         {
+            // if dragitem exists
             if (map.getDragObject() != null)
             {
                 if (!map.dragObjectToPoint(e.Location))
@@ -424,33 +457,65 @@ namespace T_ReXcape
             }
         }
 
+        /// <summary>
+        /// Initialize win panel
+        /// </summary>
         private void initWinPanel()
         {
+            // init panel
             winPanel = new Panel();
+
+            // set location
             winPanel.Location = new Point(0, Config.getMenuBarHeight());
+
+            // set size
             winPanel.Width = this.Width;
             winPanel.Height = this.Height - Config.getMenuBarHeight();
+
+            // set standard color
             winPanel.BackColor = Color.Black;
+
+            // hide panel
             winPanel.Visible = false;
+
+            // add panel to controls
             this.Controls.Add(winPanel);
+
+            // set object in front of all other items
             winPanel.BringToFront();
 
+            // create picturebox
             winPanelPic = new PictureBox();
+
+            // declare image
             winPanelPic.Image = Properties.Resources.winner_pane;
+
+            // set size
             winPanelPic.Width = 500;
             winPanelPic.Height = 300;
+
+            // set location
             winPanelPic.Location = new Point((winPanel.Width - winPanelPic.Width) / 2, (winPanel.Height - winPanelPic.Height) / 2);
 
+            // add picturebox to controls
             winPanel.Controls.Add(winPanelPic);
         }
 
+        /// <summary>
+        /// Show win panel with color depending on player
+        /// </summary>
+        /// <param name="playerId">Player id</param>
         public static void showWinPanel(Int16 playerId)
         {
+            // select color depending on winning player
             Color c = Color.Red;
             if (playerId == 1)
                 c = Color.DodgerBlue;
 
+            // set panel visiable
             winPanel.Visible = true;
+
+            // set color
             winPanelPic.BackColor = c;
         }
     }

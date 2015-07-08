@@ -347,9 +347,12 @@ namespace T_ReXcape
         /// </summary>
         private void itemHolderClick(object sender, EventArgs e)
         {
+            // check last added item
             if (map.getLastAddedItem() != null)
             {
+                // get item
                 Item lastItem = map.getLastAddedItem();
+                // check if item is on map
                 if (
                     lastItem.Location.X < 0 ||
                     lastItem.Location.Y < 0 ||
@@ -357,14 +360,20 @@ namespace T_ReXcape
                     lastItem.Location.Y > mapPanel.Height
                     )
                 {
+                    // remove item
                     mapPanel.Controls.Remove(lastItem);
                 }
             }
-
+            
+            // get item
             Item item = sender as Item;
+
+            // check if possible
             if (map.setObjectOnMap(item.getKey(), new Point(0 - item.Width, 0 - item.Height)) != null)
             {
+                // set object on map
                 map.setDragObject(map.getLastAddedItem());
+                // item indicator
                 map.getDragObject().BackColor = Config.getActiveColor();
             }
         }

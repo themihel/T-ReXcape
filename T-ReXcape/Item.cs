@@ -681,11 +681,19 @@ namespace T_ReXcape
             Location = startWalkingPos;
         }
 
+        /// <summary>
+        /// Sets items to belong one player
+        /// </summary>
+        /// <param name="id">Player id</param>
         public void setBelongsToPlayerId(Int16 id)
         {
             belongsToPlayerId = id;
         }
 
+        /// <summary>
+        /// Returns info which player belongs this item
+        /// </summary>
+        /// <returns>Returns player id</returns>
         public Int16 getBelongsToPlayerId()
         {
             return belongsToPlayerId;

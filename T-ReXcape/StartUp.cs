@@ -56,18 +56,24 @@ namespace T_ReXcape
         {
             try
             {
+                // check entries in played maps
                 foreach (String entry in Properties.Settings.Default.files)
                 {
+                    // check if path is not valid
                     if (!Util.validateMapFilePath(entry))
                     {
+                        // remove path
                         Properties.Settings.Default.files.Remove(entry);
                         continue;
                     }
+
+                    // add path to map strip
                     mapStrip.Items.Add(entry);
                 }
+                // save changes
                 Properties.Settings.Default.Save();
             }
-            catch (Exception ex)
+            catch (Exception ex) // catch errors
             {
                 Debug.WriteLine(ex.Message);
             }
@@ -80,10 +86,14 @@ namespace T_ReXcape
         /// <param name="path">Filepath to map</param>
         private void addNewMapPath(String path)
         {
+            // check if path is already in settings
             if (!Properties.Settings.Default.files.Contains(path))
             {
+                // add path to settings
                 Properties.Settings.Default.files.Add(path);
+                // save changes
                 Properties.Settings.Default.Save();
+                // add to mapStrip
                 mapStrip.Items.Add(path);
             }
         }
@@ -93,33 +103,44 @@ namespace T_ReXcape
         /// </summary>
         private void mapStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            // close mapStrip
             mapStrip.Close();
+            // get clicked item
             ToolStripItem item = e.ClickedItem;
+            // init path
             String path = "";
 
+            // check if item tag exists and its 'browse' -> open file dialog
             if (item.Tag != null && 
                 item.Tag.Equals("browse") && 
                 openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                // path is selected file (dialog)
                 path = openFileDialog1.FileName;
             }
             else
             {
+                // get path with text
                 path = item.Text;
             }
 
+            // validate path
             if(Util.validateMapFilePath(path)) {
+                // init game form
                 Game game = new Game(this, Config.getFullscreen());
                 // when editor closed, close main (StartUp) form to close programm
                 game.FormClosed += (s, args) => this.Show();
+                // load map
                 game.loadFile(path);
+                // add path to settings / mapStrip
                 addNewMapPath(path);
 
                 try
                 {
+                    // show game
                     game.Show();
                 }
-                catch (Exception ex)
+                catch (Exception ex) // catch errors
                 {
                     this.Show();
                     Debug.WriteLine(ex.Message);
@@ -264,8 +285,14 @@ namespace T_ReXcape
             }
         }
 
+        /// <summary>
+        /// Click on credits
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void credits_panelbutton_MouseClick(object sender, MouseEventArgs e)
         {
+            // show credits
             Credits credits = new Credits();
             credits.ShowDialog();
         }

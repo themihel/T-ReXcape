@@ -272,7 +272,6 @@ namespace T_ReXcape
             // set item checkParams
             String[] itemCheckParams = { ".x", ".y", ".direction" };
 
-            // @TODO better key check
             // load all known objects
             foreach (Item item in ItemCollection.getAllItems())
             {
@@ -582,29 +581,44 @@ namespace T_ReXcape
         /// </summary>
         private void mouseUpItem(object sender, MouseEventArgs e)
         {
+            // get item
             Item item = sender as Item;
+
+            // check if item belongs to current player
             if (checkPlayerTurn(item.getBelongsToPlayerId()))
             {
+                // start mouse up event of item
                 Item.mouseUp(sender, e);
+
+                // check if prepare to walk is active and no player is currently walking
                 if (prepareToWalk && !isWalkingItemRunning())
                 {
+                    // set current walking item
                     walkingItem = sender as Item;
 
+                    // set turn depending on player
                     if (walkingItem.getKey() == getPlayerKeys()[0])
                         nextTurn(2);
                     else
                         nextTurn(1);
 
+                    // start walking
                     pleaseGo();
                 }
             }
         }
 
+        /// <summary>
+        /// Mouse move event
+        /// </summary>
         private void mouseMoveItem(object sender, MouseEventArgs e)
         {
+            // get item
             Item item = sender as Item;
+            // check this item belongs to current player
             if (checkPlayerTurn(item.getBelongsToPlayerId()))
             {
+                // start event
                 Item.mouseMove(sender, e);
             }
         }
@@ -920,45 +934,78 @@ namespace T_ReXcape
             }
         }
 
+        /// <summary>
+        /// Decrease collected item after placement
+        /// </summary>
+        /// <param name="playerKey">Player key</param>
+        /// <param name="item">Placed item</param>
         public void decreaseCollectedItem(String playerKey, String item)
         {
             if (collectedItems[playerKey][item] > 0)
                 collectedItems[playerKey][item]--;
         }
 
+        /// <summary>
+        /// Get current player turn
+        /// </summary>
+        /// <returns>Returns id of current player</returns>
         public Int16 getPlayerTurn()
         {
             return playerTurn;
         }
 
+        /// <summary>
+        /// Sets player turn by  id
+        /// </summary>
+        /// <param name="val">Id of current player</param>
         public void setPlayerTurn(Int16 val)
         {
             playerTurn = val;
         }
 
+        /// <summary>
+        /// check if player is on turn
+        /// </summary>
+        /// <param name="playerId">Player id</param>
+        /// <returns>returns boolean if player is on turn</returns>
         public Boolean checkPlayerTurn(Int16 playerId)
         {
             return (playerId == getPlayerTurn() || getPlayerTurn().Equals(0) || editorMode);
         }
 
+        /// <summary>
+        /// set next turn depending on player id
+        /// </summary>
+        /// <param name="playerId">Player id</param>
         public void nextTurn(Int16 playerId)
         {
+            // set player turn
             setPlayerTurn(playerId);
 
+            // restore amount of gotos
             foreach (KeyValuePair<string, Dictionary<string, short>> player in collectedItems)
             {
                 player.Value["goto"] = 3;
             }
         }
 
+        /// <summary>
+        /// turn over methid
+        /// </summary>
         public void turnOver()
         {
+            // removes items after turn (e.g. player placed gotos)
             foreach (Item item in removeAfterTurn)
                 mapPanel.Controls.Remove(item);
         }
 
+        /// <summary>
+        /// add item to remove after player turn
+        /// </summary>
+        /// <param name="item"></param>
         public void addedItemToBeRemovedAfterTurn(Item item)
         {
+            // add item to list
             removeAfterTurn.Add(item);
         }
 
