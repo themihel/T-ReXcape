@@ -653,6 +653,7 @@ namespace T_ReXcape
             {
                 // add item
                 lastAddedItem = newItem;
+                lastAddedItem.Cursor = Cursors.Hand;
                 mapPanel.Controls.Add(newItem);
             }
 
