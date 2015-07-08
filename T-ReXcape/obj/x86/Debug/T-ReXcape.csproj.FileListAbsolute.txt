@@ -41,3 +41,8 @@ C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.GameR
 C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Credits.resources
 C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.csprojResolveAssemblyReference.cache
 D:\Users\Mischa\themihel\projects\T-ReXcape\T-ReXcape\obj\x86\Debug\T_ReXcape.Credits.resources
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.exe.manifest
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\bin\Debug\T-ReXcape.application
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.TrustInfo.xml
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.exe.manifest
+C:\Users\Andy\Desktop\Visual C\T-ReXcape\T-ReXcape\obj\x86\Debug\T-ReXcape.application
