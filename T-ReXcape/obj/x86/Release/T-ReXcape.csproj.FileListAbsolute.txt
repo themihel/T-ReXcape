@@ -1,7 +1,0 @@
-C:\Users\bbsi\AppData\Local\Temporary Projects\T-ReXcape\obj\x86\Release\T_ReXcape.Form1.resources
-C:\Users\bbsi\AppData\Local\Temporary Projects\T-ReXcape\obj\x86\Release\T_ReXcape.Properties.Resources.resources
-C:\Users\bbsi\AppData\Local\Temporary Projects\T-ReXcape\obj\x86\Release\T-ReXcape.csproj.GenerateResource.Cache
-C:\Users\bbsi\AppData\Local\Temporary Projects\T-ReXcape\bin\Release\T-ReXcape.exe
-C:\Users\bbsi\AppData\Local\Temporary Projects\T-ReXcape\bin\Release\T-ReXcape.pdb
-C:\Users\bbsi\AppData\Local\Temporary Projects\T-ReXcape\obj\x86\Release\T-ReXcape.exe
-C:\Users\bbsi\AppData\Local\Temporary Projects\T-ReXcape\obj\x86\Release\T-ReXcape.pdb
